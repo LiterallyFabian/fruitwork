@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(SDL2_INCLUDE_DIR C:/msys64/mingw64/include)
 set(SDL2_LIB_DIR C:/msys64/mingw64/lib)
 
-include_directories(${SDL2_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/*)
+include_directories(${SDL2_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/include)
 link_directories(${SDL2_LIB_DIR})
 
 # this is very bad practice and not recommended, but since this

@@ -1,4 +1,4 @@
-#include "../include/System.h"
+#include "System.h"
 #include <SDL2/SDL.h>
 
 namespace fruitwork
