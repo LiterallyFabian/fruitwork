@@ -23,7 +23,7 @@ SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 # Mac INCLUDE_PATHS!
 #INCLUDE_PATHS = -Iinclude -I/usr/local/include
 # Windows INCLUDE_PATHS!
-INCLUDE_PATHS = -Iinclude -IC:/msys64/mingw64/include
+INCLUDE_PATHS = -Iinclude -IC:/msys64/mingw64/include -IC:/msys64/mingw64/include/SDL2
 
 # BIBLIOTEKSFILER
 # Mac LIBRARY_PATHS!
