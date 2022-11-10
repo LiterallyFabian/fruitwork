@@ -1,8 +1,5 @@
-#include "System.h"
+#include "../include/System.h"
 #include <SDL2/SDL.h>
-#include <iostream>
-
-using namespace std;
 
 namespace fruitwork
 {
