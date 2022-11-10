@@ -1,7 +1,7 @@
 #ifndef FRUITWORK_SYSTEM_H
 #define FRUITWORK_SYSTEM_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 namespace fruitwork
 {
