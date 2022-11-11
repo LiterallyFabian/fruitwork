@@ -8,6 +8,7 @@ namespace fruitwork
     void Session::add_component(Component *component)
     {
         components.push_back(component);
+        component->start();
     }
 
     void Session::run()
@@ -57,6 +58,11 @@ namespace fruitwork
 
                 } // switch
             } // while event
+
+            for (Component *component: components)
+            {
+                component->update();
+            }
 
             SDL_SetRenderDrawColor(fruitwork::sys.get_renderer(), 255, 255, 255, 255);
             SDL_RenderClear(fruitwork::sys.get_renderer());

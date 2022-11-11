@@ -69,5 +69,4 @@ namespace fruitwork
         return text;
     }
 
-
 } // fruitwork

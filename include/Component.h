@@ -25,6 +25,16 @@ namespace fruitwork
 
         virtual void draw() const = 0;
 
+        /**
+         * Update is called every frame.
+         */
+        virtual void update() {};
+
+        /**
+         * Start is called when the component is added to a session.
+         */
+        virtual void start() {};
+
         const SDL_Rect &get_rect() const { return rect; }
 
     protected:

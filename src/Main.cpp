@@ -6,22 +6,24 @@
 
 using namespace fruitwork;
 
+Label *label = Label::getInstance(10, 10, 200, 100, "0");
+
+
 int main(int argc, char **argv)
 {
     Session session;
 
-    Label *label = Label::getInstance(10, 10, 200, 100, "Salmon");
 
-    Button *button = Button::getInstance(10, 120, 200, 100, "Click me");
-
+    Button *button = Button::getInstance(10, 120, 200, 100, "Inc");
     button->registerCallback([](Button *source)
                              {
-                                 std::cout << "Hello world from " << source->getText() << std::endl;
+                                 int value = std::stoi(label->getText());
+                                 label->setText(std::to_string(value + 1));
                              });
+
 
     session.add_component(label);
     session.add_component(button);
-    label->setText("Salmon... TWO");
 
     session.run();
 

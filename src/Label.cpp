@@ -1,6 +1,7 @@
 #include "Label.h"
 #include "System.h"
 #include <SDL_ttf.h>
+#include <iostream>
 
 namespace fruitwork
 {
@@ -9,7 +10,7 @@ namespace fruitwork
         return new Label(x, y, w, h, text);
     }
 
-    Label::Label(int x, int y, int w, int h,
+    Label::Label(int x, int y, int w, int h, // NOLINT
                  const std::string &text) : Component(x, y, w, h), text(text)
     {
         setText(text);
