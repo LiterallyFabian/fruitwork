@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <iostream>
 #include "Session.h"
 #include "System.h"
 
@@ -57,10 +58,21 @@ namespace fruitwork
                 } // switch
             } // while event
 
+            SDL_SetRenderDrawColor(fruitwork::sys.get_renderer(), 0, 255, 255, 255);
             SDL_RenderClear(fruitwork::sys.get_renderer());
+
             for (Component *component: components)
                 component->draw();
 
+            SDL_RenderPresent(fruitwork::sys.get_renderer());
+
         } // while running
+    }
+
+    Session::~Session()
+    {
+        for (auto component: components)
+            delete component;
+
     }
 } // fruitwork

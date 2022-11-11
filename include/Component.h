@@ -25,6 +25,8 @@ namespace fruitwork
 
         virtual void draw() const = 0;
 
+        const SDL_Rect &get_rect() const { return rect; }
+
     protected:
         Component(int x, int y, int w, int h);
 
