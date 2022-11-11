@@ -3,6 +3,7 @@
 #include "SDL_image.h"
 #include "Constants.h"
 #include "Component.h"
+#include "ResourceManager.h"
 
 namespace fruitwork
 {
@@ -13,8 +14,8 @@ namespace fruitwork
         textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surf);
         SDL_FreeSurface(surf);
 
-        buttonTexture = IMG_LoadTexture(fruitwork::sys.get_renderer(), (constants::gResPath + "images/button.png").c_str());
-        buttonTextureDown = IMG_LoadTexture(fruitwork::sys.get_renderer(), (constants::gResPath + "images/button_down.png").c_str());
+        buttonTexture = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button.png").c_str());
+        buttonTextureDown = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button_down.png").c_str());
     }
 
     Button *Button::getInstance(int x, int y, int w, int h, std::string txt)

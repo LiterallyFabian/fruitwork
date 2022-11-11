@@ -1,6 +1,7 @@
 #include "Sprite.h"
 #include "System.h"
 #include "Constants.h"
+#include "ResourceManager.h"
 #include <SDL_image.h>
 #include <iostream>
 
@@ -8,7 +9,7 @@ namespace fruitwork
 {
     Sprite::Sprite(int x, int y, int w, int h, const std::string &textureName) : Component(x, y, w, h)
     {
-        SDL_Surface *surface = IMG_Load((constants::gResPath + "images/" + textureName).c_str());
+        SDL_Surface *surface = IMG_Load(ResourceManager::getTexturePath(textureName).c_str());
 
         if (surface == nullptr)
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load image: %s", textureName.c_str());

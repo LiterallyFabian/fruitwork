@@ -1,6 +1,7 @@
 #include "System.h"
 #include <SDL.h>
 #include "Constants.h"
+#include "ResourceManager.h"
 
 namespace fruitwork
 {
@@ -30,7 +31,7 @@ namespace fruitwork
         }
 
         //font = TTF_OpenFont("D:/Skrivbord/Saker/fonts/KGRedHands.ttf", 36);
-        font = TTF_OpenFont((constants::gResPath + "fonts/KGRedHands.ttf").c_str(), 36);
+        font = TTF_OpenFont(ResourceManager::getFontPath("KGRedHands.ttf").c_str(), 36);
     }
 
     System::~System()
