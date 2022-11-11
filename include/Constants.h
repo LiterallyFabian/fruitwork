@@ -5,7 +5,7 @@
 
 namespace constants
 {
-    const std::string gResPath = "../../resources/";
+    const std::string gResPath = "../../../resources/";
 
 } // fruitwork
 
