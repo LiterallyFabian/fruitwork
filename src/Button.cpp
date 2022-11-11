@@ -49,6 +49,7 @@ namespace fruitwork
 
         if (SDL_PointInRect(&p, &get_rect()))
         {
+            onClick(this); // call the callback function
             isDown = true;
         }
     }
@@ -57,5 +58,16 @@ namespace fruitwork
     {
         isDown = false;
     }
+
+    void Button::registerCallback(void (*callback)(Button *source))
+    {
+        onClick = callback;
+    }
+
+    std::string Button::getText() const
+    {
+        return text;
+    }
+
 
 } // fruitwork

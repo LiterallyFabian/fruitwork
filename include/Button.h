@@ -19,6 +19,14 @@ namespace fruitwork
 
         void draw() const override;
 
+        /**
+         * Register a callback function to be called when the button is clicked.
+         * @param callback The callback function.
+         */
+        void registerCallback(void (*callback)(Button *source));
+
+        std::string getText() const;
+
         ~Button() override;
 
     protected:
@@ -29,6 +37,8 @@ namespace fruitwork
         SDL_Texture *textTexture;
         SDL_Texture *buttonTexture, *buttonTextureDown;
         bool isDown = false;
+
+        void (*onClick)(Button *source);
     };
 
 } // fruitwork
