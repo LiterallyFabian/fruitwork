@@ -58,7 +58,7 @@ namespace fruitwork
                 } // switch
             } // while event
 
-            SDL_SetRenderDrawColor(fruitwork::sys.get_renderer(), 0, 255, 255, 255);
+            SDL_SetRenderDrawColor(fruitwork::sys.get_renderer(), 255, 255, 255, 255);
             SDL_RenderClear(fruitwork::sys.get_renderer());
 
             for (Component *component: components)

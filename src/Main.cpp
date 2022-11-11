@@ -11,7 +11,10 @@ int main(int argc, char **argv)
     Label *label = Label::getInstance(10, 10, 200, 100, "Salmon");
 
     session.add_component(label);
+    label->setText("Salmon... TWO");
+
     session.run();
+
 
     return 0;
 }

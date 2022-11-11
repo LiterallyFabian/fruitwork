@@ -13,9 +13,14 @@ namespace fruitwork
     public:
         static Label *getInstance(int x, int y, int w, int h, const std::string &text);
 
-        ~Label() override;
+        std::string getText() const;
+
+        void setText(const std::string &text);
 
         void draw() const override;
+
+        ~Label() override;
+
 
     protected:
         Label(int x, int y, int w, int h, const std::string &text);
