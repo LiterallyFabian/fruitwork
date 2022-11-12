@@ -31,11 +31,17 @@ namespace fruitwork
     void Label::setText(const std::string &t)
     {
         this->text = t;
-        static const SDL_Color color = {0, 0, 0, 255}; // black
         SDL_Surface *surface = TTF_RenderText_Solid(sys.get_font(), text.c_str(), color);
         SDL_DestroyTexture(texture);
         texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
         SDL_FreeSurface(surface);
     }
+
+    void Label::setColor(const SDL_Color &c)
+    {
+        this->color = c;
+        setText(text);
+    }
+
 
 } // fruitwork

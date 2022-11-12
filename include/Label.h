@@ -17,6 +17,8 @@ namespace fruitwork
 
         void setText(const std::string &text);
 
+        void setColor(const SDL_Color &color);
+
         void draw() const override;
 
         ~Label() override;
@@ -27,6 +29,7 @@ namespace fruitwork
     private:
         std::string text;
         SDL_Texture *texture;
+        SDL_Color color = {0, 0, 0, 255};
     };
 
 } // fruitwork
