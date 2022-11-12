@@ -1,5 +1,6 @@
 #include "System.h"
 #include <SDL.h>
+#include <iostream>
 #include "Constants.h"
 #include "ResourceManager.h"
 
@@ -9,7 +10,7 @@ namespace fruitwork
     {
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
         {
-            SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+            SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "SDL_Init Error: %s", SDL_GetError());
             return;
         }
         else
@@ -22,7 +23,7 @@ namespace fruitwork
 
         if (TTF_Init() != 0)
         {
-            SDL_Log("Unable to initialize SDL_ttf: %s", TTF_GetError());
+            SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Failed to initialize SDL_ttf: %s", TTF_GetError());
             return;
         }
         else
@@ -30,8 +31,12 @@ namespace fruitwork
             SDL_Log("SDL_ttf initialized");
         }
 
-        //font = TTF_OpenFont("D:/Skrivbord/Saker/fonts/KGRedHands.ttf", 36);
-        font = TTF_OpenFont(ResourceManager::getFontPath("KGRedHands.ttf").c_str(), 36);
+        font = TTF_OpenFont((constants::gResPath + "fonts/KGRedHands.ttf").c_str(), 36);
+
+        if (font == nullptr)
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to load font: %s", TTF_GetError());
+        else
+            SDL_Log("Font loaded");
     }
 
     System::~System()
