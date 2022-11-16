@@ -30,10 +30,25 @@ namespace fruitwork
 
     void Label::setText(const std::string &t)
     {
-        this->text = t;
+        text = t;
+        try
+        {
+            SDL_DestroyTexture(texture);
+        }
+        catch (std::exception &e)
+        {
+            std::cout << "Exception: " << e.what() << std::endl;
+        }
+
         SDL_Surface *surface = TTF_RenderText_Solid(sys.get_font(), text.c_str(), color);
-        SDL_DestroyTexture(texture);
+        if (surface == nullptr)
+        {
+            SDL_Log("TTF_RenderText_Solid: %s", TTF_GetError());
+            return;
+        }
+
         texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
+
         SDL_FreeSurface(surface);
     }
 
