@@ -1,8 +1,7 @@
 #include "System.h"
 #include <SDL.h>
-#include <iostream>
 #include "Constants.h"
-#include "ResourceManager.h"
+#include "ExitScene.h"
 
 namespace fruitwork
 {
@@ -41,6 +40,8 @@ namespace fruitwork
 
     System::~System()
     {
+        SDL_Log("Shutting down System");
+
         TTF_CloseFont(font);
         TTF_Quit();
         SDL_DestroyRenderer(renderer);
@@ -51,6 +52,31 @@ namespace fruitwork
     SDL_Renderer *System::get_renderer() const { return renderer; }
 
     TTF_Font *System::get_font() const { return font; }
+
+    void System::setNextScene(Scene *scene)
+    {
+        if (scene != ExitScene::get_instance())
+            this->nextScene = scene;
+    }
+
+    void System::changeScene()
+    {
+        if (nextScene == nullptr)
+            return;
+
+        if (currentScene != nullptr)
+            currentScene->exit(); // unload current scene
+
+        nextScene->enter(); // load next scene
+
+        currentScene = nextScene;
+        nextScene = nullptr;
+    }
+
+    Scene *System::getCurrentScene() const
+    {
+        return currentScene;
+    }
 
     System sys;
 } // fruitwork

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Component.h"
+#include "Scene.h"
 
 namespace fruitwork
 {
@@ -16,7 +17,11 @@ namespace fruitwork
          */
         void add_component(Component *component);
 
-        void run();
+        /**
+         * Run the session.
+         * @param startScene The scene to start the session with.
+         */
+        void run(Scene *startScene);
 
         ~Session();
 

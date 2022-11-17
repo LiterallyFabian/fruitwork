@@ -11,13 +11,18 @@ namespace fruitwork
         component->start();
     }
 
-    void Session::run()
+    void Session::run(Scene *startScene)
     {
         bool running = true;
+
+        sys.setNextScene(startScene);
+        sys.changeScene();
 
         while (running)
         {
             SDL_Event event;
+            Scene *currentScene = sys.getCurrentScene();
+
             while (SDL_PollEvent(&event))
             {
                 switch (event.type)
@@ -32,6 +37,10 @@ namespace fruitwork
                     {
                         for (auto component: components)
                             component->onMouseDown(event);
+
+                        for (auto component: sys.getCurrentScene()->get_components())
+                            component->onMouseDown(event);
+
                         break;
                     }
 
@@ -39,6 +48,10 @@ namespace fruitwork
                     {
                         for (auto component: components)
                             component->onMouseUp(event);
+
+                        for (auto component: sys.getCurrentScene()->get_components())
+                            component->onMouseUp(event);
+
                         break;
                     }
 
@@ -46,6 +59,10 @@ namespace fruitwork
                     {
                         for (auto component: components)
                             component->onKeyDown(event);
+
+                        for (auto component: sys.getCurrentScene()->get_components())
+                            component->onKeyDown(event);
+
                         break;
                     }
 
@@ -53,32 +70,53 @@ namespace fruitwork
                     {
                         for (auto component: components)
                             component->onKeyUp(event);
+
+                        for (auto component: sys.getCurrentScene()->get_components())
+                            component->onKeyUp(event);
+
                         break;
                     }
 
                 } // switch
+
+                sys.getCurrentScene()->handleEvent(event);
             } // while event
 
+            // update session components
             for (Component *component: components)
-            {
                 component->update();
-            }
+
+            // update scene
+            currentScene->update();
+            for (Component *component: currentScene->get_components())
+                component->update();
+
+
+            sys.changeScene();
 
             SDL_SetRenderDrawColor(fruitwork::sys.get_renderer(), 255, 255, 255, 255);
             SDL_RenderClear(fruitwork::sys.get_renderer());
 
+            // draw scene
+            currentScene->draw();
+            for (Component *component: currentScene->get_components())
+                component->draw();
+
+            // draw session components
             for (Component *component: components)
                 component->draw();
 
             SDL_RenderPresent(fruitwork::sys.get_renderer());
 
         } // while running
+
+        std::cout << "Session ended" << std::endl;
     }
 
     Session::~Session()
     {
+        std::cout << "Session destructor" << std::endl;
         for (auto component: components)
             delete component;
-
     }
 } // fruitwork
