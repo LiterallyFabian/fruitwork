@@ -33,7 +33,8 @@ namespace fruitwork
         text = t;
         try
         {
-            SDL_DestroyTexture(texture);
+            // TODO: something is wrong with the code below, the program currently memory leaks
+            // SDL_DestroyTexture(texture);
         }
         catch (std::exception &e)
         {
