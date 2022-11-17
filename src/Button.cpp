@@ -50,7 +50,8 @@ namespace fruitwork
 
         if (SDL_PointInRect(&p, &get_rect()))
         {
-            onClick(this); // call the callback function
+            if(onClick != nullptr)
+                onClick(this);
             isDown = true;
         }
     }

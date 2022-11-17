@@ -38,7 +38,7 @@ namespace fruitwork
         SDL_Texture *buttonTexture, *buttonTextureDown;
         bool isDown = false;
 
-        void (*onClick)(Button *source);
+        void (*onClick)(Button *source) = nullptr;
     };
 
 } // fruitwork
