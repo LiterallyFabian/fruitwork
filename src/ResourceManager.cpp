@@ -30,7 +30,9 @@ namespace fruitwork
 
     std::string ResourceManager::getFontPath(const std::string &fontName)
     {
-        std::string path = constants::gResPath + "fonts/" + fontName;
+        bool hasExtension = fontName.find(".ttf") != std::string::npos;
+
+        std::string path = constants::gResPath + "fonts/" + fontName + (hasExtension ? "" : ".ttf");
         if (!file_exists(path))
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load font: %s", fontName.c_str());
 
