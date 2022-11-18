@@ -1,7 +1,9 @@
 #include "Label.h"
 #include "System.h"
+#include "Constants.h"
 #include <SDL_ttf.h>
 #include <iostream>
+#include "ResourceManager.h"
 
 namespace fruitwork
 {
@@ -18,12 +20,13 @@ namespace fruitwork
 
     void Label::draw() const
     {
-        SDL_RenderCopy(sys.get_renderer(), texture, nullptr, &get_rect());
+        SDL_RenderCopy(sys.get_renderer(), texture, nullptr, &drawRect);
     }
 
     Label::~Label()
     {
         SDL_DestroyTexture(texture);
+        TTF_CloseFont(font);
     }
 
     std::string Label::getText() const { return text; }
@@ -31,36 +34,55 @@ namespace fruitwork
     void Label::setText(const std::string &t)
     {
         text = t;
-        try
-        {
-            // TODO: something is wrong with the code below, the program currently memory leaks
-            // SDL_DestroyTexture(texture);
-        }
-        catch (std::exception &e)
-        {
-            std::cout << "Exception: " << e.what() << std::endl;
-        }
 
-        int textWidth = 0;
-        int textHeight = 0;
-        TTF_SizeUTF8(sys.get_font(), text.c_str(), &textWidth, &textHeight);
-        if (textWidth > get_rect().w)
+        SDL_DestroyTexture(texture);
+
+        // make text smaller if needed to prevent stretch
+        TTF_CloseFont(font);
+        font = TTF_OpenFont(ResourceManager::getFontPath("KGRedHands").c_str(), fontSize);
+
+        SDL_Surface *surf = TTF_RenderText_Solid(font, text.c_str(), color);
+        texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surf);
+        SDL_FreeSurface(surf);
+
+        // set the draw rect
+        drawRect = get_rect();
+        int w, h;
+        SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+        switch (alignment)
         {
-            float scale = (float) get_rect().w / textWidth;
-            textWidth = (int) (textWidth * scale);
-            textHeight = (int) (textHeight * scale);
+            case Alignment::LEFT:
+                drawRect.w = w;
+                drawRect.h = h;
+                break;
+            case Alignment::CENTER:
+                drawRect.w = w;
+                drawRect.h = h;
+                drawRect.x += (get_rect().w - w) / 2;
+                break;
+            case Alignment::RIGHT:
+                drawRect.w = w;
+                drawRect.h = h;
+                drawRect.x += get_rect().w - w;
+                break;
         }
-
-        SDL_Surface *surface = TTF_RenderText_Solid(sys.get_font(), text.c_str(), color);
-        texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
-        SDL_FreeSurface(surface);
-
-        set_rect({get_rect().x, get_rect().y, textWidth, textHeight});
     }
 
     void Label::setColor(const SDL_Color &c)
     {
         this->color = c;
+        setText(text);
+    }
+
+    void Label::setFontSize(const int size)
+    {
+        this->fontSize = size;
+        setText(text);
+    }
+
+    void Label::setAlignment(Label::Alignment a)
+    {
+        this->alignment = a;
         setText(text);
     }
 
