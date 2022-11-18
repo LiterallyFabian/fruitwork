@@ -19,6 +19,10 @@ namespace fruitwork
 
         void draw() const override;
 
+        void setTextColor(const SDL_Color &color);
+
+        void setColor(const SDL_Color &color);
+
         /**
          * Register a callback function to be called when the button is clicked.
          * @param callback The callback function.
@@ -35,7 +39,9 @@ namespace fruitwork
     private:
         std::string text;
         SDL_Texture *textTexture;
-        SDL_Texture *buttonTexture, *buttonTextureDown;
+        SDL_Texture *buttonTextureLeft, *buttonTextureMiddle, *buttonTextureRight;
+        SDL_Color buttonColor = {255, 255, 255, 255};
+        SDL_Color textColor = {0, 0, 0, 255};
         bool isDown = false;
 
         void (*onClick)(Button *source) = nullptr;

@@ -9,13 +9,13 @@ namespace fruitwork
 {
     Button::Button(int x, int y, int w, int h, std::string text) : Component(x, y, w, h), text(text)
     {
-        static const SDL_Color color = {0, 0, 0, 255}; // black
-        SDL_Surface *surf = TTF_RenderText_Solid(fruitwork::sys.get_font(), text.c_str(), color);
+        SDL_Surface *surf = TTF_RenderText_Solid(fruitwork::sys.get_font(), text.c_str(), textColor);
         textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surf);
         SDL_FreeSurface(surf);
 
-        buttonTexture = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button.png").c_str());
-        buttonTextureDown = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button_down.png").c_str());
+        buttonTextureLeft = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-left.png").c_str());
+        buttonTextureMiddle = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
+        buttonTextureRight = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-right.png").c_str());
     }
 
     Button *Button::getInstance(int x, int y, int w, int h, std::string txt)
@@ -25,23 +25,46 @@ namespace fruitwork
 
     void Button::draw() const
     {
-        SDL_Texture *texture = isDown ? buttonTextureDown : buttonTexture;
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), texture, nullptr, &get_rect());
+        SDL_Rect rect = get_rect();
 
-        SDL_Rect textRect = get_rect();
-        textRect.x += 10;
-        textRect.y += 10;
-        textRect.w -= 20;
-        textRect.h -= 20;
+        if (isDown)
+        {
+            const double mod = 0.8;
+            SDL_SetTextureColorMod(buttonTextureLeft, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
+            SDL_SetTextureColorMod(buttonTextureMiddle, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
+            SDL_SetTextureColorMod(buttonTextureRight, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
 
+            rect.x += 2;
+            rect.y += 2;
+            rect.w -= 4;
+            rect.h -= 4;
+        }
+        else
+        {
+            SDL_SetTextureColorMod(buttonTextureLeft, buttonColor.r, buttonColor.g, buttonColor.b);
+            SDL_SetTextureColorMod(buttonTextureMiddle, buttonColor.r, buttonColor.g, buttonColor.b);
+            SDL_SetTextureColorMod(buttonTextureRight, buttonColor.r, buttonColor.g, buttonColor.b);
+        }
+
+        SDL_Rect leftRect = {rect.x, rect.y, 8, rect.h};
+        SDL_Rect middleRect = {rect.x + 8, rect.y, rect.w - 16, rect.h};
+        SDL_Rect rightRect = {rect.x + rect.w - 8, rect.y, 8, rect.h};
+
+        SDL_RenderCopy(fruitwork::sys.get_renderer(), buttonTextureLeft, nullptr, &leftRect);
+        SDL_RenderCopy(fruitwork::sys.get_renderer(), buttonTextureMiddle, nullptr, &middleRect);
+        SDL_RenderCopy(fruitwork::sys.get_renderer(), buttonTextureRight, nullptr, &rightRect);
+
+        // draw text with padding
+        SDL_Rect textRect = {rect.x + 10, rect.y + 10, rect.w - 20, rect.h - 20};
         SDL_RenderCopy(fruitwork::sys.get_renderer(), textTexture, nullptr, &textRect);
     }
 
     Button::~Button()
     {
         SDL_DestroyTexture(textTexture);
-        SDL_DestroyTexture(buttonTexture);
-        SDL_DestroyTexture(buttonTextureDown);
+        SDL_DestroyTexture(buttonTextureLeft);
+        SDL_DestroyTexture(buttonTextureMiddle);
+        SDL_DestroyTexture(buttonTextureRight);
     }
 
     void Button::onMouseDown(const SDL_Event &event)
@@ -50,7 +73,7 @@ namespace fruitwork
 
         if (SDL_PointInRect(&p, &get_rect()))
         {
-            if(onClick != nullptr)
+            if (onClick != nullptr)
                 onClick(this);
             isDown = true;
         }
@@ -69,6 +92,20 @@ namespace fruitwork
     std::string Button::getText() const
     {
         return text;
+    }
+
+    void Button::setTextColor(const SDL_Color &color)
+    {
+        textColor = color;
+        SDL_DestroyTexture(textTexture);
+        SDL_Surface *surf = TTF_RenderText_Solid(fruitwork::sys.get_font(), text.c_str(), textColor);
+        textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surf);
+        SDL_FreeSurface(surf);
+    }
+
+    void Button::setColor(const SDL_Color &color)
+    {
+        buttonColor = color;
     }
 
 } // fruitwork

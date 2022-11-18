@@ -3,7 +3,6 @@
 #include "Constants.h"
 #include "ResourceManager.h"
 #include <SDL_image.h>
-#include <iostream>
 
 namespace fruitwork
 {
