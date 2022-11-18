@@ -11,6 +11,23 @@ namespace fruitwork
     class Button : public Component {
 
     public:
+        enum class State {
+            /**
+             * The button is not being hovered over.
+             */
+            NORMAL,
+
+            /**
+             * The button is being hovered over.
+             */
+            HOVER,
+
+            /**
+             * The button is being clicked.
+             */
+            PRESSED
+        };
+
         static Button *getInstance(int x, int y, int w, int h, std::string text);
 
         void onMouseDown(const SDL_Event &) override;
@@ -18,6 +35,8 @@ namespace fruitwork
         void onMouseUp(const SDL_Event &) override;
 
         void draw() const override;
+
+        void update() override;
 
         void setTextColor(const SDL_Color &color);
 
@@ -29,7 +48,7 @@ namespace fruitwork
          */
         void registerCallback(void (*callback)(Button *source));
 
-        std::string getText() const;
+        std::string getText() const { return text; }
 
         ~Button() override;
 
@@ -42,6 +61,8 @@ namespace fruitwork
         SDL_Texture *buttonTextureLeft, *buttonTextureMiddle, *buttonTextureRight;
         SDL_Color buttonColor = {255, 255, 255, 255};
         SDL_Color textColor = {0, 0, 0, 255};
+
+        State state = State::NORMAL;
         bool isDown = false;
 
         void (*onClick)(Button *source) = nullptr;

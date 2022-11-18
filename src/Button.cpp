@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Button.h"
 #include "System.h"
 #include "SDL_image.h"
@@ -27,23 +28,37 @@ namespace fruitwork
     {
         SDL_Rect rect = get_rect();
 
-        if (isDown)
+        switch (state)
         {
-            const double mod = 0.8;
-            SDL_SetTextureColorMod(buttonTextureLeft, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
-            SDL_SetTextureColorMod(buttonTextureMiddle, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
-            SDL_SetTextureColorMod(buttonTextureRight, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
+            case Button::State::PRESSED:
+            {
+                const double mod = 0.8;
+                SDL_SetTextureColorMod(buttonTextureLeft, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
+                SDL_SetTextureColorMod(buttonTextureMiddle, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
+                SDL_SetTextureColorMod(buttonTextureRight, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
 
-            rect.x += 2;
-            rect.y += 2;
-            rect.w -= 4;
-            rect.h -= 4;
-        }
-        else
-        {
-            SDL_SetTextureColorMod(buttonTextureLeft, buttonColor.r, buttonColor.g, buttonColor.b);
-            SDL_SetTextureColorMod(buttonTextureMiddle, buttonColor.r, buttonColor.g, buttonColor.b);
-            SDL_SetTextureColorMod(buttonTextureRight, buttonColor.r, buttonColor.g, buttonColor.b);
+                rect.x += 2;
+                rect.y += 2;
+                rect.w -= 4;
+                rect.h -= 4;
+                break;
+            }
+            case Button::State::HOVER:
+            {
+                const double mod = 0.95;
+                SDL_SetTextureColorMod(buttonTextureLeft, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
+                SDL_SetTextureColorMod(buttonTextureMiddle, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
+                SDL_SetTextureColorMod(buttonTextureRight, buttonColor.r * mod, buttonColor.g * mod, buttonColor.b * mod);
+                break;
+            }
+
+            case Button::State::NORMAL:
+            {
+                SDL_SetTextureColorMod(buttonTextureLeft, buttonColor.r, buttonColor.g, buttonColor.b);
+                SDL_SetTextureColorMod(buttonTextureMiddle, buttonColor.r, buttonColor.g, buttonColor.b);
+                SDL_SetTextureColorMod(buttonTextureRight, buttonColor.r, buttonColor.g, buttonColor.b);
+                break;
+            }
         }
 
         SDL_Rect leftRect = {rect.x, rect.y, 8, rect.h};
@@ -57,6 +72,20 @@ namespace fruitwork
         // draw text with padding
         SDL_Rect textRect = {rect.x + 10, rect.y + 10, rect.w - 20, rect.h - 20};
         SDL_RenderCopy(fruitwork::sys.get_renderer(), textTexture, nullptr, &textRect);
+    }
+
+    void Button::update()
+    {
+        SDL_Point mousePos = {0, 0};
+        SDL_GetMouseState(&mousePos.x, &mousePos.y);
+
+        if (!isDown)
+        {
+            if (SDL_PointInRect(&mousePos, &get_rect()))
+                state = Button::State::HOVER;
+            else
+                state = Button::State::NORMAL;
+        }
     }
 
     Button::~Button()
@@ -75,23 +104,21 @@ namespace fruitwork
         {
             if (onClick != nullptr)
                 onClick(this);
+
             isDown = true;
+            state = Button::State::PRESSED;
         }
     }
 
     void Button::onMouseUp(const SDL_Event &)
     {
         isDown = false;
+        state = Button::State::NORMAL;
     }
 
     void Button::registerCallback(void (*callback)(Button *source))
     {
         onClick = callback;
-    }
-
-    std::string Button::getText() const
-    {
-        return text;
     }
 
     void Button::setTextColor(const SDL_Color &color)
