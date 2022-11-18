@@ -41,16 +41,21 @@ namespace fruitwork
             std::cout << "Exception: " << e.what() << std::endl;
         }
 
-        SDL_Surface *surface = TTF_RenderText_Solid(sys.get_font(), text.c_str(), color);
-        if (surface == nullptr)
+        int textWidth = 0;
+        int textHeight = 0;
+        TTF_SizeUTF8(sys.get_font(), text.c_str(), &textWidth, &textHeight);
+        if (textWidth > get_rect().w)
         {
-            SDL_Log("TTF_RenderText_Solid: %s", TTF_GetError());
-            return;
+            float scale = (float) get_rect().w / textWidth;
+            textWidth = (int) (textWidth * scale);
+            textHeight = (int) (textHeight * scale);
         }
 
+        SDL_Surface *surface = TTF_RenderText_Solid(sys.get_font(), text.c_str(), color);
         texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
-
         SDL_FreeSurface(surface);
+
+        set_rect({get_rect().x, get_rect().y, textWidth, textHeight});
     }
 
     void Label::setColor(const SDL_Color &c)
