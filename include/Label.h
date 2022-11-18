@@ -29,6 +29,8 @@ namespace fruitwork
 
         void setFontSize(int size);
 
+        void setFont(const std::string &f);
+
         void setAlignment(Alignment a);
 
         void draw() const override;
@@ -44,6 +46,7 @@ namespace fruitwork
         SDL_Color color = {0, 0, 0, 255};
 
         int fontSize = 24;
+        std::string fontName = "KGRedHands.ttf";
         TTF_Font *font = nullptr;
         Alignment alignment = Alignment::LEFT;
 

@@ -39,7 +39,7 @@ namespace fruitwork
 
         // make text smaller if needed to prevent stretch
         TTF_CloseFont(font);
-        font = TTF_OpenFont(ResourceManager::getFontPath("KGRedHands").c_str(), fontSize);
+        font = TTF_OpenFont(ResourceManager::getFontPath(fontName).c_str(), fontSize);
 
         SDL_Surface *surface = TTF_RenderText_Blended(font, text.c_str(), color);
         texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
@@ -77,6 +77,12 @@ namespace fruitwork
     void Label::setFontSize(const int size)
     {
         this->fontSize = size;
+        setText(text);
+    }
+
+    void Label::setFont(const std::string &f)
+    {
+        this->fontName = f;
         setText(text);
     }
 
