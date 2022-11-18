@@ -1,5 +1,6 @@
 #include "System.h"
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include "Constants.h"
 #include "ExitScene.h"
 
@@ -36,6 +37,16 @@ namespace fruitwork
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to load font: %s", TTF_GetError());
         else
             SDL_Log("Font loaded");
+
+        if (Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096) == -1)
+        {
+            SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION, "Failed to initialize SDL_mixer: %s", Mix_GetError());
+            return;
+        }
+        else
+        {
+            SDL_Log("SDL_mixer initialized");
+        }
     }
 
     System::~System()

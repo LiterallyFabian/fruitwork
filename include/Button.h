@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include "Component.h"
 
 namespace fruitwork
@@ -66,6 +67,10 @@ namespace fruitwork
         bool isDown = false;
 
         void (*onClick)(Button *source) = nullptr;
+
+        void setState(State state);
+
+        Mix_Chunk *clickSound, *hoverSound;
     };
 
 } // fruitwork

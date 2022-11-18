@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Button.h"
 #include "System.h"
 #include "SDL_image.h"
@@ -14,9 +13,13 @@ namespace fruitwork
         textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surf);
         SDL_FreeSurface(surf);
 
+        // todo: only load textures if they are not already loaded?
         buttonTextureLeft = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-left.png").c_str());
         buttonTextureMiddle = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
         buttonTextureRight = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-right.png").c_str());
+
+        clickSound = Mix_LoadWAV(ResourceManager::getAudioPath("click.wav").c_str());
+        hoverSound = Mix_LoadWAV(ResourceManager::getAudioPath("hover.wav").c_str());
     }
 
     Button *Button::getInstance(int x, int y, int w, int h, std::string txt)
@@ -82,9 +85,9 @@ namespace fruitwork
         if (!isDown)
         {
             if (SDL_PointInRect(&mousePos, &get_rect()))
-                state = Button::State::HOVER;
+                setState(Button::State::HOVER);
             else
-                state = Button::State::NORMAL;
+                setState(Button::State::NORMAL);
         }
     }
 
@@ -106,14 +109,17 @@ namespace fruitwork
                 onClick(this);
 
             isDown = true;
-            state = Button::State::PRESSED;
+            setState(Button::State::PRESSED);
         }
     }
 
     void Button::onMouseUp(const SDL_Event &)
     {
-        isDown = false;
-        state = Button::State::NORMAL;
+        if (isDown)
+        {
+            isDown = false;
+            setState(Button::State::PRESSED);
+        }
     }
 
     void Button::registerCallback(void (*callback)(Button *source))
@@ -133,6 +139,27 @@ namespace fruitwork
     void Button::setColor(const SDL_Color &color)
     {
         buttonColor = color;
+    }
+
+    void Button::setState(Button::State s)
+    {
+        if (s == state)
+            return;
+
+        switch (s)
+        {
+            case State::HOVER:
+                if (state == State::NORMAL)
+                    Mix_PlayChannel(-1, hoverSound, 0);
+                break;
+            case State::PRESSED:
+                Mix_PlayChannel(-1, clickSound, 0);
+                break;
+            case State::NORMAL:
+                break;
+        }
+
+        state = s;
     }
 
 } // fruitwork
