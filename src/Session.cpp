@@ -55,6 +55,28 @@ namespace fruitwork
                         break;
                     }
 
+                    case SDL_TEXTINPUT:
+                    {
+                        for (auto component: components)
+                            component->onTextInput(event);
+
+                        for (auto component: sys.getCurrentScene()->get_components())
+                            component->onTextInput(event);
+
+                        break;
+                    }
+
+                    case SDL_TEXTEDITING:
+                    {
+                        for (auto component: components)
+                            component->onTextEditing(event);
+
+                        for (auto component: sys.getCurrentScene()->get_components())
+                            component->onTextEditing(event);
+
+                        break;
+                    }
+
                     case SDL_KEYDOWN:
                     {
                         for (auto component: components)

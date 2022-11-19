@@ -23,6 +23,10 @@ namespace fruitwork
 
         virtual void onKeyUp(const SDL_Event &) {};
 
+        virtual void onTextInput(const SDL_Event &) {};
+
+        virtual void onTextEditing(const SDL_Event &) {};
+
         virtual void draw() const = 0;
 
         /**
