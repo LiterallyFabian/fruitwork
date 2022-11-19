@@ -11,7 +11,22 @@ namespace fruitwork
 
     class InputField : public Component {
     public:
-        static InputField *getInstance(int x, int y, int w, int h);
+        enum InputType {
+            /**
+             * Allows any character to be entered.
+             */
+            TEXT,
+            /**
+             * Allows only integers to be entered.
+             */
+            NUMERIC,
+            /**
+             * Allows any character to be entered, but the input is hidden.
+             */
+            PASSWORD
+        };
+
+        static InputField *getInstance(int x, int y, int w, int h, InputType inputType = TEXT);
 
         void draw() const override;
 
@@ -22,8 +37,6 @@ namespace fruitwork
         void onMouseDown(const SDL_Event &) override;
 
         void onTextInput(const SDL_Event &) override;
-
-        void onTextEditing(const SDL_Event &) override;
 
         void onKeyDown(const SDL_Event &) override;
 
@@ -36,12 +49,14 @@ namespace fruitwork
         int getMaxLength() const { return maxLength; }
 
     protected:
-        InputField(int x, int y, int w, int h);
+        InputField(int x, int y, int w, int h, InputType inputType);
 
     private:
         std::string text = "";
 
         int maxLength = 20;
+        InputType inputType = TEXT;
+
         bool isFocused = false;
 
         /**

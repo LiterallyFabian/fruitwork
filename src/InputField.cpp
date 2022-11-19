@@ -6,12 +6,13 @@
 
 namespace fruitwork
 {
-    InputField *InputField::getInstance(int x, int y, int w, int h)
+    InputField *InputField::getInstance(int x, int y, int w, int h, InputType inputType)
     {
-        return new InputField(x, y, w, h);
+        return new InputField(x, y, w, h, inputType);
     }
 
-    InputField::InputField(int x, int y, int w, int h) : Component(x, y, w, h)
+    InputField::InputField(int x, int y, int w, int h, InputType inputType)
+            : Component(x, y, w, h), inputType(inputType)
     {
         textureLeft = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-left.png").c_str());
         textureMiddle = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
@@ -99,17 +100,18 @@ namespace fruitwork
             if (maxLength > 0 && text.length() >= maxLength)
                 return;
 
+            if (inputType == InputType::NUMERIC)
+            {
+                if (event.text.text[0] < '0' || event.text.text[0] > '9')
+                    return;
+            }
+
             text += event.text.text;
             setText(text); // update text texture
 
             caretBlinkCounter = 0;
             caretVisible = true; // the caret is always visible when typing
         }
-    }
-
-    void InputField::onTextEditing(const SDL_Event &)
-    {
-
     }
 
     void InputField::onKeyDown(const SDL_Event &event)
@@ -146,9 +148,17 @@ namespace fruitwork
     void InputField::setText(const std::string &t)
     {
         this->text = t;
+        std::string shownText = t;
+
+        // replace all symbols with asterisks
+        if (inputType == InputType::PASSWORD)
+        {
+            for (int i = 0; i < t.length(); i++)
+                shownText[i] = '*';
+        }
 
         SDL_DestroyTexture(textTexture);
-        SDL_Surface *surface = TTF_RenderText_Blended(sys.get_font(), text.c_str(), {0, 0, 0});
+        SDL_Surface *surface = TTF_RenderText_Blended(sys.get_font(), shownText.c_str(), {0, 0, 0});
         textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surface);
         SDL_FreeSurface(surface);
     }
