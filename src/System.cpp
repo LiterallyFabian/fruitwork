@@ -75,6 +75,8 @@ namespace fruitwork
         if (nextScene == nullptr)
             return;
 
+        SDL_Log("Changing scene...");
+
         if (currentScene != nullptr)
             currentScene->exit(); // unload current scene
 

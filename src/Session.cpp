@@ -26,7 +26,6 @@ namespace fruitwork
             Uint32 nextTick = SDL_GetTicks() + tickInterval;
 
             SDL_Event event;
-            Scene *currentScene = sys.getCurrentScene();
 
             while (SDL_PollEvent(&event))
             {
@@ -114,8 +113,8 @@ namespace fruitwork
                 component->update();
 
             // update scene
-            currentScene->update();
-            for (Component *component: currentScene->get_components())
+            sys.getCurrentScene()->update();
+            for (Component *component: sys.getCurrentScene()->get_components())
                 component->update();
 
 
@@ -125,8 +124,8 @@ namespace fruitwork
             SDL_RenderClear(fruitwork::sys.get_renderer());
 
             // draw scene
-            currentScene->draw();
-            for (Component *component: currentScene->get_components())
+            sys.getCurrentScene()->draw();
+            for (Component *component: sys.getCurrentScene()->get_components())
                 component->draw();
 
             // draw session components
