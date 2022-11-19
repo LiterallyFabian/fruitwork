@@ -31,7 +31,7 @@ namespace fruitwork
             SDL_Log("SDL_ttf initialized");
         }
 
-        font = TTF_OpenFont((constants::gResPath + "fonts/KGRedHands.ttf").c_str(), 36);
+        font = TTF_OpenFont((constants::gResPath + "fonts/KGRedHands.ttf").c_str(), 24);
 
         if (font == nullptr)
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to load font: %s", TTF_GetError());
