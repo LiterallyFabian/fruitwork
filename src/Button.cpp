@@ -102,7 +102,6 @@ namespace fruitwork
                 setState(Button::State::NORMAL);
         }
     }
-
     Button::~Button()
     {
         SDL_DestroyTexture(textTexture);
@@ -111,7 +110,6 @@ namespace fruitwork
         SDL_DestroyTexture(buttonTextureRight);
         Mix_FreeChunk(clickSound);
         Mix_FreeChunk(hoverSound);
-        TTF_CloseFont(font);
     }
 
     void Button::onMouseDown(const SDL_Event &event)
