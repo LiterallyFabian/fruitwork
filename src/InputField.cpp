@@ -12,7 +12,7 @@ namespace fruitwork
     }
 
     InputField::InputField(int x, int y, int w, int h, const std::string &placeholderText, InputType inputType)
-            : Component(x, y, w, h), placeholderText(placeholderText), inputType(inputType)
+            : Component(x, y, w, h), inputType(inputType), placeholderText(placeholderText)
     {
         textureLeft = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-left.png").c_str());
         textureMiddle = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
@@ -29,6 +29,7 @@ namespace fruitwork
     void InputField::draw() const
     {
         SDL_Rect rect = get_rect();
+        bool usePlaceholder = text.empty();
 
         SDL_Rect leftRect = {rect.x, rect.y, 8, rect.h};
         SDL_Rect middleRect = {rect.x + 8, rect.y, rect.w - 16, rect.h};
@@ -44,7 +45,7 @@ namespace fruitwork
         SDL_RenderCopy(fruitwork::sys.get_renderer(), textureRight, nullptr, &rightRect);
 
         // draw text with padding
-        SDL_Texture *texture = text.length() > 0 ? textTexture : placeholderTexture;
+        SDL_Texture *texture = usePlaceholder ? placeholderTexture : textTexture;
         SDL_Rect textRect = {rect.x + 10, rect.y + 10, rect.w - 20, rect.h - 20};
         int w, h;
         SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
@@ -63,7 +64,7 @@ namespace fruitwork
             SDL_Rect caretRect = {rect.x + 10 + w, rect.y + 10, 2, rect.h - 20};
 
             // move back caret if placeholder is shown
-            if (text.length() == 0)
+            if (usePlaceholder)
                 caretRect.x = rect.x + 10;
 
             SDL_RenderCopy(fruitwork::sys.get_renderer(), caretTexture, nullptr, &caretRect);
@@ -103,7 +104,7 @@ namespace fruitwork
     {
         if (isFocused)
         {
-            if (maxLength > 0 && text.length() >= maxLength)
+            if (maxLength > 0 && int(text.length()) >= maxLength)
                 return;
 
             if (inputType == InputType::NUMERIC)
@@ -134,14 +135,6 @@ namespace fruitwork
                     setText(text); // update texture
                 }
                 break;
-            case SDLK_LEFT:
-                if (caretPosition > 0)
-                    caretPosition--;
-                break;
-            case SDLK_RIGHT:
-                if (caretPosition < text.length())
-                    caretPosition++;
-                break;
             case SDLK_RETURN:
                 SDL_StopTextInput();
                 isFocused = false;
@@ -159,7 +152,8 @@ namespace fruitwork
         // replace all symbols with asterisks
         if (inputType == InputType::PASSWORD)
         {
-            for (int i = 0; i < t.length(); i++)
+            // @see https://stackoverflow.com/a/39082873/11420970
+            for (std::string::size_type i = 0; i < t.length(); i++)
                 shownText[i] = '*';
         }
 

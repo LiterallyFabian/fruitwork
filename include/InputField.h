@@ -66,7 +66,6 @@ namespace fruitwork
          * @see https://superuser.com/a/815369/1536955
          */
         const int caretBlinkInterval = (double) constants::gFps / 1.88; // NOLINT
-        int caretPosition = 0;
         int caretBlinkCounter = 0;
         bool caretVisible = true;
 
