@@ -4,6 +4,7 @@
 #include <string>
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 #include "Component.h"
 
 namespace fruitwork
@@ -62,6 +63,8 @@ namespace fruitwork
         SDL_Texture *buttonTextureLeft, *buttonTextureMiddle, *buttonTextureRight;
         SDL_Color buttonColor = {255, 255, 255, 255};
         SDL_Color textColor = {0, 0, 0, 255};
+
+        static TTF_Font *font;
 
         State state = State::NORMAL;
         bool isDown = false;

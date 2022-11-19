@@ -9,7 +9,7 @@ namespace fruitwork
 {
     Button::Button(int x, int y, int w, int h, std::string text) : Component(x, y, w, h), text(text)
     {
-        SDL_Surface *surf = TTF_RenderText_Solid(fruitwork::sys.get_font(), text.c_str(), textColor);
+        SDL_Surface *surf = TTF_RenderText_Blended(fruitwork::sys.get_font(), text.c_str(), textColor);
         textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surf);
         SDL_FreeSurface(surf);
 
@@ -20,6 +20,11 @@ namespace fruitwork
 
         clickSound = Mix_LoadWAV(ResourceManager::getAudioPath("click.wav").c_str());
         hoverSound = Mix_LoadWAV(ResourceManager::getAudioPath("hover.wav").c_str());
+
+        if (font == nullptr)
+        {
+            font = TTF_OpenFont(ResourceManager::getFontPath("KGRedHands").c_str(), 64);
+        }
     }
 
     Button *Button::getInstance(int x, int y, int w, int h, std::string txt)
@@ -68,13 +73,20 @@ namespace fruitwork
         SDL_Rect middleRect = {rect.x + 8, rect.y, rect.w - 16, rect.h};
         SDL_Rect rightRect = {rect.x + rect.w - 8, rect.y, 8, rect.h};
 
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), buttonTextureLeft, nullptr, &leftRect);
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), buttonTextureMiddle, nullptr, &middleRect);
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), buttonTextureRight, nullptr, &rightRect);
+        SDL_RenderCopy(sys.get_renderer(), buttonTextureLeft, nullptr, &leftRect);
+        SDL_RenderCopy(sys.get_renderer(), buttonTextureMiddle, nullptr, &middleRect);
+        SDL_RenderCopy(sys.get_renderer(), buttonTextureRight, nullptr, &rightRect);
 
-        // draw text with padding
+        // the text should be centered, and have a 10% margin on all sides
         SDL_Rect textRect = {rect.x + 10, rect.y + 10, rect.w - 20, rect.h - 20};
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), textTexture, nullptr, &textRect);
+        int w, h;
+        SDL_QueryTexture(textTexture, nullptr, nullptr, &w, &h);
+        textRect.w = w;
+        textRect.h = h;
+        // center text in button
+        textRect.x += (rect.w - 20 - w) / 2;
+        textRect.y += (rect.h - 20 - h) / 2;
+        SDL_RenderCopy(sys.get_renderer(), textTexture, nullptr, &textRect);
     }
 
     void Button::update()
@@ -99,6 +111,7 @@ namespace fruitwork
         SDL_DestroyTexture(buttonTextureRight);
         Mix_FreeChunk(clickSound);
         Mix_FreeChunk(hoverSound);
+        TTF_CloseFont(font);
     }
 
     void Button::onMouseDown(const SDL_Event &event)
@@ -133,8 +146,8 @@ namespace fruitwork
     {
         textColor = color;
         SDL_DestroyTexture(textTexture);
-        SDL_Surface *surf = TTF_RenderText_Solid(fruitwork::sys.get_font(), text.c_str(), textColor);
-        textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surf);
+        SDL_Surface *surf = TTF_RenderText_Blended(sys.get_font(), text.c_str(), textColor);
+        textTexture = SDL_CreateTextureFromSurface(sys.get_renderer(), surf);
         SDL_FreeSurface(surf);
     }
 
@@ -163,5 +176,7 @@ namespace fruitwork
 
         state = s;
     }
+
+    TTF_Font *Button::font = nullptr;
 
 } // fruitwork
