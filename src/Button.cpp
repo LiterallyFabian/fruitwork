@@ -97,6 +97,8 @@ namespace fruitwork
         SDL_DestroyTexture(buttonTextureLeft);
         SDL_DestroyTexture(buttonTextureMiddle);
         SDL_DestroyTexture(buttonTextureRight);
+        Mix_FreeChunk(clickSound);
+        Mix_FreeChunk(hoverSound);
     }
 
     void Button::onMouseDown(const SDL_Event &event)
