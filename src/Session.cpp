@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Session.h"
 #include "System.h"
+#include "Constants.h"
 
 namespace fruitwork
 {
@@ -18,8 +19,12 @@ namespace fruitwork
         sys.setNextScene(startScene);
         sys.changeScene();
 
+        const int tickInterval = 1000 / constants::gFps;
+
         while (running)
         {
+            Uint32 nextTick = SDL_GetTicks() + tickInterval;
+
             SDL_Event event;
             Scene *currentScene = sys.getCurrentScene();
 
@@ -129,6 +134,12 @@ namespace fruitwork
                 component->draw();
 
             SDL_RenderPresent(fruitwork::sys.get_renderer());
+
+            int delay = nextTick - SDL_GetTicks();
+            if (delay > 0)
+            {
+                SDL_Delay(delay);
+            }
 
         } // while running
 
