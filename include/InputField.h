@@ -26,7 +26,7 @@ namespace fruitwork
             PASSWORD
         };
 
-        static InputField *getInstance(int x, int y, int w, int h, InputType inputType = TEXT);
+        static InputField *getInstance(int x, int y, int w, int h, const std::string &placeholderText, InputType inputType = TEXT);
 
         void draw() const override;
 
@@ -49,13 +49,14 @@ namespace fruitwork
         int getMaxLength() const { return maxLength; }
 
     protected:
-        InputField(int x, int y, int w, int h, InputType inputType);
+        InputField(int x, int y, int w, int h, const std::string &placeholderText, InputType inputType);
 
     private:
-        std::string text = "";
-
+        std::string text;
         int maxLength = 20;
+
         InputType inputType = TEXT;
+        std::string placeholderText;
 
         bool isFocused = false;
 
@@ -69,6 +70,7 @@ namespace fruitwork
         int caretBlinkCounter = 0;
         bool caretVisible = true;
 
+        SDL_Texture *placeholderTexture = nullptr;
         SDL_Texture *textureLeft, *textureMiddle, *textureRight;
         SDL_Texture *caretTexture = nullptr;
         SDL_Texture *textTexture = nullptr;
