@@ -59,7 +59,6 @@ namespace fruitwork
         // animationSpeed is in milliseconds, not frames.
         int applicationMaxFps = constants::gFps;
 
-        int ticksBetweenFrames = 1000 / applicationMaxFps;
         Uint32 ticks = SDL_GetTicks();
 
         if (ticks - lastFrame > animationSpeed)
