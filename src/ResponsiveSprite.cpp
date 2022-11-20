@@ -11,7 +11,7 @@ namespace fruitwork
     ResponsiveSprite::ResponsiveSprite(int x, int y, int w, int h, const std::string &textureName, Alignment alignment)
             : Sprite(x, y, w, h, textureName), alignment(alignment) {}
 
-    void ResponsiveSprite::draw() const
+    void ResponsiveSprite::start()
     {
         SDL_Rect r = get_rect();
 
@@ -54,6 +54,6 @@ namespace fruitwork
                 break;
         }
 
-        SDL_RenderCopy(sys.get_renderer(), spriteTexture, nullptr, &r);
+        set_rect(r);
     }
 } // fruitwork

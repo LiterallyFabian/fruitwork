@@ -25,7 +25,7 @@ namespace fruitwork
 
         static ResponsiveSprite *getInstance(int x, int y, int w, int h, const std::string &textureName, Alignment alignment = Alignment::CENTER);
 
-        void draw() const override;
+        void start() override;
 
     protected:
         ResponsiveSprite(int x, int y, int w, int h, const std::string &textureName, Alignment alignment = Alignment::CENTER);
