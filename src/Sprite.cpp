@@ -17,6 +17,8 @@ namespace fruitwork
         SDL_FreeSurface(surface);
     }
 
+    Sprite::Sprite(int x, int y, int w, int h) : Component(x, y, w, h), spriteTexture(nullptr) {}
+
     Sprite *Sprite::getInstance(int x, int y, int w, int h, const std::string &textureName)
     {
         return new Sprite(x, y, w, h, textureName);
@@ -24,7 +26,8 @@ namespace fruitwork
 
     void Sprite::draw() const
     {
-        SDL_RenderCopy(sys.get_renderer(), spriteTexture, nullptr, &get_rect());
+        if (spriteTexture != nullptr)
+            SDL_RenderCopy(sys.get_renderer(), spriteTexture, nullptr, &get_rect());
     }
 
     Sprite::~Sprite()

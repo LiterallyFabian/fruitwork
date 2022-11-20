@@ -20,6 +20,8 @@ namespace fruitwork
     protected:
         Sprite(int x, int y, int w, int h, const std::string &textureName);
 
+        Sprite(int x, int y, int w, int h);
+
         SDL_Texture *spriteTexture;
 
     };

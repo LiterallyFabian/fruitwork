@@ -5,6 +5,7 @@
 #include "InputField.h"
 #include "Sprite.h"
 #include "ResponsiveSprite.h"
+#include "AnimatedSprite.h"
 
 namespace fruitwork
 {
@@ -71,6 +72,8 @@ namespace fruitwork
         Sprite *sprite2 = Sprite::getInstance(950, 500, 128, 256, "jerafina.png");
         Sprite *responsiveSprite2 = ResponsiveSprite::getInstance(800, 650, 128, 256, "jerafina.png");
 
+        fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, "pippi-{n}.png", 500);
+
         add_component(title);
 
         add_component(smallButton);
@@ -91,6 +94,8 @@ namespace fruitwork
         add_component(responsiveSprite);
         add_component(sprite2);
         add_component(responsiveSprite2);
+
+        add_component(animatedSprite);
 
         return success;
     }
