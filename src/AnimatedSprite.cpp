@@ -46,7 +46,8 @@ namespace fruitwork
         }
 
         if (frames.empty())
-            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load animation: %s", animationName.c_str());
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+                         "Failed to load animation: %s. If nothing else is logged, the path might be incorrect or a start frame (N=0) might be missing.", animationName.c_str());
 
         frameCount = (int) frames.size();
     }
@@ -55,9 +56,6 @@ namespace fruitwork
     {
         if (frameCount == 0)
             return;
-
-        // animationSpeed is in milliseconds, not frames.
-        int applicationMaxFps = constants::gFps;
 
         Uint32 ticks = SDL_GetTicks();
 
