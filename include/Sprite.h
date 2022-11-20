@@ -15,6 +15,8 @@ namespace fruitwork
 
         void draw() const override;
 
+        void setColorMod(const SDL_Color &color) { this->colorMod = color; }
+
         ~Sprite() override;
 
     protected:
@@ -24,6 +26,8 @@ namespace fruitwork
 
         SDL_Texture *spriteTexture;
 
+    private:
+        SDL_Color colorMod = {255, 255, 255, 255};
     };
 
 } // fruitwork

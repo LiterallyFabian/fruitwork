@@ -26,8 +26,11 @@ namespace fruitwork
 
     void Sprite::draw() const
     {
-        if (spriteTexture != nullptr)
-            SDL_RenderCopy(sys.get_renderer(), spriteTexture, nullptr, &get_rect());
+        if (spriteTexture == nullptr)
+            return;
+
+        SDL_SetTextureColorMod(spriteTexture, colorMod.r, colorMod.g, colorMod.b);
+        SDL_RenderCopy(sys.get_renderer(), spriteTexture, nullptr, &get_rect());
     }
 
     Sprite::~Sprite()

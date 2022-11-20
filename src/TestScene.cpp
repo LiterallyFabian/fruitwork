@@ -71,6 +71,8 @@ namespace fruitwork
         // sprites that are too tall
         Sprite *sprite2 = Sprite::getInstance(950, 500, 128, 256, "jerafina.png");
         Sprite *responsiveSprite2 = ResponsiveSprite::getInstance(800, 650, 128, 256, "jerafina.png");
+        responsiveSprite2->setColorMod({255, 255, 0, 255});
+
 
         fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, "pippi-{n}.png", 500);
 
