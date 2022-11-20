@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Button.h"
 #include "System.h"
 #include "SDL_image.h"
@@ -102,6 +103,7 @@ namespace fruitwork
                 setState(Button::State::NORMAL);
         }
     }
+
     Button::~Button()
     {
         SDL_DestroyTexture(textTexture);
@@ -110,6 +112,8 @@ namespace fruitwork
         SDL_DestroyTexture(buttonTextureRight);
         Mix_FreeChunk(clickSound);
         Mix_FreeChunk(hoverSound);
+
+        SDL_SetCursor(sys.getCursorDefault()); // reset cursor
     }
 
     void Button::onMouseDown(const SDL_Event &event)
@@ -162,14 +166,24 @@ namespace fruitwork
         switch (s)
         {
             case State::HOVER:
+            {
                 if (state == State::NORMAL)
                     Mix_PlayChannel(-1, hoverSound, 0);
+
+                SDL_SetCursor(sys.getCursorPointer());
                 break;
+            }
             case State::PRESSED:
+            {
+                SDL_SetCursor(sys.getCursorPointer());
                 Mix_PlayChannel(-1, clickSound, 0);
                 break;
+            }
             case State::NORMAL:
+            {
+                SDL_SetCursor(sys.getCursorDefault());
                 break;
+            }
         }
 
         state = s;

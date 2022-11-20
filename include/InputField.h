@@ -59,6 +59,7 @@ namespace fruitwork
         std::string placeholderText;
 
         bool isFocused = false;
+        bool isHovered = false;
 
         /**
          * How many frames the caret should be visible for.

@@ -1,6 +1,7 @@
 #include "System.h"
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include <SDL_image.h>
 #include "Constants.h"
 #include "ExitScene.h"
 
@@ -47,11 +48,30 @@ namespace fruitwork
         {
             SDL_Log("SDL_mixer initialized");
         }
+
+        // set cursor
+        SDL_Surface *cursorSurface = IMG_Load((constants::gResPath + "cursors/normal.cur").c_str());
+        cursorDefault = SDL_CreateColorCursor(cursorSurface, 0, 0);
+
+        SDL_Surface *pointerSurface = IMG_Load((constants::gResPath + "cursors/link.cur").c_str());
+        cursorPointer = SDL_CreateColorCursor(pointerSurface, 0, 0);
+
+        SDL_Surface *textSurface = IMG_Load((constants::gResPath + "cursors/text.cur").c_str());
+        cursorText = SDL_CreateColorCursor(textSurface, 0, 0);
+
+        SDL_SetCursor(cursorDefault);
+        SDL_FreeSurface(cursorSurface);
+        SDL_FreeSurface(pointerSurface);
+        SDL_FreeSurface(textSurface);
     }
 
     System::~System()
     {
         SDL_Log("Shutting down System");
+
+        SDL_FreeCursor(cursorDefault);
+        SDL_FreeCursor(cursorPointer);
+        SDL_FreeCursor(cursorText);
 
         TTF_CloseFont(font);
         TTF_Quit();

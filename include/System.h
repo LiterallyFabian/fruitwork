@@ -24,6 +24,12 @@ namespace fruitwork
 
         Scene *getCurrentScene() const;
 
+        SDL_Cursor *getCursorDefault() const { return cursorDefault; }
+
+        SDL_Cursor *getCursorPointer() const { return cursorPointer; }
+
+        SDL_Cursor *getCursorText() const { return cursorText; }
+
     private:
         SDL_Window *window;
         SDL_Renderer *renderer;
@@ -32,6 +38,10 @@ namespace fruitwork
 
         Scene *currentScene = nullptr;
         Scene *nextScene = nullptr;
+
+        SDL_Cursor *cursorDefault;
+        SDL_Cursor *cursorPointer;
+        SDL_Cursor *cursorText;
     };
 
     extern System sys;

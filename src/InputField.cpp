@@ -80,6 +80,21 @@ namespace fruitwork
             caretBlinkCounter = 0;
             caretVisible = !caretVisible;
         }
+
+        // update cursor
+        SDL_Point mousePos = {0, 0};
+        SDL_GetMouseState(&mousePos.x, &mousePos.y);
+
+        if (SDL_PointInRect(&mousePos, &get_rect()))
+        {
+            isHovered = true;
+            SDL_SetCursor(sys.getCursorText());
+        }
+        else if (isHovered)
+        {
+            isHovered = false;
+            SDL_SetCursor(sys.getCursorDefault());
+        }
     }
 
     void InputField::onMouseDown(const SDL_Event &)
