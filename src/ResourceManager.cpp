@@ -2,7 +2,6 @@
 #include "ResourceManager.h"
 #include <sys/stat.h>
 #include <string>
-#include <iostream>
 #include "SDL.h"
 
 namespace fruitwork
@@ -23,7 +22,7 @@ namespace fruitwork
     {
         std::string path = constants::gResPath + "images/" + textureName;
         if (!file_exists(path))
-            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load image: %s", textureName.c_str());
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to find image at path: %s", path.c_str());
 
         return path;
     }
@@ -34,7 +33,7 @@ namespace fruitwork
 
         std::string path = constants::gResPath + "fonts/" + fontName + (hasExtension ? "" : ".ttf");
         if (!file_exists(path))
-            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load font: %s", fontName.c_str());
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to find font at path: %s", fontName.c_str());
 
         return path;
     }
@@ -43,7 +42,7 @@ namespace fruitwork
     {
         std::string path = constants::gResPath + "sounds/" + clipName;
         if (!file_exists(path))
-            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load audio clip: %s", clipName.c_str());
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to find audio clip at path: %s", clipName.c_str());
 
         return path;
     }
