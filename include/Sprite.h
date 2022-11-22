@@ -13,6 +13,8 @@ namespace fruitwork
     public:
         static Sprite *getInstance(int x, int y, int w, int h, const std::string &textureName);
 
+        static Sprite *getInstance(int x, int y, int w, int h, SDL_Texture *texture);
+
         void draw() const override;
 
         void setColorMod(const SDL_Color &color) { this->colorMod = color; }
@@ -28,6 +30,9 @@ namespace fruitwork
 
     private:
         SDL_Color colorMod = {255, 255, 255, 255};
+
+        /**  If true, the texture will be destroyed when the sprite is destroyed. */
+        bool isTextureOwner = true;
     };
 
 } // fruitwork

@@ -17,11 +17,20 @@ namespace fruitwork
         SDL_FreeSurface(surface);
     }
 
+
     Sprite::Sprite(int x, int y, int w, int h) : Component(x, y, w, h), spriteTexture(nullptr) {}
 
     Sprite *Sprite::getInstance(int x, int y, int w, int h, const std::string &textureName)
     {
         return new Sprite(x, y, w, h, textureName);
+    }
+
+    Sprite *Sprite::getInstance(int x, int y, int w, int h, SDL_Texture *texture)
+    {
+        auto *sprite = new Sprite(x, y, w, h);
+        sprite->spriteTexture = texture;
+        sprite->isTextureOwner = false;
+        return sprite;
     }
 
     void Sprite::draw() const
@@ -35,8 +44,8 @@ namespace fruitwork
 
     Sprite::~Sprite()
     {
-        SDL_DestroyTexture(spriteTexture);
+        if (isTextureOwner)
+            SDL_DestroyTexture(spriteTexture);
     }
-
 
 } // fruitwork
