@@ -19,20 +19,20 @@ namespace fruitwork
          * @param animationSpeed  The speed of the animation, in milliseconds.
          * @return
          */
-        static AnimatedSprite *getInstance(int x, int y, int w, int h, const std::string &animationName, int animationSpeed);
+        static AnimatedSprite *getInstance(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed);
 
         void update() override;
 
         ~AnimatedSprite() override;
 
     protected:
-        AnimatedSprite(int x, int y, int w, int h, const std::string &animationName, int animationSpeed);
+        AnimatedSprite(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed);
 
     private:
         std::vector<SDL_Texture *> frames;
         int frameCount = 0;
         std::string animationName;
-        int animationSpeed;
+        Uint32 animationSpeed;
 
         int frame = 0;
         int lastFrame = 0;

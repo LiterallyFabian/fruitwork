@@ -15,12 +15,12 @@ namespace fruitwork
         return (stat(path.c_str(), &buffer) == 0);
     }
 
-    AnimatedSprite *AnimatedSprite::getInstance(int x, int y, int w, int h, const std::string &animationName, int animationSpeed)
+    AnimatedSprite *AnimatedSprite::getInstance(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed)
     {
         return new AnimatedSprite(x, y, w, h, animationName, animationSpeed);
     }
 
-    AnimatedSprite::AnimatedSprite(int x, int y, int w, int h, const std::string &animationName, int animationSpeed) :
+    AnimatedSprite::AnimatedSprite(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed) :
             Sprite(x, y, w, h), animationName(animationName), animationSpeed(animationSpeed)
     {
         int i = 0;
