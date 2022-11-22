@@ -9,10 +9,12 @@
 
 namespace fruitwork
 {
-    fruitwork::Label *title = fruitwork::Label::getInstance(0, 25, 1200, 900, "fruitwork::Visual tests");
+    fruitwork::Label *title = nullptr;
 
     bool TestScene::enter()
     {
+        title = fruitwork::Label::getInstance(0, 25, 1200, 900, "fruitwork::Visual tests");
+
         bool success = true;
         std::cout << "TestScene::enter()" << std::endl;
 
