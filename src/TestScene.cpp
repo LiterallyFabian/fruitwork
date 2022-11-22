@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "ResponsiveSprite.h"
 #include "AnimatedSprite.h"
+#include "ResourceManager.h"
 
 namespace fruitwork
 {
@@ -67,16 +68,16 @@ namespace fruitwork
         rightAnchoredLabel->setFontSize(12);
 
         // sprites that are too wide
-        Sprite *sprite = Sprite::getInstance(650, 500, 256, 128, "jerafina.png");
-        Sprite *responsiveSprite = ResponsiveSprite::getInstance(650, 650, 256, 128, "jerafina.png");
+        Sprite *sprite = Sprite::getInstance(650, 500, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
+        Sprite *responsiveSprite = ResponsiveSprite::getInstance(650, 650, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
 
         // sprites that are too tall
-        Sprite *sprite2 = Sprite::getInstance(950, 500, 128, 256, "jerafina.png");
-        Sprite *responsiveSprite2 = ResponsiveSprite::getInstance(800, 650, 128, 256, "jerafina.png");
+        Sprite *sprite2 = Sprite::getInstance(950, 500, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
+        Sprite *responsiveSprite2 = ResponsiveSprite::getInstance(800, 650, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
         responsiveSprite2->setColorMod({255, 255, 0, 255});
 
 
-        fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, "pippi-{n}.png", 500);
+        fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, ResourceManager::getTexturePath("pippi-{n}.png"), 500);
 
         add_component(title);
 

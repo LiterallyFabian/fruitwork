@@ -31,6 +31,8 @@ namespace fruitwork
 
         void setFont(const std::string &f);
 
+        void setFont(TTF_Font *f);
+
         void setAlignment(Alignment a);
 
         void draw() const override;
@@ -48,6 +50,12 @@ namespace fruitwork
         int fontSize = 24;
         std::string fontName = "KGRedHands.ttf";
         TTF_Font *font = nullptr;
+
+        /**
+         * Whether or not this component owns the font and should free it on destruction.
+         */
+        bool isFontOwner = true;
+
         Alignment alignment = Alignment::LEFT;
 
         /**

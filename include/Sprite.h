@@ -11,7 +11,7 @@ namespace fruitwork
     class Sprite : public Component {
 
     public:
-        static Sprite *getInstance(int x, int y, int w, int h, const std::string &textureName);
+        static Sprite *getInstance(int x, int y, int w, int h, const std::string &texturePath);
 
         static Sprite *getInstance(int x, int y, int w, int h, SDL_Texture *texture);
 
@@ -22,7 +22,7 @@ namespace fruitwork
         ~Sprite() override;
 
     protected:
-        Sprite(int x, int y, int w, int h, const std::string &textureName);
+        Sprite(int x, int y, int w, int h, const std::string &texturePath);
 
         Sprite(int x, int y, int w, int h);
 

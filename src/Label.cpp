@@ -37,9 +37,11 @@ namespace fruitwork
 
         SDL_DestroyTexture(texture);
 
-        // make text smaller if needed to prevent stretch
-        TTF_CloseFont(font);
-        font = TTF_OpenFont(ResourceManager::getFontPath(fontName).c_str(), fontSize);
+        if (isFontOwner)
+        {
+            TTF_CloseFont(font);
+            font = TTF_OpenFont(ResourceManager::getFontPath(fontName).c_str(), fontSize);
+        }
 
         SDL_Surface *surface = TTF_RenderText_Blended(font, text.c_str(), color);
         texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
@@ -83,6 +85,17 @@ namespace fruitwork
     void Label::setFont(const std::string &f)
     {
         this->fontName = f;
+        this->isFontOwner = true;
+        setText(text);
+    }
+
+    void Label::setFont(TTF_Font *f)
+    {
+        if (this->isFontOwner)
+            TTF_CloseFont(this->font);
+
+        this->font = f;
+        this->isFontOwner = false;
         setText(text);
     }
 

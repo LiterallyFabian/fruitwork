@@ -3,13 +3,13 @@
 
 namespace fruitwork
 {
-    ResponsiveSprite *ResponsiveSprite::getInstance(int x, int y, int w, int h, const std::string &textureName, Alignment alignment)
+    ResponsiveSprite *ResponsiveSprite::getInstance(int x, int y, int w, int h, const std::string &texturePath, Alignment alignment)
     {
-        return new ResponsiveSprite(x, y, w, h, textureName, alignment);
+        return new ResponsiveSprite(x, y, w, h, texturePath, alignment);
     }
 
-    ResponsiveSprite::ResponsiveSprite(int x, int y, int w, int h, const std::string &textureName, Alignment alignment)
-            : Sprite(x, y, w, h, textureName), alignment(alignment) {}
+    ResponsiveSprite::ResponsiveSprite(int x, int y, int w, int h, const std::string &texturePath, Alignment alignment)
+            : Sprite(x, y, w, h, texturePath), alignment(alignment) {}
 
     void ResponsiveSprite::start()
     {
