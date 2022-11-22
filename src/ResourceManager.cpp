@@ -21,7 +21,8 @@ namespace fruitwork
     std::string ResourceManager::getTexturePath(const std::string &textureName)
     {
         std::string path = constants::gResPath + "images/" + textureName;
-        if (!file_exists(path))
+
+        if (textureName.find("{n}") == std::string::npos && !file_exists(path))
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to find image at path: %s", path.c_str());
 
         return path;
