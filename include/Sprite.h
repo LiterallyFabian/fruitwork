@@ -28,11 +28,11 @@ namespace fruitwork
 
         SDL_Texture *spriteTexture;
 
+        /**  If true, the texture will be destroyed when the sprite is destroyed. */
+        bool isTextureOwner = true;
     private:
         SDL_Color colorMod = {255, 255, 255, 255};
 
-        /**  If true, the texture will be destroyed when the sprite is destroyed. */
-        bool isTextureOwner = true;
     };
 
 } // fruitwork

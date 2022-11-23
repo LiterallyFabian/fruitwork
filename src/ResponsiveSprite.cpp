@@ -8,8 +8,20 @@ namespace fruitwork
         return new ResponsiveSprite(x, y, w, h, texturePath, alignment);
     }
 
+    ResponsiveSprite *ResponsiveSprite::getInstance(int x, int y, int w, int h, SDL_Texture *texture, Alignment alignment)
+    {
+        return new ResponsiveSprite(x, y, w, h, texture, alignment);
+    }
+
     ResponsiveSprite::ResponsiveSprite(int x, int y, int w, int h, const std::string &texturePath, Alignment alignment)
             : Sprite(x, y, w, h, texturePath), alignment(alignment) {}
+
+    ResponsiveSprite::ResponsiveSprite(int x, int y, int w, int h, SDL_Texture *texture, Alignment alignment)
+            : Sprite(x, y, w, h), alignment(alignment)
+    {
+        spriteTexture = texture;
+        isTextureOwner = false;
+    }
 
     void ResponsiveSprite::start()
     {
