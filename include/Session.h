@@ -18,6 +18,12 @@ namespace fruitwork
         void add_component(Component *component);
 
         /**
+         * Remove a component from the session.
+         * @param component The component to remove.
+         */
+        void remove_component(Component *component);
+
+        /**
          * Run the session.
          * @param startScene The scene to start the session with.
          */

@@ -3,6 +3,7 @@
 #include "Session.h"
 #include "System.h"
 #include "Constants.h"
+#include <algorithm>
 
 namespace fruitwork
 {
@@ -117,7 +118,6 @@ namespace fruitwork
             for (Component *component: sys.getCurrentScene()->get_components())
                 component->update();
 
-
             sys.changeScene();
 
             SDL_SetRenderDrawColor(fruitwork::sys.get_renderer(), 255, 255, 255, 255);
@@ -150,5 +150,10 @@ namespace fruitwork
         std::cout << "Session destructor" << std::endl;
         for (auto component: components)
             delete component;
+    }
+
+    void Session::remove_component(Component *component)
+    {
+        components.erase(std::remove(components.begin(), components.end(), component), components.end());
     }
 } // fruitwork

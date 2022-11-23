@@ -21,6 +21,12 @@ namespace fruitwork
          */
         void add_component(Component *component);
 
+        /**
+         * Remove a component from the scene.
+         * @param component The component to remove.
+         */
+        void remove_component(Component *component);
+
         std::vector<Component *> get_components() const
         {
             return components;
