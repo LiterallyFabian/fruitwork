@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Button.h"
 #include "System.h"
 #include "SDL_image.h"

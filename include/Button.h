@@ -57,23 +57,23 @@ namespace fruitwork
     protected:
         Button(int x, int y, int w, int h, std::string text);
 
-    private:
-        std::string text;
-        SDL_Texture *textTexture;
-        SDL_Texture *buttonTextureLeft, *buttonTextureMiddle, *buttonTextureRight;
-        SDL_Color buttonColor = {255, 255, 255, 255};
-        SDL_Color textColor = {0, 0, 0, 255};
-
-        static TTF_Font *font;
-
         State state = State::NORMAL;
         bool isDown = false;
+
+        SDL_Color buttonColor = {255, 255, 255, 255};
+        Mix_Chunk *clickSound, *hoverSound;
 
         void (*onClick)(Button *source) = nullptr;
 
         void setState(State state);
 
-        Mix_Chunk *clickSound, *hoverSound;
+    private:
+        std::string text;
+        SDL_Texture *textTexture;
+        SDL_Texture *buttonTextureLeft, *buttonTextureMiddle, *buttonTextureRight;
+        SDL_Color textColor = {0, 0, 0, 255};
+
+        static TTF_Font *font;
     };
 
 } // fruitwork

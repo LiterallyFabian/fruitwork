@@ -8,6 +8,7 @@
 #include "ResponsiveSprite.h"
 #include "AnimatedSprite.h"
 #include "ResourceManager.h"
+#include "ImageButton.h"
 
 namespace fruitwork
 {
@@ -72,7 +73,7 @@ namespace fruitwork
         Sprite *sprite = Sprite::getInstance(650, 500, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
 
         // not owner of the texture
-        SDL_Texture* texture = IMG_LoadTexture(sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
+        SDL_Texture *texture = IMG_LoadTexture(sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
         Sprite *responsiveSprite = ResponsiveSprite::getInstance(650, 650, 256, 128, texture);
 
         // sprites that are too tall
@@ -80,6 +81,11 @@ namespace fruitwork
         Sprite *responsiveSprite2 = ResponsiveSprite::getInstance(800, 650, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
         responsiveSprite2->setColorMod({255, 255, 0, 255});
 
+        ImageButton *imageButton = ImageButton::getInstance(450, 200, 128, 128, ResourceManager::getTexturePath("jerafina.png"));
+        imageButton->registerCallback([](fruitwork::Button *src)
+                                      {
+                                          title->setText("Image called! " + std::to_string(rand() % 10000));
+                                      });
 
         fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, ResourceManager::getTexturePath("pippi-{n}.png"), 500);
 
@@ -103,6 +109,8 @@ namespace fruitwork
         add_component(responsiveSprite);
         add_component(sprite2);
         add_component(responsiveSprite2);
+
+        add_component(imageButton);
 
         add_component(animatedSprite);
 
