@@ -1,4 +1,5 @@
 #include <iostream>
+#include <SDL_image.h>
 #include "TestScene.h"
 #include "Label.h"
 #include "Button.h"
@@ -69,7 +70,10 @@ namespace fruitwork
 
         // sprites that are too wide
         Sprite *sprite = Sprite::getInstance(650, 500, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
-        Sprite *responsiveSprite = ResponsiveSprite::getInstance(650, 650, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
+
+        // not owner of the texture
+        SDL_Texture* texture = IMG_LoadTexture(sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
+        Sprite *responsiveSprite = ResponsiveSprite::getInstance(650, 650, 256, 128, texture);
 
         // sprites that are too tall
         Sprite *sprite2 = Sprite::getInstance(950, 500, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
