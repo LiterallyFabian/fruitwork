@@ -68,6 +68,14 @@ namespace fruitwork
                 drawRect.x += get_rect().w - w;
                 break;
         }
+
+        // drawRect can not be larger than the component's rect, scale x and y down by the same % if necessary
+        if (drawRect.w > get_rect().w)
+        {
+            float scale = (float) get_rect().w / drawRect.w;
+            drawRect.w *= scale;
+            drawRect.h *= scale;
+        }
     }
 
     void Label::setColor(const SDL_Color &c)
