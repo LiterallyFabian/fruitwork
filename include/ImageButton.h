@@ -13,6 +13,8 @@ namespace fruitwork
 
         static ImageButton *getInstance(int x, int y, int w, int h, const std::string &texturePath);
 
+        void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
+
         void draw() const override;
 
         ~ImageButton() override;
@@ -25,6 +27,8 @@ namespace fruitwork
     private:
         SDL_Texture *texture;
         bool isSpriteOwner = true;
+
+        SDL_RendererFlip flipType = SDL_FLIP_NONE;
     };
 
 } // fruitwork

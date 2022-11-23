@@ -57,7 +57,7 @@ namespace fruitwork
             }
         }
 
-        SDL_RenderCopy(sys.get_renderer(), texture, nullptr, &rect);
+        SDL_RenderCopyEx(sys.get_renderer(), texture, nullptr, &rect, 0, nullptr, flipType);
     }
 
     ImageButton::~ImageButton()
@@ -65,5 +65,6 @@ namespace fruitwork
         if (isSpriteOwner)
             SDL_DestroyTexture(texture);
     }
+
 
 } // fruitwork
