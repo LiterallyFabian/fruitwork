@@ -3,6 +3,7 @@
 
 #include "Button.h"
 #include "Sprite.h"
+#include "ResponsiveSprite.h"
 
 namespace fruitwork
 {
@@ -15,6 +16,8 @@ namespace fruitwork
 
         void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
 
+        void start() override;
+
         void draw() const override;
 
         ~ImageButton() override;
@@ -25,7 +28,8 @@ namespace fruitwork
         ImageButton(int x, int y, int w, int h, const std::string &texturePath);
 
     private:
-        SDL_Texture *texture;
+        SDL_Rect originalRect;
+        ResponsiveSprite *sprite;
         bool isSpriteOwner = true;
 
         SDL_RendererFlip flipType = SDL_FLIP_NONE;

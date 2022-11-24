@@ -16,26 +16,34 @@ namespace fruitwork
 
     ImageButton::ImageButton(int x, int y, int w, int h, const std::string &texturePath) : Button(x, y, w, h, "")
     {
-        texture = IMG_LoadTexture(sys.get_renderer(), texturePath.c_str());
+        sprite = ResponsiveSprite::getInstance(0, 0, w, h, texturePath);
         isSpriteOwner = true;
     }
 
     ImageButton::ImageButton(int x, int y, int w, int h, SDL_Texture *texture) : Button(x, y, w, h, "")
     {
-        this->texture = texture;
+        sprite = ResponsiveSprite::getInstance(0, 0, w, h, texture);
         isSpriteOwner = false;
+    }
+
+    void ImageButton::start()
+    {
+        Button::start();
+        sprite->start();
+
+        originalRect = sprite->get_rect();
     }
 
     void ImageButton::draw() const
     {
-        SDL_Rect rect = get_rect();
+        SDL_Rect rect = originalRect;
 
         switch (state)
         {
             case Button::State::PRESSED:
             {
                 const double mod = 0.8;
-                SDL_SetTextureColorMod(texture, static_cast<Uint8>(buttonColor.r * mod), static_cast<Uint8>(buttonColor.g * mod), static_cast<Uint8>(buttonColor.b * mod));
+                sprite->setColorMod({static_cast<Uint8>(buttonColor.r * mod), static_cast<Uint8>(buttonColor.g * mod), static_cast<Uint8>(buttonColor.b * mod)});
 
                 rect.x += 2;
                 rect.y += 2;
@@ -46,24 +54,30 @@ namespace fruitwork
             case Button::State::HOVER:
             {
                 const double mod = 0.95;
-                SDL_SetTextureColorMod(texture, static_cast<Uint8>(buttonColor.r * mod), static_cast<Uint8>(buttonColor.g * mod), static_cast<Uint8>(buttonColor.b * mod));
+                sprite->setColorMod({static_cast<Uint8>(buttonColor.r * mod), static_cast<Uint8>(buttonColor.g * mod), static_cast<Uint8>(buttonColor.b * mod)});
                 break;
             }
 
             case Button::State::NORMAL:
             {
-                SDL_SetTextureColorMod(texture, static_cast<Uint8>(buttonColor.r), static_cast<Uint8>(buttonColor.g), static_cast<Uint8>(buttonColor.b));
+                sprite->setColorMod({buttonColor.r, buttonColor.g, buttonColor.b});
                 break;
             }
         }
 
-        SDL_RenderCopyEx(sys.get_renderer(), texture, nullptr, &rect, 0, nullptr, flipType);
+        rect.x += get_rect().x;
+        rect.y += get_rect().y;
+
+        sprite->set_rect(rect);
+        sprite->draw();
     }
 
     ImageButton::~ImageButton()
     {
         if (isSpriteOwner)
-            SDL_DestroyTexture(texture);
+        {
+            delete sprite;
+        }
     }
 
 

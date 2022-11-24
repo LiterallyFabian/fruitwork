@@ -86,6 +86,12 @@ namespace fruitwork
                                           title->setText("Image called! " + std::to_string(rand() % 10000));
                                       });
 
+        ImageButton *imageButton2 = ImageButton::getInstance(450, 200 + 128, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
+        imageButton->registerCallback([](fruitwork::Button *src)
+                                      {
+                                          title->setText("Image called! " + std::to_string(rand() % 10000));
+                                      });
+
         fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, ResourceManager::getTexturePath("pippi-{n}.png"), 500);
 
         add_component(title);
@@ -110,6 +116,7 @@ namespace fruitwork
         add_component(responsiveSprite2);
 
         add_component(imageButton);
+        add_component(imageButton2);
 
         add_component(animatedSprite);
 
