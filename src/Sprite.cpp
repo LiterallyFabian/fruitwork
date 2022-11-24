@@ -38,7 +38,7 @@ namespace fruitwork
             return;
 
         SDL_SetTextureColorMod(spriteTexture, colorMod.r, colorMod.g, colorMod.b);
-        SDL_RenderCopy(sys.get_renderer(), spriteTexture, nullptr, &get_rect());
+        SDL_RenderCopyEx(sys.get_renderer(), spriteTexture, nullptr, &get_rect(), 0, nullptr, flipType);
     }
 
     Sprite::~Sprite()

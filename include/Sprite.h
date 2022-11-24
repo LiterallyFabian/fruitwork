@@ -19,6 +19,8 @@ namespace fruitwork
 
         void setColorMod(const SDL_Color &color) { this->colorMod = color; }
 
+        void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
+
         ~Sprite() override;
 
     protected:
@@ -32,6 +34,7 @@ namespace fruitwork
         bool isTextureOwner = true;
     private:
         SDL_Color colorMod = {255, 255, 255, 255};
+        SDL_RendererFlip flipType = SDL_FLIP_NONE;
 
     };
 

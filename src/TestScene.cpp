@@ -79,15 +79,17 @@ namespace fruitwork
         Sprite *sprite2 = Sprite::getInstance(950, 500, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
         Sprite *responsiveSprite2 = ResponsiveSprite::getInstance(800, 650, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
         responsiveSprite2->setColorMod({255, 255, 0, 255});
+        responsiveSprite2->setFlip(SDL_FLIP_HORIZONTAL);
 
         ImageButton *imageButton = ImageButton::getInstance(450, 200, 128, 128, ResourceManager::getTexturePath("jerafina.png"));
         imageButton->registerCallback([](fruitwork::Button *src)
                                       {
                                           title->setText("Image called! " + std::to_string(rand() % 10000));
                                       });
+        imageButton->setFlip(SDL_FLIP_VERTICAL);
 
         ImageButton *imageButton2 = ImageButton::getInstance(450, 200 + 128, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
-        imageButton->registerCallback([](fruitwork::Button *src)
+        imageButton2->registerCallback([](fruitwork::Button *src)
                                       {
                                           title->setText("Image called! " + std::to_string(rand() % 10000));
                                       });
