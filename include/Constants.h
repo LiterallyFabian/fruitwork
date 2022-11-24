@@ -10,6 +10,8 @@ namespace constants
     const int gScreenWidth = 1200;
     const int gScreenHeight = 900;
 
+    const std::string gDefaultFontPath = gResPath + "fonts/Kepler 296.ttf";
+
 } // fruitwork
 
 #endif //FRUITWORK_CONSTANTS_H

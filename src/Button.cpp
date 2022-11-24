@@ -23,7 +23,7 @@ namespace fruitwork
 
         if (font == nullptr)
         {
-            font = TTF_OpenFont(ResourceManager::getFontPath("KGRedHands").c_str(), 64);
+            font = TTF_OpenFont(constants::gDefaultFontPath.c_str(), 64);
         }
     }
 

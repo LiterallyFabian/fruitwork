@@ -4,6 +4,7 @@
 #include <string>
 #include "Component.h"
 #include <SDL.h>
+#include <Constants.h>
 #include <SDL_ttf.h>
 #include "System.h"
 
@@ -29,7 +30,7 @@ namespace fruitwork
 
         void setFontSize(int size);
 
-        void setFont(const std::string &f);
+        void setFontPath(const std::string &f);
 
         void setFont(TTF_Font *f);
 
@@ -48,7 +49,7 @@ namespace fruitwork
         SDL_Color color = {0, 0, 0, 255};
 
         int fontSize = 24;
-        std::string fontName = "KGRedHands.ttf";
+        std::string fontPath = constants::gDefaultFontPath;
         TTF_Font *font = nullptr;
 
         /**

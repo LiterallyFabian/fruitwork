@@ -23,7 +23,6 @@ namespace fruitwork
 
         title->setAlignment(fruitwork::Label::Alignment::CENTER);
         title->setFontSize(100);
-        title->setFont("Kepler 296.ttf");
 
         // small button
         fruitwork::Button *smallButton = fruitwork::Button::getInstance(50, 200, 240, 48, "Small button");
@@ -63,7 +62,7 @@ namespace fruitwork
 
         Label *centerAnchoredLabel = Label::getInstance(0, 850, 1200, 900, "Center anchored label, new font");
         centerAnchoredLabel->setAlignment(Label::Alignment::CENTER);
-        centerAnchoredLabel->setFont("Kepler 296.ttf");
+        centerAnchoredLabel->setFontPath(ResourceManager::getFontPath("KGRedHands.ttf"));
 
         Label *rightAnchoredLabel = Label::getInstance(0, 850, 1200, 900, "Right anchored tiny label");
         rightAnchoredLabel->setAlignment(Label::Alignment::RIGHT);

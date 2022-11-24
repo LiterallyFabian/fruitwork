@@ -40,7 +40,7 @@ namespace fruitwork
         if (isFontOwner)
         {
             TTF_CloseFont(font);
-            font = TTF_OpenFont(ResourceManager::getFontPath(fontName).c_str(), fontSize);
+            font = TTF_OpenFont(fontPath.c_str(), fontSize);
         }
 
         SDL_Surface *surface = TTF_RenderText_Blended(font, text.c_str(), color);
@@ -90,9 +90,9 @@ namespace fruitwork
         setText(text);
     }
 
-    void Label::setFont(const std::string &f)
+    void Label::setFontPath(const std::string &f)
     {
-        this->fontName = f;
+        this->fontPath = f;
         this->isFontOwner = true;
         setText(text);
     }
