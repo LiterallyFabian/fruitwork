@@ -81,7 +81,7 @@ namespace fruitwork
         responsiveSprite2->setColorMod({255, 255, 0, 255});
         responsiveSprite2->setFlip(SDL_FLIP_HORIZONTAL);
 
-        ImageButton *imageButton = ImageButton::getInstance(450, 200, 128, 128, ResourceManager::getTexturePath("jerafina.png"));
+        ImageButton *imageButton = ImageButton::getInstance(450, 200, 128, 128, ResourceManager::getTexturePath("fruit-catcher-kiai.png"));
         imageButton->registerCallback([](fruitwork::Button *src)
                                       {
                                           title->setText("Image called! " + std::to_string(rand() % 10000));

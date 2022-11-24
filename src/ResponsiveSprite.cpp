@@ -27,10 +27,16 @@ namespace fruitwork
     {
         SDL_Rect r = get_rect();
 
-        if (r.w > r.h) // a landscape image, width is greater than height
-            r.w = r.h;
-        else
-            r.h = r.w;
+        // the sprites needs to be downscaled to fit within their rect r, while keeping their aspect ratio
+        int w, h;
+        SDL_QueryTexture(spriteTexture, nullptr, nullptr, &w, &h);
+
+        // calculate the scale factor
+        double scale = std::min((double) r.w / w, (double) r.h / h);
+
+        // calculate the new width and height
+        r.w = (int) (w * scale);
+        r.h = (int) (h * scale);
 
         switch (alignment)
         {
