@@ -21,6 +21,10 @@ namespace fruitwork
 
         void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
 
+        virtual void setTexture(const std::string &texturePath);
+
+        virtual void setTexture(SDL_Texture *texture);
+
         ~Sprite() override;
 
     protected:

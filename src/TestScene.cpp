@@ -13,6 +13,7 @@
 namespace fruitwork
 {
     fruitwork::Label *title = nullptr;
+    Sprite *responsiveSprite2 = ResponsiveSprite::getInstance(800, 650, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
 
     bool TestScene::enter()
     {
@@ -77,9 +78,10 @@ namespace fruitwork
 
         // sprites that are too tall
         Sprite *sprite2 = Sprite::getInstance(950, 500, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
-        Sprite *responsiveSprite2 = ResponsiveSprite::getInstance(800, 650, 128, 256, ResourceManager::getTexturePath("jerafina.png"));
+        responsiveSprite2->setTexture(ResourceManager::getTexturePath("jerafina.png"));
         responsiveSprite2->setColorMod({255, 255, 0, 255});
         responsiveSprite2->setFlip(SDL_FLIP_HORIZONTAL);
+
 
         ImageButton *imageButton = ImageButton::getInstance(450, 200, 128, 128, ResourceManager::getTexturePath("fruit-catcher-kiai.png"));
         imageButton->registerCallback([](fruitwork::Button *src)
@@ -90,9 +92,18 @@ namespace fruitwork
 
         ImageButton *imageButton2 = ImageButton::getInstance(450, 200 + 128, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
         imageButton2->registerCallback([](fruitwork::Button *src)
-                                      {
-                                          title->setText("Image called! " + std::to_string(rand() % 10000));
-                                      });
+                                       {
+                                           title->setText("Image called! " + std::to_string(rand() % 10000));
+                                           // set sprite to fruit-apple.png or fruit-banana.png
+                                           if (rand() % 2 == 0)
+                                           {
+                                               responsiveSprite2->setTexture(ResourceManager::getTexturePath("fruit-apple.png"));
+                                           }
+                                           else
+                                           {
+                                               responsiveSprite2->setTexture(ResourceManager::getTexturePath("fruit-bananas.png"));
+                                           }
+                                       });
 
         fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, ResourceManager::getTexturePath("pippi-{n}.png"), 500);
 

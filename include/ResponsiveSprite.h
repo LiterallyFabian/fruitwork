@@ -29,6 +29,10 @@ namespace fruitwork
 
         void start() override;
 
+        void setTexture(const std::string &texturePath) override;
+
+        void setTexture(SDL_Texture *texture) override;
+
     protected:
         ResponsiveSprite(int x, int y, int w, int h, const std::string &texturePath, Alignment alignment = Alignment::CENTER);
 
@@ -36,6 +40,9 @@ namespace fruitwork
 
     private:
         Alignment alignment;
+        SDL_Rect originalRect;
+
+        void updateRect();
     };
 
 } // fruitwork

@@ -1,6 +1,7 @@
-#include "Sprite.h"
 #include "System.h"
 #include "Constants.h"
+#include "Sprite.h"
+
 #include <SDL_image.h>
 
 namespace fruitwork
@@ -48,4 +49,21 @@ namespace fruitwork
             SDL_DestroyTexture(spriteTexture);
     }
 
+    void fruitwork::Sprite::setTexture(const std::string &texturePath)
+    {
+        if (isTextureOwner)
+            SDL_DestroyTexture(spriteTexture);
+
+        spriteTexture = IMG_LoadTexture(sys.get_renderer(), texturePath.c_str());
+        isTextureOwner = true;
+    }
+
+    void fruitwork::Sprite::setTexture(SDL_Texture *texture)
+    {
+        if (isTextureOwner)
+            SDL_DestroyTexture(spriteTexture);
+
+        spriteTexture = texture;
+        isTextureOwner = false;
+    }
 } // fruitwork
