@@ -30,7 +30,7 @@ namespace fruitwork
     protected:
         Sprite(int x, int y, int w, int h, const std::string &texturePath);
 
-        Sprite(int x, int y, int w, int h);
+        Sprite(int x, int y, int w, int h, SDL_Texture *texture);
 
         SDL_Texture *spriteTexture;
 

@@ -17,11 +17,7 @@ namespace fruitwork
             : Sprite(x, y, w, h, texturePath), alignment(alignment), originalRect({x, y, w, h}) {}
 
     ResponsiveSprite::ResponsiveSprite(int x, int y, int w, int h, SDL_Texture *texture, Alignment alignment)
-            : Sprite(x, y, w, h), alignment(alignment), originalRect({x, y, w, h})
-    {
-        spriteTexture = texture;
-        isTextureOwner = false;
-    }
+            : Sprite(x, y, w, h, texture), alignment(alignment), originalRect({x, y, w, h}) {}
 
     void ResponsiveSprite::start()
     {

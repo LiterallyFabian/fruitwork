@@ -21,7 +21,7 @@ namespace fruitwork
     }
 
     AnimatedSprite::AnimatedSprite(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed) :
-            Sprite(x, y, w, h), animationName(animationName), animationSpeed(animationSpeed)
+            Sprite(x, y, w, h, nullptr), animationName(animationName), animationSpeed(animationSpeed)
     {
         int i = 0;
         while (true)
