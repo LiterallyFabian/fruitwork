@@ -6,18 +6,14 @@
 
 namespace fruitwork
 {
-    Sprite::Sprite(int x, int y, int w, int h, const std::string &texturePath) : Component(x, y, w, h)
+    Sprite::Sprite(int x, int y, int w, int h, const std::string &texturePath) : Component(x, y, w, h), isTextureOwner(true)
     {
-        SDL_Surface *surface = IMG_Load(texturePath.c_str());
-
-        if (surface == nullptr)
-            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load image: %s", texturePath.c_str());
-
-        spriteTexture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
-        SDL_FreeSurface(surface);
+        spriteTexture = IMG_LoadTexture(sys.get_renderer(), texturePath.c_str());
+        if (spriteTexture == nullptr)
+            SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load texture: %s", SDL_GetError());
     }
 
-    Sprite::Sprite(int x, int y, int w, int h, SDL_Texture *texture) : Component(x, y, w, h), isTextureOwner(false), spriteTexture(texture) {}
+    Sprite::Sprite(int x, int y, int w, int h, SDL_Texture *texture) : Component(x, y, w, h), spriteTexture(texture), isTextureOwner(false) {}
 
     Sprite *Sprite::getInstance(int x, int y, int w, int h, const std::string &texturePath)
     {
