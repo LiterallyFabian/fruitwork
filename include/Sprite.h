@@ -19,6 +19,8 @@ namespace fruitwork
 
         void setColorMod(const SDL_Color &color) { this->colorMod = color; }
 
+        void setAlphaMod(Uint8 alpha) { this->alphaMod = alpha; }
+
         void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
 
         virtual void setTexture(const std::string &texturePath);
@@ -38,6 +40,7 @@ namespace fruitwork
         bool isTextureOwner = true;
     private:
         SDL_Color colorMod = {255, 255, 255, 255};
+        Uint8 alphaMod = 255;
         SDL_RendererFlip flipType = SDL_FLIP_NONE;
 
     };
