@@ -134,6 +134,7 @@ namespace fruitwork
 
             // delete components marked for deletion
             sys.getCurrentScene()->deleteComponents();
+            this->deleteComponents();
 
             SDL_RenderPresent(fruitwork::sys.get_renderer());
 
@@ -155,8 +156,25 @@ namespace fruitwork
             delete component;
     }
 
-    void Session::remove_component(Component *component)
+    void Session::remove_component(Component *component, bool destroy)
     {
-        components.erase(std::remove(components.begin(), components.end(), component), components.end());
+        componentsToDelete.push_back({component, destroy});
+    }
+
+    void Session::deleteComponents()
+    {
+        for (auto &componentDelete: componentsToDelete)
+        {
+            auto it = std::find(components.begin(), components.end(), componentDelete.component);
+
+            if (it != components.end())
+            {
+                components.erase(it);
+                if (componentDelete.destroy)
+                    delete componentDelete.component;
+            }
+        }
+
+        componentsToDelete.clear();
     }
 } // fruitwork

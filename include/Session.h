@@ -20,8 +20,14 @@ namespace fruitwork
         /**
          * Remove a component from the session.
          * @param component The component to remove.
+         * @param destroy If true, the component will be destroyed.
          */
-        void remove_component(Component *component);
+        void remove_component(Component *component, bool destroy = false);
+
+        /**
+         * Deletes all components that have been marked for deletion.
+         */
+        void deleteComponents();
 
         /**
          * Run the session.
@@ -32,7 +38,13 @@ namespace fruitwork
         ~Session();
 
     private:
+        struct ComponentDelete {
+            Component *component;
+            bool destroy;
+        };
+
         std::vector<Component *> components;
+        std::vector<ComponentDelete> componentsToDelete;
     };
 
 } // fruitwork
