@@ -11,9 +11,27 @@ namespace fruitwork
         component->start();
     }
 
-    void Scene::remove_component(Component *component)
+    void Scene::remove_component(Component *component, bool destroy)
     {
-        components.erase(std::remove(components.begin(), components.end(), component), components.end());
+        componentsToDelete.push_back({component, destroy});
     }
+
+    void Scene::deleteComponents()
+    {
+        for (auto &componentDelete: componentsToDelete)
+        {
+            auto it = std::find(components.begin(), components.end(), componentDelete.component);
+
+            if (it != components.end())
+            {
+                components.erase(it);
+                if (componentDelete.destroy)
+                    delete componentDelete.component;
+            }
+        }
+
+        componentsToDelete.clear();
+    }
+
 
 } // fruitwork

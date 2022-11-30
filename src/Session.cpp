@@ -132,6 +132,9 @@ namespace fruitwork
             for (Component *component: components)
                 component->draw();
 
+            // delete components marked for deletion
+            sys.getCurrentScene()->deleteComponents();
+
             SDL_RenderPresent(fruitwork::sys.get_renderer());
 
             int delay = nextTick - SDL_GetTicks();

@@ -24,13 +24,16 @@ namespace fruitwork
         /**
          * Remove a component from the scene.
          * @param component The component to remove.
+         * @param destroy If true, the component will be destroyed.
          */
-        void remove_component(Component *component);
+        void remove_component(Component *component, bool destroy = false);
 
-        std::vector<Component *> get_components() const
-        {
-            return components;
-        }
+        std::vector<Component *> get_components() const { return components; }
+
+        /**
+         * Deletes all components that have been marked for deletion.
+         */
+        void deleteComponents();
 
         /**
          * Called when this Scene is loaded.
@@ -62,8 +65,17 @@ namespace fruitwork
 
         virtual ~Scene() = default;
 
+
     protected:
         std::vector<Component *> components;
+
+    private:
+        struct ComponentDelete {
+            Component *component;
+            bool destroy;
+        };
+
+        std::vector<ComponentDelete> componentsToDelete;
     };
 
 } // fruitwork
