@@ -23,11 +23,10 @@ namespace fruitwork
             auto it = std::find(components.begin(), components.end(), componentDelete.component);
 
             if (it != components.end())
-            {
                 components.erase(it);
-                if (componentDelete.destroy)
-                    delete componentDelete.component;
-            }
+
+            if (componentDelete.destroy)
+                delete componentDelete.component;
         }
 
         componentsToDelete.clear();
