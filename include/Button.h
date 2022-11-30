@@ -2,6 +2,7 @@
 #define FRUITWORK_BUTTON_H
 
 #include <string>
+#include <functional>
 #include <SDL.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
@@ -48,7 +49,7 @@ namespace fruitwork
          * Register a callback function to be called when the button is clicked.
          * @param callback The callback function.
          */
-        void registerCallback(void (*callback)(Button *source));
+        void registerCallback(const std::function<void(Button * )> &callback);
 
         std::string getText() const { return text; }
 
@@ -63,7 +64,7 @@ namespace fruitwork
         SDL_Color buttonColor = {255, 255, 255, 255};
         Mix_Chunk *clickSound, *hoverSound;
 
-        void (*onClick)(Button *source) = nullptr;
+        std::function<void(Button*)> onClick = nullptr;
 
         void setState(State state);
 

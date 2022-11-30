@@ -138,7 +138,7 @@ namespace fruitwork
         }
     }
 
-    void Button::registerCallback(void (*callback)(Button *source))
+    void Button::registerCallback(const std::function<void(Button*)>& callback)
     {
         onClick = callback;
     }
