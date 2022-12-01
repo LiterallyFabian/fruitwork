@@ -1,5 +1,5 @@
-#ifndef YUZU_CATCH_CIRCLE_H
-#define YUZU_CATCH_CIRCLE_H
+#ifndef FRUITWORK_CIRCLE_H
+#define FRUITWORK_CIRCLE_H
 
 #include "Shape.h"
 
@@ -22,4 +22,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //YUZU_CATCH_CIRCLE_H
+#endif //FRUITWORK_CIRCLE_H

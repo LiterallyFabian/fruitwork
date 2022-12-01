@@ -1,5 +1,5 @@
-#ifndef YUZU_CATCH_RECTANGLE_H
-#define YUZU_CATCH_RECTANGLE_H
+#ifndef FRUITWORK_RECTANGLE_H
+#define FRUITWORK_RECTANGLE_H
 
 #include "Shape.h"
 
@@ -18,4 +18,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //YUZU_CATCH_RECTANGLE_H
+#endif //FRUITWORK_RECTANGLE_H

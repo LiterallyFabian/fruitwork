@@ -1,5 +1,5 @@
-#ifndef YUZU_CATCH_COVERINGSPRITE_H
-#define YUZU_CATCH_COVERINGSPRITE_H
+#ifndef FRUITWORK_COVERINGSPRITE_H
+#define FRUITWORK_COVERINGSPRITE_H
 
 #include "Sprite.h"
 
@@ -34,4 +34,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //YUZU_CATCH_COVERINGSPRITE_H
+#endif //FRUITWORK_COVERINGSPRITE_H

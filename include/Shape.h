@@ -1,5 +1,5 @@
-#ifndef YUZU_CATCH_SHAPE_H
-#define YUZU_CATCH_SHAPE_H
+#ifndef FRUITWORK_SHAPE_H
+#define FRUITWORK_SHAPE_H
 
 #include "Component.h"
 
@@ -20,4 +20,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //YUZU_CATCH_SHAPE_H
+#endif //FRUITWORK_SHAPE_H
