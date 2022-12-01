@@ -75,10 +75,7 @@ namespace fruitwork
 
     ImageButton::~ImageButton()
     {
-        if (isSpriteOwner)
-        {
-            delete sprite;
-        }
+        delete sprite;
     }
 
 
