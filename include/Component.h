@@ -43,6 +43,10 @@ namespace fruitwork
 
         void set_rect(const SDL_Rect &rect) { this->rect = rect; }
 
+        int width() const { return rect.w; }
+
+        int height() const { return rect.h; }
+
     protected:
         Component(int x, int y, int w, int h);
 
