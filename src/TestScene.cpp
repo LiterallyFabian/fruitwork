@@ -20,7 +20,7 @@ namespace fruitwork
         title = fruitwork::Label::getInstance(0, 25, 1200, 900, "fruitwork::Visual tests");
 
         bool success = true;
-        std::cout << "TestScene::enter()" << std::endl;
+        SDL_Log("Entering TestScene...");
 
         title->setAlignment(fruitwork::Label::Alignment::CENTER);
         title->setFontSize(100);
@@ -139,7 +139,7 @@ namespace fruitwork
     bool TestScene::exit()
     {
         bool success = true;
-        std::cout << "Exiting TestScene" << std::endl;
+        SDL_Log("Exiting TestScene...");
 
         for (auto &c: components)
         {
