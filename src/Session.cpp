@@ -10,6 +10,11 @@ namespace fruitwork
     void Session::add_component(Component *component)
     {
         components.push_back(component);
+
+        std::stable_sort(components.begin(), components.end(), [](Component *a, Component *b) {
+            return a->z_index() < b->z_index();
+        });
+
         component->start();
     }
 

@@ -22,6 +22,13 @@ namespace fruitwork
         void add_component(Component *component);
 
         /**
+         * Adds a component to the scene at a specific index. Added components will automatically be started, drawn and updated.
+         * @param component The component to add.
+         * @param z_index The z-index of the component. The z-index determines the order in which components are drawn and updated.
+         */
+        void add_component(Component *component, int z_index);
+
+        /**
          * Remove a component from the scene.
          * @param component The component to remove.
          * @param destroy If true, the component will be destroyed.
