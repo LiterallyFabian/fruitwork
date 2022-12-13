@@ -17,7 +17,7 @@ namespace fruitwork
 
     bool TestScene::enter()
     {
-        title = fruitwork::Label::getInstance(0, 25, 1200, 900, "fruitwork::Visual tests");
+        title = fruitwork::Label::getInstance(0, 25, 1200, 900, "Visual tests::General");
 
         bool success = true;
         SDL_Log("Entering TestScene...");
@@ -142,9 +142,7 @@ namespace fruitwork
         SDL_Log("Exiting TestScene...");
 
         for (auto &c: components)
-        {
-            delete c;
-        }
+            removeComponent(c, true);
 
         return success;
     }
