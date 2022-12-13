@@ -1,4 +1,3 @@
-#include <iostream>
 #include <SDL_image.h>
 #include "InputField.h"
 #include "ResourceManager.h"
@@ -18,7 +17,7 @@ namespace fruitwork
         textureMiddle = IMG_LoadTexture(fruitwork::sys.getRenderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
         textureRight = IMG_LoadTexture(fruitwork::sys.getRenderer(), ResourceManager::getTexturePath("button-right.png").c_str());
 
-        // 1x1 white pixel
+        // 1x1 pixel to stretch
         caretTexture = SDL_CreateTexture(fruitwork::sys.getRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1, 1);
 
         SDL_Surface *placeholderSurface = TTF_RenderText_Blended(sys.getFont(), placeholderText.c_str(), {0, 0, 0, 128});
@@ -106,12 +105,12 @@ namespace fruitwork
         if (inRect && !isFocused)
         {
             isFocused = true;
-            SDL_StartTextInput();
+            setListenerState(true);
         }
         else if (!inRect && isFocused)
         {
             isFocused = false;
-            SDL_StopTextInput();
+            setListenerState(false);
         }
     }
 
@@ -151,7 +150,7 @@ namespace fruitwork
                 }
                 break;
             case SDLK_RETURN:
-                SDL_StopTextInput();
+                setListenerState(false);
                 isFocused = false;
                 break;
             default:
@@ -186,6 +185,24 @@ namespace fruitwork
         SDL_DestroyTexture(caretTexture);
         SDL_DestroyTexture(textTexture);
         SDL_DestroyTexture(placeholderTexture);
+    }
+
+    int InputField::listenerCount = 0;
+
+    void InputField::setListenerState(bool listening)
+    {
+        if (listening)
+        {
+            listenerCount++;
+            SDL_StartTextInput();
+        }
+        else
+        {
+            listenerCount--;
+            if (listenerCount == 0)
+                SDL_StopTextInput();
+        }
+
     }
 
 } // fruitwork

@@ -75,6 +75,11 @@ namespace fruitwork
         SDL_Texture *caretTexture = nullptr;
         SDL_Texture *textTexture = nullptr;
         SDL_Rect caretRect = {0, 0, 0, 0};
+
+        /** The amount of input fields currently listening for input. */
+        static int listenerCount;
+        /** Stop or start accepting input. */
+        static void setListenerState(bool listening);
     };
 
 } // fruitwork
