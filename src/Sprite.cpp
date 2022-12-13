@@ -11,6 +11,11 @@ namespace fruitwork
         surface = IMG_Load(texturePath.c_str());
         spriteTexture = SDL_CreateTextureFromSurface(sys.getRenderer(), surface);
 
+        if (keepSurface)
+            SDL_SetTextureBlendMode(spriteTexture, SDL_BLENDMODE_BLEND);
+        else
+            SDL_FreeSurface(surface);
+
         if (spriteTexture == nullptr)
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load texture: %s", SDL_GetError());
     }
@@ -42,6 +47,9 @@ namespace fruitwork
     {
         if (isTextureOwner)
             SDL_DestroyTexture(spriteTexture);
+
+        if (isSurfaceOwner)
+            SDL_FreeSurface(surface);
     }
 
     void fruitwork::Sprite::setTexture(const std::string &texturePath)
@@ -57,10 +65,36 @@ namespace fruitwork
         }
 
         surface = IMG_Load(texturePath.c_str());
+        isTextureOwner = true;
+    }
+
+    void fruitwork::Sprite::setTexture(const std::string &texturePath, bool keepSurface)
+    {
+        if (isTextureOwner)
+            SDL_DestroyTexture(spriteTexture);
+
+        if (isSurfaceOwner)
+        {
+            SDL_FreeSurface(surface);
+            isSurfaceOwner = false;
+            surface = nullptr;
+        }
+
+        surface = IMG_Load(texturePath.c_str());
         spriteTexture = SDL_CreateTextureFromSurface(sys.getRenderer(), surface);
 
         isTextureOwner = true;
-        isSurfaceOwner = true;
+
+        if (keepSurface)
+        {
+            isSurfaceOwner = true;
+        }
+        else
+        {
+            SDL_FreeSurface(surface);
+            surface = nullptr;
+            isSurfaceOwner = false;
+        }
     }
 
     void fruitwork::Sprite::setTexture(SDL_Texture *texture)

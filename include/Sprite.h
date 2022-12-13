@@ -31,6 +31,8 @@ namespace fruitwork
 
         virtual void setTexture(const std::string &texturePath);
 
+        virtual void setTexture(const std::string &texturePath, bool keepSurface);
+
         virtual void setTexture(SDL_Texture *texture);
 
         /**
@@ -42,6 +44,7 @@ namespace fruitwork
 
         /**
          * Checks if the rect of the sprite is colliding with the pixels of another sprite.
+         * To use this you need to keep the surface when creating the sprite.
          * @param other The other sprite to check collision with.
          * @param alpha The alpha value to consider as transparent. Default is 10 (basically invisible).
          * @return true if the rects are colliding, false otherwise.
@@ -59,7 +62,7 @@ namespace fruitwork
         SDL_Surface *surface = nullptr;
 
         /**  If true, the texture will be destroyed when the sprite is destroyed. */
-        bool isTextureOwner = true;
+        bool isTextureOwner = true; // TODO replace with smart pointers?
         bool isSurfaceOwner = true;
 
     private:
