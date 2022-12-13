@@ -85,7 +85,7 @@ namespace fruitwork
                 break;
         }
 
-        set_rect(r);
+        setRect(r);
     }
 
 } // fruitwork

@@ -5,7 +5,7 @@
 namespace fruitwork
 {
 
-    void Scene::add_component(Component *component)
+    void Scene::addComponent(Component *component)
     {
         components.push_back(component);
 
@@ -14,19 +14,19 @@ namespace fruitwork
         // @see https://stackoverflow.com/a/34668459/11420970
         std::stable_sort(components.begin(), components.end(), [](Component *a, Component *b)
         {
-            return a->z_index() < b->z_index();
+            return a->zIndex() < b->zIndex();
         });
 
         component->start();
     }
 
-    void Scene::add_component(Component *component, int z_index)
+    void Scene::addComponent(Component *component, int zIndex)
     {
-        component->set_z_index(z_index);
-        add_component(component);
+        component->setZIndex(zIndex);
+        addComponent(component);
     }
 
-    void Scene::remove_component(Component *component, bool destroy)
+    void Scene::removeComponent(Component *component, bool destroy)
     {
         componentsToDelete.push_back({component, destroy});
     }

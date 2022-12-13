@@ -7,7 +7,7 @@ namespace fruitwork
 {
     class TestSceneIndex : public Scene {
     public:
-        static TestSceneIndex *get_instance() { return &instance; }
+        static TestSceneIndex *getInstance() { return &instance; }
 
         bool enter() override;
 

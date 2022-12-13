@@ -31,7 +31,7 @@ namespace fruitwork
         Button::start();
         sprite->start();
 
-        originalRect = sprite->get_rect();
+        originalRect = sprite->getRect();
     }
 
     void ImageButton::draw() const
@@ -65,11 +65,11 @@ namespace fruitwork
             }
         }
 
-        rect.x += get_rect().x;
-        rect.y += get_rect().y;
+        rect.x += getRect().x;
+        rect.y += getRect().y;
 
         sprite->setFlip(flipType);
-        sprite->set_rect(rect);
+        sprite->setRect(rect);
         sprite->draw();
     }
 

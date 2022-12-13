@@ -14,21 +14,21 @@ namespace fruitwork
     InputField::InputField(int x, int y, int w, int h, const std::string &placeholderText, InputType inputType)
             : Component(x, y, w, h), inputType(inputType), placeholderText(placeholderText)
     {
-        textureLeft = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-left.png").c_str());
-        textureMiddle = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
-        textureRight = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-right.png").c_str());
+        textureLeft = IMG_LoadTexture(fruitwork::sys.getRenderer(), ResourceManager::getTexturePath("button-left.png").c_str());
+        textureMiddle = IMG_LoadTexture(fruitwork::sys.getRenderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
+        textureRight = IMG_LoadTexture(fruitwork::sys.getRenderer(), ResourceManager::getTexturePath("button-right.png").c_str());
 
         // 1x1 white pixel
-        caretTexture = SDL_CreateTexture(fruitwork::sys.get_renderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1, 1);
+        caretTexture = SDL_CreateTexture(fruitwork::sys.getRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1, 1);
 
-        SDL_Surface *placeholderSurface = TTF_RenderText_Blended(sys.get_font(), placeholderText.c_str(), {0, 0, 0, 128});
-        placeholderTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), placeholderSurface);
+        SDL_Surface *placeholderSurface = TTF_RenderText_Blended(sys.getFont(), placeholderText.c_str(), {0, 0, 0, 128});
+        placeholderTexture = SDL_CreateTextureFromSurface(fruitwork::sys.getRenderer(), placeholderSurface);
         SDL_FreeSurface(placeholderSurface);
     }
 
     void InputField::draw() const
     {
-        SDL_Rect rect = get_rect();
+        SDL_Rect rect = getRect();
         bool usePlaceholder = text.empty();
 
         SDL_Rect leftRect = {rect.x, rect.y, 8, rect.h};
@@ -40,9 +40,9 @@ namespace fruitwork
         SDL_SetTextureColorMod(textureMiddle, color, color, color);
         SDL_SetTextureColorMod(textureRight, color, color, color);
 
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), textureLeft, nullptr, &leftRect);
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), textureMiddle, nullptr, &middleRect);
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), textureRight, nullptr, &rightRect);
+        SDL_RenderCopy(fruitwork::sys.getRenderer(), textureLeft, nullptr, &leftRect);
+        SDL_RenderCopy(fruitwork::sys.getRenderer(), textureMiddle, nullptr, &middleRect);
+        SDL_RenderCopy(fruitwork::sys.getRenderer(), textureRight, nullptr, &rightRect);
 
         // draw text with padding
         SDL_Texture *texture = usePlaceholder ? placeholderTexture : textTexture;
@@ -51,15 +51,15 @@ namespace fruitwork
         SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
         textRect.w = w;
         textRect.h = h;
-        SDL_RenderCopy(fruitwork::sys.get_renderer(), texture, nullptr, &textRect);
+        SDL_RenderCopy(fruitwork::sys.getRenderer(), texture, nullptr, &textRect);
 
         // draw caret
         if (caretVisible && isFocused)
         {
-            SDL_SetRenderTarget(fruitwork::sys.get_renderer(), caretTexture);
-            SDL_SetRenderDrawColor(fruitwork::sys.get_renderer(), 0, 0, 0, 255);
-            SDL_RenderClear(fruitwork::sys.get_renderer());
-            SDL_SetRenderTarget(fruitwork::sys.get_renderer(), nullptr);
+            SDL_SetRenderTarget(fruitwork::sys.getRenderer(), caretTexture);
+            SDL_SetRenderDrawColor(fruitwork::sys.getRenderer(), 0, 0, 0, 255);
+            SDL_RenderClear(fruitwork::sys.getRenderer());
+            SDL_SetRenderTarget(fruitwork::sys.getRenderer(), nullptr);
 
             SDL_Rect caretRect = {rect.x + 10 + w, rect.y + 10, 2, rect.h - 20};
 
@@ -67,7 +67,7 @@ namespace fruitwork
             if (usePlaceholder)
                 caretRect.x = rect.x + 10;
 
-            SDL_RenderCopy(fruitwork::sys.get_renderer(), caretTexture, nullptr, &caretRect);
+            SDL_RenderCopy(fruitwork::sys.getRenderer(), caretTexture, nullptr, &caretRect);
         }
     }
 
@@ -75,7 +75,7 @@ namespace fruitwork
     {
         // update caret
         caretBlinkCounter++;
-        if (caretBlinkCounter > caretBlinkInterval)
+        if (caretBlinkCounter > CARET_BLINK_INTERVAL)
         {
             caretBlinkCounter = 0;
             caretVisible = !caretVisible;
@@ -85,7 +85,7 @@ namespace fruitwork
         SDL_Point mousePos = {0, 0};
         SDL_GetMouseState(&mousePos.x, &mousePos.y);
 
-        if (SDL_PointInRect(&mousePos, &get_rect()))
+        if (SDL_PointInRect(&mousePos, &getRect()))
         {
             isHovered = true;
             SDL_SetCursor(sys.getCursorText());
@@ -101,7 +101,7 @@ namespace fruitwork
     {
         SDL_Point mousePos;
         SDL_GetMouseState(&mousePos.x, &mousePos.y);
-        bool inRect = SDL_PointInRect(&mousePos, &get_rect());
+        bool inRect = SDL_PointInRect(&mousePos, &getRect());
 
         if (inRect && !isFocused)
         {
@@ -173,8 +173,8 @@ namespace fruitwork
         }
 
         SDL_DestroyTexture(textTexture);
-        SDL_Surface *surface = TTF_RenderText_Blended(sys.get_font(), shownText.c_str(), {0, 0, 0});
-        textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surface);
+        SDL_Surface *surface = TTF_RenderText_Blended(sys.getFont(), shownText.c_str(), {0, 0, 0});
+        textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.getRenderer(), surface);
         SDL_FreeSurface(surface);
     }
 

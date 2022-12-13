@@ -18,8 +18,8 @@ namespace fruitwork
 
     void fruitwork::Circle::draw() const
     {
-        SDL_SetRenderDrawColor(sys.get_renderer(), color.r, color.g, color.b, color.a);
-        SDL_SetRenderDrawBlendMode(sys.get_renderer(), SDL_BLENDMODE_BLEND); // respect alpha
+        SDL_SetRenderDrawColor(sys.getRenderer(), color.r, color.g, color.b, color.a);
+        SDL_SetRenderDrawBlendMode(sys.getRenderer(), SDL_BLENDMODE_BLEND); // respect alpha
 
         // draw circle
         // @see https://stackoverflow.com/a/24453110/11420970
@@ -33,13 +33,13 @@ namespace fruitwork
             int ty = i / rr - radius;
             if (tx * tx + ty * ty <= r2)
             {
-                SDL_RenderDrawPoint(sys.get_renderer(), centerX + tx, centerY + ty);
+                SDL_RenderDrawPoint(sys.getRenderer(), centerX + tx, centerY + ty);
             }
         }
 
         // reset
-        SDL_SetRenderDrawColor(sys.get_renderer(), 255, 255, 255, 255);
-        SDL_SetRenderDrawBlendMode(sys.get_renderer(), SDL_BLENDMODE_NONE);
+        SDL_SetRenderDrawColor(sys.getRenderer(), 255, 255, 255, 255);
+        SDL_SetRenderDrawBlendMode(sys.getRenderer(), SDL_BLENDMODE_NONE);
     }
 
 } // fruitwork

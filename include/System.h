@@ -14,9 +14,9 @@ namespace fruitwork
 
         ~System();
 
-        SDL_Renderer *get_renderer() const;
+        SDL_Renderer *getRenderer() const;
 
-        TTF_Font *get_font() const;
+        TTF_Font *getFont() const;
 
         void setNextScene(Scene *scene);
 

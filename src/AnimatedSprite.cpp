@@ -34,7 +34,7 @@ namespace fruitwork
                 SDL_Surface *surface = IMG_Load(path.c_str());
                 if (surface == nullptr)
                     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load animation image: %s", path.c_str());
-                SDL_Texture *texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
+                SDL_Texture *texture = SDL_CreateTextureFromSurface(sys.getRenderer(), surface);
                 SDL_FreeSurface(surface);
                 frames.push_back(texture);
                 i++;

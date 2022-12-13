@@ -9,7 +9,7 @@ namespace fruitwork
     class ExitScene : public Scene {
 
     public:
-        static ExitScene *get_instance();
+        static ExitScene *getInstance();
 
         bool enter() override;
 

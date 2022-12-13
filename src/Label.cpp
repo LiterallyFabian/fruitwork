@@ -20,7 +20,7 @@ namespace fruitwork
 
     void Label::draw() const
     {
-        SDL_RenderCopy(sys.get_renderer(), texture, nullptr, &drawRect);
+        SDL_RenderCopy(sys.getRenderer(), texture, nullptr, &drawRect);
     }
 
     Label::~Label()
@@ -44,11 +44,11 @@ namespace fruitwork
         }
 
         SDL_Surface *surface = TTF_RenderText_Blended(font, text.c_str(), color);
-        texture = SDL_CreateTextureFromSurface(sys.get_renderer(), surface);
+        texture = SDL_CreateTextureFromSurface(sys.getRenderer(), surface);
         SDL_FreeSurface(surface);
 
         // set the draw rect
-        drawRect = get_rect();
+        drawRect = getRect();
         int w, h;
         SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
         switch (alignment)
@@ -60,19 +60,19 @@ namespace fruitwork
             case Alignment::CENTER:
                 drawRect.w = w;
                 drawRect.h = h;
-                drawRect.x += (get_rect().w - w) / 2;
+                drawRect.x += (getRect().w - w) / 2;
                 break;
             case Alignment::RIGHT:
                 drawRect.w = w;
                 drawRect.h = h;
-                drawRect.x += get_rect().w - w;
+                drawRect.x += getRect().w - w;
                 break;
         }
 
         // drawRect can not be larger than the component's rect, scale x and y down by the same % if necessary
-        if (drawRect.w > get_rect().w)
+        if (drawRect.w > getRect().w)
         {
-            float scale = (float) get_rect().w / drawRect.w;
+            float scale = (float) getRect().w / drawRect.w;
             drawRect.w *= scale;
             drawRect.h *= scale;
         }

@@ -12,13 +12,13 @@ namespace fruitwork
 
     void fruitwork::Rectangle::draw() const
     {
-        SDL_SetRenderDrawColor(sys.get_renderer(), color.r, color.g, color.b, color.a);
-        SDL_SetRenderDrawBlendMode(sys.get_renderer(), SDL_BLENDMODE_BLEND); // respect alpha
-        SDL_RenderFillRect(sys.get_renderer(), &get_rect());
+        SDL_SetRenderDrawColor(sys.getRenderer(), color.r, color.g, color.b, color.a);
+        SDL_SetRenderDrawBlendMode(sys.getRenderer(), SDL_BLENDMODE_BLEND); // respect alpha
+        SDL_RenderFillRect(sys.getRenderer(), &getRect());
 
         // reset
-        SDL_SetRenderDrawColor(sys.get_renderer(), 255, 255, 255, 255);
-        SDL_SetRenderDrawBlendMode(sys.get_renderer(), SDL_BLENDMODE_NONE);
+        SDL_SetRenderDrawColor(sys.getRenderer(), 255, 255, 255, 255);
+        SDL_SetRenderDrawBlendMode(sys.getRenderer(), SDL_BLENDMODE_NONE);
     }
 
 } // fruitwork

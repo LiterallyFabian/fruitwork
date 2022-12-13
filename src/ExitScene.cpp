@@ -2,7 +2,7 @@
 
 namespace fruitwork
 {
-    ExitScene *ExitScene::get_instance()
+    ExitScene *ExitScene::getInstance()
     {
         return &instance;
     }

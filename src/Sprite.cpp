@@ -8,7 +8,7 @@ namespace fruitwork
 {
     Sprite::Sprite(int x, int y, int w, int h, const std::string &texturePath) : Component(x, y, w, h), isTextureOwner(true)
     {
-        spriteTexture = IMG_LoadTexture(sys.get_renderer(), texturePath.c_str());
+        spriteTexture = IMG_LoadTexture(sys.getRenderer(), texturePath.c_str());
         if (spriteTexture == nullptr)
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load texture: %s", SDL_GetError());
     }
@@ -32,8 +32,8 @@ namespace fruitwork
 
         SDL_SetTextureColorMod(spriteTexture, colorMod.r, colorMod.g, colorMod.b);
         SDL_SetTextureAlphaMod(spriteTexture, alphaMod);
-        SDL_Rect rect = get_rect();
-        SDL_RenderCopyEx(sys.get_renderer(), spriteTexture, nullptr, &rect, 0, nullptr, flipType);
+        SDL_Rect rect = getRect();
+        SDL_RenderCopyEx(sys.getRenderer(), spriteTexture, nullptr, &rect, 0, nullptr, flipType);
     }
 
     Sprite::~Sprite()
@@ -47,7 +47,7 @@ namespace fruitwork
         if (isTextureOwner)
             SDL_DestroyTexture(spriteTexture);
 
-        spriteTexture = IMG_LoadTexture(sys.get_renderer(), texturePath.c_str());
+        spriteTexture = IMG_LoadTexture(sys.getRenderer(), texturePath.c_str());
         isTextureOwner = true;
     }
 

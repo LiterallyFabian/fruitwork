@@ -8,7 +8,7 @@ namespace fruitwork
 
     class TestScene : public Scene {
     public:
-        static TestScene *get_instance();
+        static TestScene *getInstance();
 
         bool enter() override;
 

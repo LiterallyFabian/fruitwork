@@ -15,14 +15,14 @@ namespace fruitwork
          * Add a component to the session.
          * @param component The component to add.
          */
-        void add_component(Component *component);
+        void addComponent(Component *component);
 
         /**
          * Remove a component from the session.
          * @param component The component to remove.
          * @param destroy If true, the component will be destroyed.
          */
-        void remove_component(Component *component, bool destroy = false);
+        void removeComponent(Component *component, bool destroy = false);
 
         /**
          * Deletes all components that have been marked for deletion.

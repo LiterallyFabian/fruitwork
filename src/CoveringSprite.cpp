@@ -55,7 +55,7 @@ namespace fruitwork
         int offsetY = (original.h - scaledH) / 2;
 
         SDL_Rect scaled = {original.x + offsetX, original.y + offsetY, scaledW, scaledH};
-        set_rect(scaled);
+        setRect(scaled);
     }
 
 #pragma clang diagnostic pop

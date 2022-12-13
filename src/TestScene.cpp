@@ -73,7 +73,7 @@ namespace fruitwork
         Sprite *sprite = Sprite::getInstance(650, 500, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
 
         // not owner of the texture
-        SDL_Texture *texture = IMG_LoadTexture(sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
+        SDL_Texture *texture = IMG_LoadTexture(sys.getRenderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
         Sprite *responsiveSprite = ResponsiveSprite::getInstance(650, 650, 256, 128, texture);
 
         // sprites that are too tall
@@ -107,31 +107,31 @@ namespace fruitwork
 
         fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, ResourceManager::getTexturePath("pippi-{n}.png"), 500);
 
-        add_component(title);
+        addComponent(title);
 
-        add_component(smallButton);
-        add_component(smallButton2);
-        add_component(mediumButton);
-        add_component(largeButton);
-        add_component(tallButton);
+        addComponent(smallButton);
+        addComponent(smallButton2);
+        addComponent(mediumButton);
+        addComponent(largeButton);
+        addComponent(tallButton);
 
-        add_component(inputField);
-        add_component(passwordInputField);
-        add_component(numericInputField);
+        addComponent(inputField);
+        addComponent(passwordInputField);
+        addComponent(numericInputField);
 
-        add_component(leftAnchoredLabel);
-        add_component(centerAnchoredLabel);
-        add_component(rightAnchoredLabel);
+        addComponent(leftAnchoredLabel);
+        addComponent(centerAnchoredLabel);
+        addComponent(rightAnchoredLabel);
 
-        add_component(sprite);
-        add_component(responsiveSprite);
-        add_component(sprite2);
-        add_component(responsiveSprite2);
+        addComponent(sprite);
+        addComponent(responsiveSprite);
+        addComponent(sprite2);
+        addComponent(responsiveSprite2);
 
-        add_component(imageButton);
-        add_component(imageButton2);
+        addComponent(imageButton);
+        addComponent(imageButton2);
 
-        add_component(animatedSprite);
+        addComponent(animatedSprite);
 
         return success;
     }
@@ -153,7 +153,7 @@ namespace fruitwork
     =
     default;
 
-    TestScene *TestScene::get_instance()
+    TestScene *TestScene::getInstance()
     {
         return &instance;
     }

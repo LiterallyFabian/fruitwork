@@ -12,11 +12,11 @@ namespace fruitwork
         fruitwork::Button *buttonButtonTests = fruitwork::Button::getInstance(50, 200, 240, 48, "Small button");
         buttonButtonTests->registerCallback([](fruitwork::Button *src)
                                             {
-                                                fruitwork::sys.setNextScene(TestScene::get_instance());
+                                                fruitwork::sys.setNextScene(TestScene::getInstance());
                                             });
 
-        add_component(titleText);
-        add_component(buttonButtonTests);
+        addComponent(titleText);
+        addComponent(buttonButtonTests);
 
         return true;
     }

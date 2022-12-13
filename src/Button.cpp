@@ -9,14 +9,14 @@ namespace fruitwork
 {
     Button::Button(int x, int y, int w, int h, std::string text) : Component(x, y, w, h), text(text)
     {
-        SDL_Surface *surf = TTF_RenderText_Blended(fruitwork::sys.get_font(), text.c_str(), textColor);
-        textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.get_renderer(), surf);
+        SDL_Surface *surf = TTF_RenderText_Blended(fruitwork::sys.getFont(), text.c_str(), textColor);
+        textTexture = SDL_CreateTextureFromSurface(fruitwork::sys.getRenderer(), surf);
         SDL_FreeSurface(surf);
 
         // todo: only load textures if they are not already loaded?
-        buttonTextureLeft = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-left.png").c_str());
-        buttonTextureMiddle = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
-        buttonTextureRight = IMG_LoadTexture(fruitwork::sys.get_renderer(), ResourceManager::getTexturePath("button-right.png").c_str());
+        buttonTextureLeft = IMG_LoadTexture(fruitwork::sys.getRenderer(), ResourceManager::getTexturePath("button-left.png").c_str());
+        buttonTextureMiddle = IMG_LoadTexture(fruitwork::sys.getRenderer(), ResourceManager::getTexturePath("button-middle.png").c_str());
+        buttonTextureRight = IMG_LoadTexture(fruitwork::sys.getRenderer(), ResourceManager::getTexturePath("button-right.png").c_str());
 
         clickSound = Mix_LoadWAV(ResourceManager::getAudioPath("click.wav").c_str());
         hoverSound = Mix_LoadWAV(ResourceManager::getAudioPath("hover.wav").c_str());
@@ -34,7 +34,7 @@ namespace fruitwork
 
     void Button::draw() const
     {
-        SDL_Rect rect = get_rect();
+        SDL_Rect rect = getRect();
 
         switch (state)
         {
@@ -73,9 +73,9 @@ namespace fruitwork
         SDL_Rect middleRect = {rect.x + 8, rect.y, rect.w - 16, rect.h};
         SDL_Rect rightRect = {rect.x + rect.w - 8, rect.y, 8, rect.h};
 
-        SDL_RenderCopy(sys.get_renderer(), buttonTextureLeft, nullptr, &leftRect);
-        SDL_RenderCopy(sys.get_renderer(), buttonTextureMiddle, nullptr, &middleRect);
-        SDL_RenderCopy(sys.get_renderer(), buttonTextureRight, nullptr, &rightRect);
+        SDL_RenderCopy(sys.getRenderer(), buttonTextureLeft, nullptr, &leftRect);
+        SDL_RenderCopy(sys.getRenderer(), buttonTextureMiddle, nullptr, &middleRect);
+        SDL_RenderCopy(sys.getRenderer(), buttonTextureRight, nullptr, &rightRect);
 
         // the text should be centered, and have a 10% margin on all sides
         SDL_Rect textRect = {rect.x + 10, rect.y + 10, rect.w - 20, rect.h - 20};
@@ -86,7 +86,7 @@ namespace fruitwork
         // center text in button
         textRect.x += (rect.w - 20 - w) / 2;
         textRect.y += (rect.h - 20 - h) / 2;
-        SDL_RenderCopy(sys.get_renderer(), textTexture, nullptr, &textRect);
+        SDL_RenderCopy(sys.getRenderer(), textTexture, nullptr, &textRect);
     }
 
     void Button::update()
@@ -96,7 +96,7 @@ namespace fruitwork
 
         if (!isDown)
         {
-            if (SDL_PointInRect(&mousePos, &get_rect()))
+            if (SDL_PointInRect(&mousePos, &getRect()))
                 setState(Button::State::HOVER);
             else
                 setState(Button::State::NORMAL);
@@ -119,7 +119,7 @@ namespace fruitwork
     {
         SDL_Point p = {event.button.x, event.button.y};
 
-        if (SDL_PointInRect(&p, &get_rect()))
+        if (SDL_PointInRect(&p, &getRect()))
         {
             if (onClick != nullptr)
                 onClick(this);
@@ -147,8 +147,8 @@ namespace fruitwork
     {
         textColor = color;
         SDL_DestroyTexture(textTexture);
-        SDL_Surface *surf = TTF_RenderText_Blended(sys.get_font(), text.c_str(), textColor);
-        textTexture = SDL_CreateTextureFromSurface(sys.get_renderer(), surf);
+        SDL_Surface *surf = TTF_RenderText_Blended(sys.getFont(), text.c_str(), textColor);
+        textTexture = SDL_CreateTextureFromSurface(sys.getRenderer(), surf);
         SDL_FreeSurface(surf);
     }
 

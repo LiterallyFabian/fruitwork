@@ -39,19 +39,19 @@ namespace fruitwork
          */
         virtual void start() {};
 
-        const SDL_Rect &get_rect() const { return rect; }
+        const SDL_Rect &getRect() const { return rect; }
 
-        void set_rect(const SDL_Rect &rect) { this->rect = rect; }
+        void setRect(const SDL_Rect &r) { this->rect = r; }
 
-        int z_index() const { return z; }
+        int zIndex() const { return z; }
 
         /**
          * Set the z-index of the component. The z-index determines the order in which components are drawn and updated.
          * Changing the z-index after the component has been added to a session or scene has no effect.
          * If two components have the same z-index, the order in which they are drawn and updated is the order in which they were added.
-         * @param z_index The z-index of the component.
+         * @param zIndex The z-index of the component.
          */
-        void set_z_index(int z_index) { z = z_index; }
+        void setZIndex(int zIndex) { z = zIndex; }
 
         int width() const { return rect.w; }
 

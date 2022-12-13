@@ -7,12 +7,12 @@
 
 namespace fruitwork
 {
-    void Session::add_component(Component *component)
+    void Session::addComponent(Component *component)
     {
         components.push_back(component);
 
         std::stable_sort(components.begin(), components.end(), [](Component *a, Component *b) {
-            return a->z_index() < b->z_index();
+            return a->zIndex() < b->zIndex();
         });
 
         component->start();
@@ -48,7 +48,7 @@ namespace fruitwork
                         for (auto component: components)
                             component->onMouseDown(event);
 
-                        for (auto component: sys.getCurrentScene()->get_components())
+                        for (auto component: sys.getCurrentScene()->getComponents())
                             component->onMouseDown(event);
 
                         break;
@@ -59,7 +59,7 @@ namespace fruitwork
                         for (auto component: components)
                             component->onMouseUp(event);
 
-                        for (auto component: sys.getCurrentScene()->get_components())
+                        for (auto component: sys.getCurrentScene()->getComponents())
                             component->onMouseUp(event);
 
                         break;
@@ -70,7 +70,7 @@ namespace fruitwork
                         for (auto component: components)
                             component->onTextInput(event);
 
-                        for (auto component: sys.getCurrentScene()->get_components())
+                        for (auto component: sys.getCurrentScene()->getComponents())
                             component->onTextInput(event);
 
                         break;
@@ -81,7 +81,7 @@ namespace fruitwork
                         for (auto component: components)
                             component->onTextEditing(event);
 
-                        for (auto component: sys.getCurrentScene()->get_components())
+                        for (auto component: sys.getCurrentScene()->getComponents())
                             component->onTextEditing(event);
 
                         break;
@@ -92,7 +92,7 @@ namespace fruitwork
                         for (auto component: components)
                             component->onKeyDown(event);
 
-                        for (auto component: sys.getCurrentScene()->get_components())
+                        for (auto component: sys.getCurrentScene()->getComponents())
                             component->onKeyDown(event);
 
                         break;
@@ -103,7 +103,7 @@ namespace fruitwork
                         for (auto component: components)
                             component->onKeyUp(event);
 
-                        for (auto component: sys.getCurrentScene()->get_components())
+                        for (auto component: sys.getCurrentScene()->getComponents())
                             component->onKeyUp(event);
 
                         break;
@@ -120,17 +120,17 @@ namespace fruitwork
 
             // update scene
             sys.getCurrentScene()->update();
-            for (Component *component: sys.getCurrentScene()->get_components())
+            for (Component *component: sys.getCurrentScene()->getComponents())
                 component->update();
 
             sys.changeScene();
 
-            SDL_SetRenderDrawColor(fruitwork::sys.get_renderer(), 255, 255, 255, 255);
-            SDL_RenderClear(fruitwork::sys.get_renderer());
+            SDL_SetRenderDrawColor(fruitwork::sys.getRenderer(), 255, 255, 255, 255);
+            SDL_RenderClear(fruitwork::sys.getRenderer());
 
             // draw scene
             sys.getCurrentScene()->draw();
-            for (Component *component: sys.getCurrentScene()->get_components())
+            for (Component *component: sys.getCurrentScene()->getComponents())
                 component->draw();
 
             // draw session components
@@ -141,7 +141,7 @@ namespace fruitwork
             sys.getCurrentScene()->deleteComponents();
             this->deleteComponents();
 
-            SDL_RenderPresent(fruitwork::sys.get_renderer());
+            SDL_RenderPresent(fruitwork::sys.getRenderer());
 
             int delay = nextTick - SDL_GetTicks();
             if (delay > 0)
@@ -161,7 +161,7 @@ namespace fruitwork
             delete component;
     }
 
-    void Session::remove_component(Component *component, bool destroy)
+    void Session::removeComponent(Component *component, bool destroy)
     {
         componentsToDelete.push_back({component, destroy});
     }

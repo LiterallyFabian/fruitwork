@@ -66,7 +66,7 @@ namespace fruitwork
          * This is 0.53 seconds, which is the same as the default blink rate of the Windows caret.
          * @see https://superuser.com/a/815369/1536955
          */
-        const int caretBlinkInterval = (double) constants::gFps / 1.88; // NOLINT
+        const int CARET_BLINK_INTERVAL = (double) constants::gFps / 1.88; // NOLINT
         int caretBlinkCounter = 0;
         bool caretVisible = true;
 
