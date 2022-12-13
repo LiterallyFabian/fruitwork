@@ -80,10 +80,6 @@ namespace fruitwork
         SDL_Quit();
     }
 
-    SDL_Renderer *System::getRenderer() const { return renderer; }
-
-    TTF_Font *System::getFont() const { return font; }
-
     void System::setNextScene(Scene *scene)
     {
         if (scene != ExitScene::getInstance())
