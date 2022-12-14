@@ -33,9 +33,6 @@ namespace fruitwork
 
     void Label::setText(const std::string &t)
     {
-        if(t == text)
-            return;
-
         text = t;
 
         SDL_DestroyTexture(texture);
