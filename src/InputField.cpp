@@ -61,7 +61,9 @@ namespace fruitwork
 
             if (caretPosition > 0)
             {
-                SDL_Surface *tmpSurface = TTF_RenderText_Blended(sys.getFont(), text.substr(0, caretPosition).c_str(), {0, 0, 0, 255});
+                std::string shownText = inputType == InputType::PASSWORD ? getPasswordMask() : text;
+
+                SDL_Surface *tmpSurface = TTF_RenderText_Blended(sys.getFont(), shownText.substr(0, caretPosition).c_str(), {0, 0, 0, 255});
                 SDL_Texture *tmpTexture = SDL_CreateTextureFromSurface(fruitwork::sys.getRenderer(), tmpSurface);
                 SDL_FreeSurface(tmpSurface);
 
@@ -197,15 +199,7 @@ namespace fruitwork
     void InputField::setText(const std::string &t)
     {
         this->text = t;
-        std::string shownText = t;
-
-        // replace all symbols with asterisks
-        if (inputType == InputType::PASSWORD)
-        {
-            // @see https://stackoverflow.com/a/39082873/11420970
-            for (std::string::size_type i = 0; i < t.length(); i++)
-                shownText[i] = '*';
-        }
+        std::string shownText = inputType == InputType::PASSWORD ? getPasswordMask() : t;
 
         SDL_DestroyTexture(textTexture);
         SDL_Surface *surface = TTF_RenderText_Blended(sys.getFont(), shownText.c_str(), {0, 0, 0});
@@ -247,6 +241,15 @@ namespace fruitwork
         {
             setText(text.substr(0, maxLength));
         }
+    }
+
+    std::string InputField::getPasswordMask() const
+    {
+        std::string mask;
+        // @see https://stackoverflow.com/a/39082873/11420970
+        for (std::string::size_type i = 0; i < int(text.length()); i++)
+            mask += '*';
+        return mask;
     }
 
 } // fruitwork

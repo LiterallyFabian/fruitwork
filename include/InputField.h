@@ -81,6 +81,9 @@ namespace fruitwork
         /** Stop or start accepting input. */
         static void setListenerState(bool listening);
 
+        /** Replaces all characters with an asterisk. */
+        std::string getPasswordMask() const;
+
 #pragma endregion
 
 #pragma region Caret properties
