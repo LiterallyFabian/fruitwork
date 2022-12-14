@@ -44,7 +44,7 @@ namespace fruitwork
 
         const std::string &getText() const { return text; }
 
-        void setMaxLength(int ml) { this->maxLength = ml; }
+        void setMaxLength(int ml);
 
         int getMaxLength() const { return maxLength; }
 
@@ -52,14 +52,38 @@ namespace fruitwork
         InputField(int x, int y, int w, int h, const std::string &placeholderText, InputType inputType);
 
     private:
+#pragma region Input field properties
+
+        /** The currently entered text. */
         std::string text;
+
+        /** The maximum allowed amount of characters. */
         int maxLength = 20;
 
         InputType inputType = TEXT;
+
+        /** The placeholder text to show when the input field is empty. */
         std::string placeholderText;
 
+        /** If the input field is currently focused it should show the caret. */
         bool isFocused = false;
+
+        /** If the input field is currently hovered it should be slightly gray. */
         bool isHovered = false;
+
+        SDL_Texture *textTexture = nullptr;
+        SDL_Texture *placeholderTexture = nullptr;
+        SDL_Texture *textureLeft, *textureMiddle, *textureRight;
+
+        /** The amount of input fields currently listening for input. */
+        static int listenerCount;
+
+        /** Stop or start accepting input. */
+        static void setListenerState(bool listening);
+
+#pragma endregion
+
+#pragma region Caret properties
 
         /**
          * How many frames the caret should be visible for.
@@ -69,17 +93,10 @@ namespace fruitwork
         const int CARET_BLINK_INTERVAL = (double) constants::gFps / 1.88; // NOLINT
         int caretBlinkCounter = 0;
         bool caretVisible = true;
-
-        SDL_Texture *placeholderTexture = nullptr;
-        SDL_Texture *textureLeft, *textureMiddle, *textureRight;
         SDL_Texture *caretTexture = nullptr;
-        SDL_Texture *textTexture = nullptr;
-        SDL_Rect caretRect = {0, 0, 0, 0};
+        int caretPosition = 0;
 
-        /** The amount of input fields currently listening for input. */
-        static int listenerCount;
-        /** Stop or start accepting input. */
-        static void setListenerState(bool listening);
+#pragma endregion
     };
 
 } // fruitwork

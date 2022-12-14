@@ -55,16 +55,21 @@ namespace fruitwork
         // draw caret
         if (caretVisible && isFocused)
         {
-            SDL_SetRenderTarget(fruitwork::sys.getRenderer(), caretTexture);
             SDL_SetRenderDrawColor(fruitwork::sys.getRenderer(), 0, 0, 0, 255);
-            SDL_RenderClear(fruitwork::sys.getRenderer());
-            SDL_SetRenderTarget(fruitwork::sys.getRenderer(), nullptr);
 
-            SDL_Rect caretRect = {rect.x + 10 + w, rect.y + 10, 2, rect.h - 20};
+            SDL_Rect caretRect = {rect.x + 10, rect.y + 10, 2, rect.h - 20};
 
-            // move back caret if placeholder is shown
-            if (usePlaceholder)
-                caretRect.x = rect.x + 10;
+            if (caretPosition > 0)
+            {
+                SDL_Surface *tmpSurface = TTF_RenderText_Blended(sys.getFont(), text.substr(0, caretPosition).c_str(), {0, 0, 0, 255});
+                SDL_Texture *tmpTexture = SDL_CreateTextureFromSurface(fruitwork::sys.getRenderer(), tmpSurface);
+                SDL_FreeSurface(tmpSurface);
+
+                SDL_QueryTexture(tmpTexture, nullptr, nullptr, &caretRect.x, nullptr);
+                SDL_DestroyTexture(tmpTexture);
+
+                caretRect.x += rect.x + 10;
+            }
 
             SDL_RenderCopy(fruitwork::sys.getRenderer(), caretTexture, nullptr, &caretRect);
         }
@@ -106,6 +111,7 @@ namespace fruitwork
         {
             isFocused = true;
             setListenerState(true);
+            caretPosition = text.length();
         }
         else if (!inRect && isFocused)
         {
@@ -127,11 +133,12 @@ namespace fruitwork
                     return;
             }
 
-            text += event.text.text;
-            setText(text); // update text texture
+            text.insert(caretPosition, event.text.text);
+            setText(text);
 
             caretBlinkCounter = 0;
             caretVisible = true; // the caret is always visible when typing
+            caretPosition += strlen(event.text.text);
         }
     }
 
@@ -145,14 +152,43 @@ namespace fruitwork
             case SDLK_BACKSPACE:
                 if (text.length() > 0)
                 {
-                    text.pop_back();
+                    text.erase(caretPosition - 1, 1);
                     setText(text); // update texture
+
+                    caretBlinkCounter = 0;
+                    caretVisible = true; // the caret is always visible when typing
+                    caretPosition--;
                 }
                 break;
+
+            case SDLK_DELETE:
+                if (text.length() > 0)
+                {
+                    text.erase(caretPosition, 1);
+                    setText(text); // update texture
+
+                    caretBlinkCounter = 0;
+                    caretVisible = true; // the caret is always visible when typing
+                }
+                break;
+
             case SDLK_RETURN:
+            case SDLK_ESCAPE:
                 setListenerState(false);
                 isFocused = false;
                 break;
+
+            case SDLK_LEFT:
+                caretPosition = std::max(0, caretPosition - 1);
+                caretBlinkCounter = 0;
+                caretVisible = true;
+                break;
+            case SDLK_RIGHT:
+                caretPosition = std::min(int(text.length()), caretPosition + 1);
+                caretBlinkCounter = 0;
+                caretVisible = true;
+                break;
+
             default:
                 break;
         }
@@ -201,6 +237,15 @@ namespace fruitwork
             listenerCount--;
             if (listenerCount == 0)
                 SDL_StopTextInput();
+        }
+    }
+
+    void InputField::setMaxLength(int ml)
+    {
+        this->maxLength = ml;
+        if (maxLength > 0 && int(text.length()) > maxLength)
+        {
+            setText(text.substr(0, maxLength));
         }
     }
 
