@@ -14,7 +14,10 @@ namespace fruitwork
         if (keepSurface)
             SDL_SetTextureBlendMode(spriteTexture, SDL_BLENDMODE_BLEND);
         else
+        {
             SDL_FreeSurface(surface);
+            surface = nullptr;
+        }
 
         if (spriteTexture == nullptr)
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Failed to load texture: %s", SDL_GetError());
