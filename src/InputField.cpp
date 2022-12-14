@@ -202,7 +202,6 @@ namespace fruitwork
             if (listenerCount == 0)
                 SDL_StopTextInput();
         }
-
     }
 
 } // fruitwork
