@@ -25,7 +25,6 @@ namespace fruitwork
 
         pippi = fruitwork::Sprite::getInstance(20, 200, 392, 348, fruitwork::ResourceManager::getTexturePath("pippi-0.png"), true);
         lynn = fruitwork::Sprite::getInstance(600, 200, 610, 648, fruitwork::ResourceManager::getTexturePath("fruit-catcher-kiai.png"), true);
-        lynn->setFlip(SDL_FLIP_HORIZONTAL);
         bananas = fruitwork::Sprite::getInstance(0, 0, 128, 128, fruitwork::ResourceManager::getTexturePath("fruit-bananas.png"), true);
 
         addComponent(pippi);
