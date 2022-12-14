@@ -9,6 +9,7 @@
 #include "AnimatedSprite.h"
 #include "ResourceManager.h"
 #include "ImageButton.h"
+#include "TestSceneIndex.h"
 
 namespace fruitwork
 {
@@ -107,6 +108,14 @@ namespace fruitwork
 
         fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, ResourceManager::getTexturePath("pippi-{n}.png"), 500);
 
+        fruitwork::Button *testButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to index");
+        testButton->registerCallback([](fruitwork::Button *src)
+                                     {
+                                         fruitwork::sys.setNextScene(fruitwork::TestSceneIndex::getInstance());
+                                     });
+        testButton->setColor({255, 255, 255, 128});
+        testButton->setTextColor({0, 0, 0, 128});
+
         addComponent(title);
 
         addComponent(smallButton);
@@ -132,6 +141,8 @@ namespace fruitwork
         addComponent(imageButton2);
 
         addComponent(animatedSprite);
+
+        addComponent(testButton);
 
         return success;
     }
