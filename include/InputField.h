@@ -12,17 +12,11 @@ namespace fruitwork
     class InputField : public Component {
     public:
         enum InputType {
-            /**
-             * Allows any character to be entered.
-             */
+            /** Allows any character to be entered. */
             TEXT,
-            /**
-             * Allows only integers to be entered.
-             */
+            /** Allows only integers to be entered. */
             NUMERIC,
-            /**
-             * Allows any character to be entered, but the input is hidden.
-             */
+            /** Allows any character to be entered, but the input is hidden. */
             PASSWORD
         };
 
