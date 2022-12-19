@@ -11,7 +11,8 @@ namespace fruitwork
     {
         components.push_back(component);
 
-        std::stable_sort(components.begin(), components.end(), [](Component *a, Component *b) {
+        std::stable_sort(components.begin(), components.end(), [](Component *a, Component *b)
+        {
             return a->zIndex() < b->zIndex();
         });
 
@@ -89,6 +90,11 @@ namespace fruitwork
 
                     case SDL_KEYDOWN:
                     {
+                        // keyboard event handler
+                        auto it = keyboardEventHandlers.find(event.key.keysym.sym);
+                        if (it != keyboardEventHandlers.end())
+                            it->second();
+
                         for (auto component: components)
                             component->onKeyDown(event);
 
