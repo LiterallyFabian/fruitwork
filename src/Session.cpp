@@ -164,7 +164,12 @@ namespace fruitwork
     Session::~Session()
     {
         std::cout << "Session destructor" << std::endl;
+
         for (auto component: components)
+            delete component;
+
+        // delete scene comps
+        for (auto component: sys.getCurrentScene()->getComponents())
             delete component;
     }
 
