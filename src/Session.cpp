@@ -129,6 +129,7 @@ namespace fruitwork
             for (Component *component: sys.getCurrentScene()->getComponents())
                 component->update();
 
+            auto oldScene = sys.getCurrentScene();
             sys.changeScene();
 
             SDL_SetRenderDrawColor(fruitwork::sys.getRenderer(), 255, 255, 255, 255);
@@ -144,7 +145,7 @@ namespace fruitwork
                 component->draw();
 
             // delete components marked for deletion
-            sys.getCurrentScene()->deleteComponents();
+            oldScene->deleteComponents();
             this->deleteComponents();
 
             SDL_RenderPresent(fruitwork::sys.getRenderer());

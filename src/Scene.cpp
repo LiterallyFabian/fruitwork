@@ -33,6 +33,11 @@ namespace fruitwork
 
     void Scene::deleteComponents()
     {
+        if (componentsToDelete.empty())
+            return;
+
+        SDL_Log("Deleting %d components", (int)componentsToDelete.size());
+
         for (auto &componentDelete: componentsToDelete)
         {
             auto it = std::find(components.begin(), components.end(), componentDelete.component);
