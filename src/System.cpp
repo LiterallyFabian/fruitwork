@@ -46,6 +46,7 @@ namespace fruitwork
         }
         else
         {
+            Mix_AllocateChannels(16); // very fast beatmaps will need more channels
             SDL_Log("SDL_mixer initialized");
         }
 
