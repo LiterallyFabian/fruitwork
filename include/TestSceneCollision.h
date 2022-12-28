@@ -1,5 +1,5 @@
-#ifndef FRUITWORK_TESTSCENECOLLISION_H
-#define FRUITWORK_TESTSCENECOLLISION_H
+#ifndef FRUITWORK_TEST_SCENE_COLLISION_H
+#define FRUITWORK_TEST_SCENE_COLLISION_H
 
 #include "Scene.h"
 #include "Sprite.h"
@@ -28,4 +28,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //FRUITWORK_TESTSCENECOLLISION_H
+#endif //FRUITWORK_TEST_SCENE_COLLISION_H

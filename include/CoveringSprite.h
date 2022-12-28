@@ -1,5 +1,5 @@
-#ifndef FRUITWORK_COVERINGSPRITE_H
-#define FRUITWORK_COVERINGSPRITE_H
+#ifndef FRUITWORK_COVERING_SPRITE_H
+#define FRUITWORK_COVERING_SPRITE_H
 
 #include "Sprite.h"
 
@@ -34,4 +34,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //FRUITWORK_COVERINGSPRITE_H
+#endif //FRUITWORK_COVERING_SPRITE_H

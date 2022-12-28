@@ -1,5 +1,5 @@
-#ifndef FRUITWORK_INPUTFIELD_H
-#define FRUITWORK_INPUTFIELD_H
+#ifndef FRUITWORK_INPUT_FIELD_H
+#define FRUITWORK_INPUT_FIELD_H
 
 #include <string>
 #include <SDL_ttf.h>
@@ -98,4 +98,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //FRUITWORK_INPUTFIELD_H
+#endif //FRUITWORK_INPUT_FIELD_H

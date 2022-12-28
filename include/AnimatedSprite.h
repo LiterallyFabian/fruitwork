@@ -1,5 +1,5 @@
-#ifndef FRUITWORK_ANIMATEDSPRITE_H
-#define FRUITWORK_ANIMATEDSPRITE_H
+#ifndef FRUITWORK_ANIMATED_SPRITE_H
+#define FRUITWORK_ANIMATED_SPRITE_H
 
 #include <vector>
 #include "Sprite.h"
@@ -40,4 +40,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //FRUITWORK_ANIMATEDSPRITE_H
+#endif //FRUITWORK_ANIMATED_SPRITE_H

@@ -1,5 +1,5 @@
-#ifndef FRUITWORK_EXITSCENE_H
-#define FRUITWORK_EXITSCENE_H
+#ifndef FRUITWORK_EXIT_SCENE_H
+#define FRUITWORK_EXIT_SCENE_H
 
 #include "Scene.h"
 
@@ -29,4 +29,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //FRUITWORK_EXITSCENE_H
+#endif //FRUITWORK_EXIT_SCENE_H

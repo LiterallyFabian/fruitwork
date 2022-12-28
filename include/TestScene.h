@@ -1,5 +1,5 @@
-#ifndef FRUITWORK_TESTSCENE_H
-#define FRUITWORK_TESTSCENE_H
+#ifndef FRUITWORK_TEST_SCENE_H
+#define FRUITWORK_TEST_SCENE_H
 
 #include "Scene.h"
 
@@ -23,4 +23,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //FRUITWORK_TESTSCENE_H
+#endif //FRUITWORK_TEST_SCENE_H

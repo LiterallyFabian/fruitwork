@@ -1,5 +1,5 @@
-#ifndef FRUITWORK_IMAGEBUTTON_H
-#define FRUITWORK_IMAGEBUTTON_H
+#ifndef FRUITWORK_IMAGE_BUTTON_H
+#define FRUITWORK_IMAGE_BUTTON_H
 
 #include "Button.h"
 #include "Sprite.h"
@@ -37,4 +37,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //FRUITWORK_IMAGEBUTTON_H
+#endif //FRUITWORK_IMAGE_BUTTON_H

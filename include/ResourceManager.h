@@ -1,5 +1,5 @@
-#ifndef FRUITWORK_RESOURCEMANAGER_H
-#define FRUITWORK_RESOURCEMANAGER_H
+#ifndef FRUITWORK_RESOURCE_MANAGER_H
+#define FRUITWORK_RESOURCE_MANAGER_H
 
 #include <string>
 
@@ -17,4 +17,4 @@ namespace fruitwork
 
 } // fruitwork
 
-#endif //FRUITWORK_RESOURCEMANAGER_H
+#endif //FRUITWORK_RESOURCE_MANAGER_H
