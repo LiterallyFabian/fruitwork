@@ -11,6 +11,9 @@ namespace fruitwork
     {
         components.push_back(component);
 
+        if (component->getPhysicsBody() != nullptr)
+            SDL_LogWarn(SDL_LOG_CATEGORY_APPLICATION, "Session components will not have their physics bodies updated. Use Scene components instead.");
+
         std::stable_sort(components.begin(), components.end(), [](Component *a, Component *b)
         {
             return a->zIndex() < b->zIndex();
@@ -31,7 +34,7 @@ namespace fruitwork
         while (running)
         {
             Uint32 nextTick = SDL_GetTicks() + tickInterval;
-
+            float elapsedTime = 0;
             SDL_Event event;
 
             while (SDL_PollEvent(&event))
@@ -120,14 +123,37 @@ namespace fruitwork
                 sys.getCurrentScene()->handleEvent(event);
             } // while event
 
+            elapsedTime = (float) (nextTick - SDL_GetTicks()) / 1000;
+
             // update session components
             for (Component *component: components)
                 component->update();
 
             // update scene
             sys.getCurrentScene()->update();
-            for (Component *component: sys.getCurrentScene()->getComponents())
+            for (int i = 0; i < sys.getCurrentScene()->getComponents().size(); i++)
+            {
+                Component *component = sys.getCurrentScene()->getComponents()[i];
                 component->update();
+                component->update(elapsedTime);
+
+                // go through all components and check for physics collisions
+                // todo: optimize this, its worst case is O(n^2) (assuming all comps have bodies). maybe store a list of components with physics bodies?
+                PhysicsBody *bodyA = component->getPhysicsBody();
+                if (bodyA != nullptr && bodyA->getObjCollision())
+                {
+                    for (int j = 0; j < sys.getCurrentScene()->getComponents().size(); j++)
+                    {
+                        Component *other = sys.getCurrentScene()->getComponents()[j];
+                        PhysicsBody *bodyB = other->getPhysicsBody();
+
+                        if (i != j && bodyB != nullptr && bodyB->getObjCollision() && bodyA->isColliding(bodyB))
+                        {
+                            bodyA->resolveCollision(bodyB);
+                        }
+                    }
+                }
+            }
 
             auto oldScene = sys.getCurrentScene();
             sys.changeScene();
@@ -158,7 +184,8 @@ namespace fruitwork
 
         } // while running
 
-        std::cout << "Session ended" << std::endl;
+        std::cout << "Session ended" <<
+                  std::endl;
     }
 
     Session::~Session()
@@ -193,4 +220,5 @@ namespace fruitwork
 
         componentsToDelete.clear();
     }
+
 } // fruitwork

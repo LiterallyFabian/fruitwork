@@ -3,6 +3,7 @@
 #include "Button.h"
 #include "TestScene.h"
 #include "TestSceneCollision.h"
+#include "TestScenePhysics.h"
 
 namespace fruitwork
 {
@@ -24,9 +25,16 @@ namespace fruitwork
                                                    fruitwork::sys.setNextScene(TestSceneCollision::getInstance());
                                                });
 
+        fruitwork::Button *buttonPhysicsTests = fruitwork::Button::getInstance(50, 400, 240, 48, "Physics tests");
+        buttonPhysicsTests->registerCallback([](fruitwork::Button *src)
+                                             {
+                                                 fruitwork::sys.setNextScene(TestScenePhysics::getInstance());
+                                             });
+
         addComponent(titleText);
         addComponent(buttonButtonTests);
         addComponent(buttonCollisionTests);
+        addComponent(buttonPhysicsTests);
 
         return true;
     }

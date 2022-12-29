@@ -2,6 +2,7 @@
 #define FRUITWORK_COMPONENT_H
 
 #include <SDL.h>
+#include "PhysicsBody.h"
 
 namespace fruitwork
 {
@@ -34,6 +35,15 @@ namespace fruitwork
          */
         virtual void update() {};
 
+        virtual void update(float elapsedTime)
+        {
+            if (body != nullptr)
+            {
+                body->update(elapsedTime);
+                setRect(body->getRect());
+            }
+        }
+
         /**
          * Start is called when the component is added to a session.
          */
@@ -57,6 +67,10 @@ namespace fruitwork
 
         int height() const { return rect.h; }
 
+        void setPhysicsBody(PhysicsBody *body) { this->body = body; }
+
+        PhysicsBody *getPhysicsBody() const { return body; }
+
 
     protected:
         Component(int x, int y, int w, int h);
@@ -65,6 +79,7 @@ namespace fruitwork
         SDL_Rect rect;
         int z = 0; // z-index
 
+        PhysicsBody *body = nullptr;
     };
 
 } // fruitwork
