@@ -131,7 +131,8 @@ namespace fruitwork
 
             if (inputType == InputType::NUMERIC)
             {
-                if (event.text.text[0] < '0' || event.text.text[0] > '9')
+                if ((event.text.text[0] < '0' || event.text.text[0] > '9') // not a number
+                    && event.text.text[0] != '.' && event.text.text[0] != '-') // not a dot or minus
                     return;
             }
 
