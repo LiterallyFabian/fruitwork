@@ -4,6 +4,7 @@
 #include "TestScene.h"
 #include "TestSceneCollision.h"
 #include "TestScenePhysics.h"
+#include "TestSceneHierarchy.h"
 
 namespace fruitwork
 {
@@ -31,10 +32,17 @@ namespace fruitwork
                                                  fruitwork::sys.setNextScene(TestScenePhysics::getInstance());
                                              });
 
+        fruitwork::Button *buttonHierarchyTests = fruitwork::Button::getInstance(50, 500, 240, 48, "Hierarchy tests");
+        buttonHierarchyTests->registerCallback([](fruitwork::Button *src)
+                                               {
+                                                   fruitwork::sys.setNextScene(TestSceneHierarchy::getInstance());
+                                               });
+
         addComponent(titleText);
         addComponent(buttonButtonTests);
         addComponent(buttonCollisionTests);
         addComponent(buttonPhysicsTests);
+        addComponent(buttonHierarchyTests);
 
         return true;
     }

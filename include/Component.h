@@ -2,6 +2,7 @@
 #define FRUITWORK_COMPONENT_H
 
 #include <SDL.h>
+#include <vector>
 #include "PhysicsBody.h"
 
 namespace fruitwork
@@ -42,6 +43,15 @@ namespace fruitwork
                 body->update(elapsedTime);
                 setRect(body->getRect());
             }
+
+            for (Component *child: children)
+                child->update({rect.x, rect.y});
+        }
+
+        virtual void update(const SDL_Point &parentPos)
+        {
+            rect.x = parentPos.x + localRect.x;
+            rect.y = parentPos.y + localRect.y;
         }
 
         /**
@@ -63,6 +73,10 @@ namespace fruitwork
          */
         void setZIndex(int zIndex) { z = zIndex; }
 
+        void addChild(Component *child);
+
+        void removeChild(Component *child);
+
         int width() const { return rect.w; }
 
         int height() const { return rect.h; }
@@ -77,7 +91,11 @@ namespace fruitwork
 
     private:
         SDL_Rect rect;
+        SDL_Rect localRect;
         int z = 0; // z-index
+
+        std::vector<Component *> children;
+        Component *parent = nullptr;
 
         PhysicsBody *body = nullptr;
     };
