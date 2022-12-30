@@ -5,6 +5,7 @@
 #include "TestSceneCollision.h"
 #include "TestScenePhysics.h"
 #include "TestSceneHierarchy.h"
+#include "TitleScene.h"
 
 namespace fruitwork
 {
@@ -13,6 +14,12 @@ namespace fruitwork
         fruitwork::Label *titleText = fruitwork::Label::getInstance(0, 25, 1200, 900, "fruitwork::Visual tests");
         titleText->setAlignment(fruitwork::Label::Alignment::CENTER);
         titleText->setFontSize(100);
+
+        fruitwork::Button *returnButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to main");
+        returnButton->registerCallback([](fruitwork::Button *src)
+                                       {
+                                           fruitwork::sys.setNextScene(yuzu::TitleScene::getInstance());
+                                       });
 
         fruitwork::Button *buttonButtonTests = fruitwork::Button::getInstance(50, 200, 240, 48, "General tests");
         buttonButtonTests->registerCallback([](fruitwork::Button *src)
@@ -43,6 +50,8 @@ namespace fruitwork
         addComponent(buttonCollisionTests);
         addComponent(buttonPhysicsTests);
         addComponent(buttonHierarchyTests);
+
+        addComponent(returnButton);
 
         return true;
     }
