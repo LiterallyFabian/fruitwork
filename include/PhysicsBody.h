@@ -7,7 +7,7 @@ namespace fruitwork
 {
     class PhysicsBody {
     public:
-        explicit PhysicsBody(SDL_Rect rect, float mass = 1.0f, float elasticity = 0.5f);
+        static PhysicsBody *getInstance(SDL_Rect rect, float mass = 1.0f, float elasticity = 0.5f);
 
         virtual ~PhysicsBody();
 
@@ -20,6 +20,8 @@ namespace fruitwork
         virtual void update(float elapsedTime);
 
         void addForce(float x, float y);
+
+#pragma region getters/setters
 
         void setVelocity(float x, float y)
         {
@@ -68,6 +70,8 @@ namespace fruitwork
         // get the bounding box of the physics body
         const SDL_Rect &getRect() const { return rect; }
 
+#pragma endregion
+
         // check if the physics body is colliding with another body
         bool isColliding(const PhysicsBody *) const;
 
@@ -75,8 +79,11 @@ namespace fruitwork
         void resolveCollision(PhysicsBody *);
 
     protected:
+        explicit PhysicsBody(SDL_Rect rect, float mass = 1.0f, float elasticity = 0.5f);
+
         // update the bounding box based on the current position
         void updateRect();
+
 
     private:
         SDL_Rect rect;

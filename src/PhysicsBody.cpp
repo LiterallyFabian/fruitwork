@@ -3,6 +3,10 @@
 
 namespace fruitwork
 {
+    PhysicsBody *PhysicsBody::getInstance(SDL_Rect rect, float mass, float elasticity)
+    {
+        return new PhysicsBody(rect, mass, elasticity);
+    }
 
     PhysicsBody::PhysicsBody(SDL_Rect rect, float mass, float elasticity)
             : rect(rect), mass(mass), elasticity(elasticity)

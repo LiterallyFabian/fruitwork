@@ -24,13 +24,13 @@ namespace fruitwork
         returnButton->setTextColor({0, 0, 0, 128});
 
         sprite = fruitwork::Sprite::getInstance(20, 200, 392, 348, fruitwork::ResourceManager::getTexturePath("pippi-0.png"), true);
-        auto *body = new PhysicsBody(sprite->getRect());
+        auto *body = PhysicsBody::getInstance(sprite->getRect());
         body->setScreenCollision(true);
         body->setObjCollision(true);
         sprite->setPhysicsBody(body);
 
         fruitwork::Sprite *sprite2 = fruitwork::Sprite::getInstance(600, 200, 48, 48, fruitwork::ResourceManager::getTexturePath("fruit-orange.png"), true);
-        auto *body2 = new PhysicsBody(sprite2->getRect());
+        auto *body2 = PhysicsBody::getInstance(sprite2->getRect());
         body2->setScreenCollision(true);
         body2->setObjCollision(true);
         sprite2->setPhysicsBody(body2);
