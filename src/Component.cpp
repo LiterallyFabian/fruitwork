@@ -5,7 +5,10 @@ namespace fruitwork
 
     Component::Component(int x, int y, int w, int h) : rect{x, y, w, h} {}
 
-    Component::~Component() = default;
+    Component::~Component()
+    {
+        children = std::vector<fruitwork::Component *>(); // idk why this is needed but it is
+    }
 
     void Component::addChild(Component *child)
     {
@@ -36,6 +39,5 @@ namespace fruitwork
             }
         }
     }
-
 
 } // fruitwork
