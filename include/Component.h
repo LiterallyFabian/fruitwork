@@ -61,7 +61,16 @@ namespace fruitwork
 
         const SDL_Rect &getRect() const { return rect; }
 
-        void setRect(const SDL_Rect &r) { this->rect = r; }
+        const SDL_Rect &getLocalRect() const { return localRect; }
+
+        /**
+         * Sets the rect of the component. This will also update the local rect.
+         */
+        void setRect(const SDL_Rect &r)
+        {
+            rect = r;
+            localRect = r;
+        }
 
         int zIndex() const { return z; }
 
@@ -76,6 +85,8 @@ namespace fruitwork
         void addChild(Component *child);
 
         void removeChild(Component *child);
+
+        std::vector<Component *> getChildren() const { return children; }
 
         int width() const { return rect.w; }
 
@@ -94,7 +105,7 @@ namespace fruitwork
         SDL_Rect localRect;
         int z = 0; // z-index
 
-        std::vector<Component *> children;
+        std::vector<Component *> children = std::vector<Component *>();
         Component *parent = nullptr;
 
         PhysicsBody *body = nullptr;
