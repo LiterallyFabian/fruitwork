@@ -8,6 +8,8 @@ namespace fruitwork
     Component::~Component()
     {
         children = std::vector<fruitwork::Component *>(); // idk why this is needed but it is
+
+        delete body;
     }
 
     void Component::addChild(Component *child)
