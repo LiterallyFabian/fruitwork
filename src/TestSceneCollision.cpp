@@ -23,11 +23,11 @@ namespace fruitwork
         testButton->setColor({255, 255, 255, 128});
         testButton->setTextColor({0, 0, 0, 128});
 
-        pippi = fruitwork::Sprite::getInstance(20, 200, 392, 348, fruitwork::ResourceManager::getTexturePath("pippi-0.png"), true);
+        jerafina = fruitwork::Sprite::getInstance(20, 200, 348, 348, fruitwork::ResourceManager::getTexturePath("jerafina.png"), true);
         lynn = fruitwork::Sprite::getInstance(600, 200, 610, 648, fruitwork::ResourceManager::getTexturePath("fruit-catcher-kiai.png"), true);
         bananas = fruitwork::Sprite::getInstance(0, 0, 128, 128, fruitwork::ResourceManager::getTexturePath("fruit-bananas.png"), true);
 
-        addComponent(pippi);
+        addComponent(jerafina);
         addComponent(lynn);
         addComponent(bananas);
         addComponent(titleText);
@@ -48,15 +48,15 @@ namespace fruitwork
         bananas->setRect({x - 64, y - 64, 128, 128});
 
         // check collision
-        if (pippi->pixelCollidesWith(bananas))
+        if (jerafina->rectCollidesWith(bananas, 50))
         {
-            SDL_Log("Pippi collides with bananas on PIXEL level");
-            collisionType = 2;
-        }
-        else if (pippi->rectCollidesWith(bananas))
-        {
-            SDL_Log("Pippi collides with bananas on RECT level");
+            SDL_Log("Jerafina collides with bananas on RECT level, threshold 50");
             collisionType = 1;
+        }
+        else if (jerafina->pixelCollidesWith(bananas))
+        {
+            SDL_Log("Jerafina collides with bananas on PIXEL level");
+            collisionType = 2;
         }
 
         if (lynn->pixelCollidesWith(bananas))

@@ -38,9 +38,10 @@ namespace fruitwork
         /**
          * Checks if the rect of the sprite is colliding with the rect of another sprite.
          * @param other The other sprite to check collision with.
+         * @param threshold The threshold of collision. If the threshold is 5, then the sprites must be at least 5 pixels apart to be considered colliding.
          * @return true if the rects are colliding, false otherwise.
          */
-        bool rectCollidesWith(const Sprite *other) const;
+        bool rectCollidesWith(const Sprite *other, int threshold = 0) const;
 
         /**
          * Checks if the rect of the sprite is colliding with the pixels of another sprite.

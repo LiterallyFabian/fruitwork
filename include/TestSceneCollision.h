@@ -21,7 +21,7 @@ namespace fruitwork
 
         TestSceneCollision() = default;
 
-        fruitwork::Sprite *pippi = nullptr;
+        fruitwork::Sprite *jerafina = nullptr;
         fruitwork::Sprite *lynn = nullptr;
         fruitwork::Sprite *bananas = nullptr;
     };

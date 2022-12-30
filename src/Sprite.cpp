@@ -118,11 +118,24 @@ namespace fruitwork
 
 #pragma region Collision Detection
 
-    bool Sprite::rectCollidesWith(const Sprite *other) const
+    bool Sprite::rectCollidesWith(const Sprite *other, int threshold) const
     {
         SDL_Rect rect1 = getRect();
         SDL_Rect rect2 = other->getRect();
-        return SDL_HasIntersection(&rect1, &rect2);
+
+        if (rect1.x + rect1.w < rect2.x + threshold)
+            return false;
+
+        if (rect1.x > rect2.x + rect2.w - threshold)
+            return false;
+
+        if (rect1.y + rect1.h < rect2.y + threshold)
+            return false;
+
+        if (rect1.y > rect2.y + rect2.h - threshold)
+            return false;
+
+        return true;
     }
 
     inline static Uint32 getPixel(SDL_Surface *surface, int x, int y)
