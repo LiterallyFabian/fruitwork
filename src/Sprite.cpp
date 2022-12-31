@@ -211,4 +211,50 @@ namespace fruitwork
 
 #pragma endregion
 
+#pragma region Fading
+
+    void Sprite::fadeTo(int duration, Uint8 alpha, int delay)
+    {
+        // Set the fade effect parameters
+        fadeAlpha = alpha;
+        fadeDuration = duration;
+        fadeDelay = delay;
+        fadeStartTime = SDL_GetTicks64();
+        isFading = true;
+    }
+
+    void Sprite::fadeOut(int duration, int delay)
+    {
+        fadeTo(duration, 0, delay);
+    }
+
+    void Sprite::fadeIn(int duration, int delay)
+    {
+        fadeTo(duration, 255, delay);
+    }
+
+    void Sprite::update(float elapsedTime)
+    {
+        Component::update(elapsedTime);
+
+        if (isFading)
+        {
+            Uint64 elapsed = SDL_GetTicks64() - fadeStartTime; // elapsed since start
+
+            if (elapsed >= fadeDuration + fadeDelay) // done
+            {
+                alphaMod = fadeAlpha;
+                isFading = false;
+            }
+            else if (elapsed >= fadeDelay)
+            {
+                float t = (float)(elapsed - fadeDelay) / fadeDuration;
+                alphaMod = alphaMod + (fadeAlpha - alphaMod) * t; // linear interpolation
+            }
+        }
+    }
+
+#pragma endregion
+
+
 } // fruitwork

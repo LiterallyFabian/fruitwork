@@ -23,11 +23,25 @@ namespace fruitwork
 
         void draw() const override;
 
+        void update(float elapsedTime) override;
+
         void setColorMod(const SDL_Color &color) { this->colorMod = color; }
+
+        SDL_Color getColorMod() const { return colorMod; }
 
         void setAlphaMod(Uint8 alpha) { this->alphaMod = alpha; }
 
+        Uint8 getAlphaMod() const { return alphaMod; }
+
         void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
+
+        SDL_RendererFlip getFlip() const { return flipType; }
+
+        void fadeTo(int duration, Uint8 alpha, int delay = 0);
+
+        void fadeOut(int duration, int delay = 0);
+
+        void fadeIn(int duration, int delay = 0);
 
         virtual void setTexture(const std::string &texturePath);
 
@@ -70,6 +84,13 @@ namespace fruitwork
         SDL_Color colorMod = {255, 255, 255, 255};
         Uint8 alphaMod = 255;
         SDL_RendererFlip flipType = SDL_FLIP_NONE;
+
+        // fade stuff
+        bool isFading = false;
+        Uint8 fadeAlpha = 255; // target alpha
+        int fadeDuration = 0;
+        int fadeDelay = 0;
+        Uint64 fadeStartTime = 0;
     };
 
 } // fruitwork
