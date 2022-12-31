@@ -70,6 +70,12 @@ namespace fruitwork
         {
             rect = r;
             localRect = r;
+
+            if (parent != nullptr)
+            {
+                rect.x = parent->getRect().x + localRect.x;
+                rect.y = parent->getRect().y + localRect.y;
+            }
         }
 
         int zIndex() const { return z; }
