@@ -72,6 +72,7 @@ namespace fruitwork
 
         // sprites that are too wide
         Sprite *sprite = Sprite::getInstance(650, 500, 256, 128, ResourceManager::getTexturePath("jerafina.png"));
+        sprite->setAngle(45);
 
         // not owner of the texture
         SDL_Texture *texture = IMG_LoadTexture(sys.getRenderer(), ResourceManager::getTexturePath("button-middle.png").c_str());

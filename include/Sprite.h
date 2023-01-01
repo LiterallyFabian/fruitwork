@@ -37,6 +37,10 @@ namespace fruitwork
 
         SDL_RendererFlip getFlip() const { return flipType; }
 
+        void setAngle(double angle) { this->angle = angle; }
+
+        double getAngle() const { return angle; }
+
         void fadeTo(int duration, Uint8 alpha, int delay = 0);
 
         void fadeOut(int duration, int delay = 0);
@@ -84,6 +88,7 @@ namespace fruitwork
         SDL_Color colorMod = {255, 255, 255, 255};
         Uint8 alphaMod = 255;
         SDL_RendererFlip flipType = SDL_FLIP_NONE;
+        double angle = 0;
 
         // fade stuff
         bool isFading = false;
