@@ -22,9 +22,9 @@ namespace fruitwork
                                      });
 
 
-        ConfettiCannon *confettiCannonCenter = ConfettiCannon::getInstance(1240 / 2, 900 / 2, 24, 24, ResourceManager::getTexturePath("star.png"));
+        ConfettiCannon *confettiCannonCenter = ConfettiCannon::getInstance(1200 / 2, 900 / 2, 24, 24, ResourceManager::getTexturePath("star.png"));
 
-        ConfettiCannon *confettiCannonRightCorner = ConfettiCannon::getInstance(1240, 900, 24, 24, ResourceManager::getTexturePath("star.png"));
+        ConfettiCannon *confettiCannonRightCorner = ConfettiCannon::getInstance(1200, 900, 24, 24, ResourceManager::getTexturePath("star.png"));
         confettiCannonRightCorner->setColors({{255, 0,   0,   255},
                                               {0,   255, 0,   255},
                                               {0,   0,   255, 255}
