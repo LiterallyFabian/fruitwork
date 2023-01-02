@@ -6,6 +6,7 @@
 #include "TestScenePhysics.h"
 #include "TestSceneHierarchy.h"
 #include "TitleScene.h"
+#include "TestSceneConfetti.h"
 
 namespace fruitwork
 {
@@ -45,11 +46,19 @@ namespace fruitwork
                                                    fruitwork::sys.setNextScene(TestSceneHierarchy::getInstance());
                                                });
 
+        fruitwork::Button *buttonConfettiTests = fruitwork::Button::getInstance(50, 600, 240, 48, "Confetti tests");
+        buttonConfettiTests->registerCallback([](fruitwork::Button *src)
+                                              {
+                                                  fruitwork::sys.setNextScene(TestSceneConfetti::getInstance());
+                                              });
+
+
         addComponent(titleText);
         addComponent(buttonButtonTests);
         addComponent(buttonCollisionTests);
         addComponent(buttonPhysicsTests);
         addComponent(buttonHierarchyTests);
+        addComponent(buttonConfettiTests);
 
         addComponent(returnButton);
 
