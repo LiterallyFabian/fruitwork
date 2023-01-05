@@ -64,6 +64,11 @@ namespace fruitwork
             Uint64 startTime = 0;
             bool started = false;
             int fadeOutTime = -1;
+
+            ~Confetti()
+            {
+                delete sprite;
+            }
         };
 
         std::vector<Confetti *> confetti;
