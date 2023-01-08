@@ -34,7 +34,6 @@ namespace fruitwork
         while (running)
         {
             Uint32 nextTick = SDL_GetTicks() + tickInterval;
-            float elapsedTime = 0;
             SDL_Event event;
 
             while (SDL_PollEvent(&event))

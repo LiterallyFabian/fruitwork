@@ -47,6 +47,11 @@ namespace fruitwork
             return keyboardEventHandlers.erase(key) > 0;
         }
 
+        float getElapsedTime() const
+        {
+            return elapsedTime;
+        }
+
         /**
          * Run the session.
          * @param startScene The scene to start the session with.
@@ -70,6 +75,8 @@ namespace fruitwork
          * Deletes all components that have been marked for deletion.
          */
         void deleteComponents();
+
+        float elapsedTime = 0;
     };
 } // fruitwork
 
