@@ -43,7 +43,7 @@ namespace fruitwork
             font = TTF_OpenFont(fontPath.c_str(), fontSize);
         }
 
-        SDL_Surface *surface = TTF_RenderText_Blended(font, text.c_str(), color);
+        SDL_Surface *surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
         texture = SDL_CreateTextureFromSurface(sys.getRenderer(), surface);
         SDL_FreeSurface(surface);
 
