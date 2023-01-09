@@ -11,8 +11,6 @@ namespace constants
     const int gScreenHeight = 900;
 
     const std::string gDefaultFontPath = gResPath + "fonts/Kepler 296.ttf";
-
-    const double speedMod = 170.0 / gFps; // the game is designed to run at 170 fps, so we need to scale the speed accordingly
 } // fruitwork
 
 #endif //FRUITWORK_CONSTANTS_H
