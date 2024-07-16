@@ -18,6 +18,11 @@ namespace fruitwork
         return (stat(path.c_str(), &buffer) == 0);
     }
 
+    /**
+     * Get the relative path to a texture file.
+     * @param textureName the name of the texture file, including the extension. it will be assumed to be in the images directory, but subdirectories can be specified (e.g. "subdir/texture.png")
+     * @return the relative path to the texture file (e.g. "res/images/subdir/texture.png")
+     */
     std::string ResourceManager::getTexturePath(const std::string &textureName)
     {
         std::string path = constants::gResPath + "images/" + textureName;

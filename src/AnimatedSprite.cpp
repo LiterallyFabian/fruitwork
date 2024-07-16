@@ -15,18 +15,18 @@ namespace fruitwork
         return (stat(path.c_str(), &buffer) == 0);
     }
 
-    AnimatedSprite *AnimatedSprite::getInstance(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed)
+    AnimatedSprite *AnimatedSprite::getInstance(int x, int y, int w, int h, const std::string &animationPath, Uint32 animationSpeed)
     {
-        return new AnimatedSprite(x, y, w, h, animationName, animationSpeed);
+        return new AnimatedSprite(x, y, w, h, animationPath, animationSpeed);
     }
 
-    AnimatedSprite::AnimatedSprite(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed) :
-            Sprite(x, y, w, h, nullptr), animationName(animationName), animationSpeed(animationSpeed)
+    AnimatedSprite::AnimatedSprite(int x, int y, int w, int h, const std::string &animationPath, Uint32 animationSpeed) :
+            Sprite(x, y, w, h, nullptr), animationName(animationPath), animationSpeed(animationSpeed)
     {
         int i = 0;
         while (true)
         {
-            std::string path = constants::gResPath + "images/" + animationName;  // NOLINT(performance-inefficient-string-concatenation)
+            std::string path = animationPath;
             std::string frameNumber = std::to_string(i);
             path.replace(path.find("{n}"), 3, frameNumber);
             if (file_exists(path))
@@ -47,7 +47,7 @@ namespace fruitwork
 
         if (frames.empty())
             SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
-                         "Failed to load animation: %s. If nothing else is logged, the path might be incorrect or a start frame (N=0) might be missing.", animationName.c_str());
+                         "Failed to load animation: %s. If nothing else is logged, the path might be incorrect or a start frame (N=0) might be missing.", animationPath.c_str());
 
         frameCount = (int) frames.size();
     }

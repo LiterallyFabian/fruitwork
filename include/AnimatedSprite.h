@@ -15,18 +15,18 @@ namespace fruitwork
          * @param y The y position of the sprite.
          * @param w The width of the sprite.
          * @param h The height of the sprite.
-         * @param animationName  The name of the animation to use. {n} will be replaced with the frame number.
-         * @param animationSpeed  The speed of the animation, in milliseconds.
+         * @param animationPath  The path of the animation to use, in the format res/img/texture-{n}.png. {n} will be replaced with the frame number.
+         * @param animationSpeed  The speed (frame rate) of the animation, in milliseconds.
          * @return
          */
-        static AnimatedSprite *getInstance(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed);
+        static AnimatedSprite *getInstance(int x, int y, int w, int h, const std::string &animationPath, Uint32 animationSpeed);
 
         void update() override;
 
         ~AnimatedSprite() override;
 
     protected:
-        AnimatedSprite(int x, int y, int w, int h, const std::string &animationName, Uint32 animationSpeed);
+        AnimatedSprite(int x, int y, int w, int h, const std::string &animationPath, Uint32 animationSpeed);
 
     private:
         std::vector<SDL_Texture *> frames;
