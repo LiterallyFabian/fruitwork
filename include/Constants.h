@@ -5,7 +5,7 @@
 
 namespace constants
 {
-    const std::string gResPath = "../../resources/";
+    const std::string gResPath = "resources/";
     const int gFps = 60;
     const int gScreenWidth = 1200;
     const int gScreenHeight = 900;
