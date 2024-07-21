@@ -49,32 +49,30 @@ namespace fruitwork
 
         // set the draw rect
         drawRect = getRect();
-        int w, h;
-        SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+        int textWidth, textHeight;
+        SDL_QueryTexture(texture, nullptr, nullptr, &textWidth, &textHeight);
+
+        // drawRect can not be larger than the component's rect, scale x and y down by the same % if necessary
+        if (textWidth > drawRect.w)
+        {
+            float scale = static_cast<float>(drawRect.w) / textWidth;
+            textWidth = static_cast<int>(textWidth * scale);
+            textHeight = static_cast<int>(textHeight * scale);
+        }
+
+        drawRect.w = textWidth;
+        drawRect.h = textHeight;
+
         switch (alignment)
         {
             case Alignment::LEFT:
-                drawRect.w = w;
-                drawRect.h = h;
                 break;
             case Alignment::CENTER:
-                drawRect.w = w;
-                drawRect.h = h;
-                drawRect.x += (getRect().w - w) / 2;
+                drawRect.x += (getRect().w - textWidth) / 2; // Full width minus text width divided by 2
                 break;
             case Alignment::RIGHT:
-                drawRect.w = w;
-                drawRect.h = h;
-                drawRect.x += getRect().w - w;
+                drawRect.x += getRect().w - textWidth; // Full width minus text width
                 break;
-        }
-
-        // drawRect can not be larger than the component's rect, scale x and y down by the same % if necessary
-        if (drawRect.w > getRect().w)
-        {
-            float scale = (float) getRect().w / drawRect.w;
-            drawRect.w *= scale;
-            drawRect.h *= scale;
         }
     }
 
