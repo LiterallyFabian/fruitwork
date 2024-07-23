@@ -25,12 +25,16 @@ namespace fruitwork
 
         void update(float elapsedTime) override;
 
+        /** Apply color modulation to the sprite. */
         void setColorMod(const SDL_Color &color) { this->colorMod = color; }
 
+        /** @return The current color modulation of the sprite. */
         SDL_Color getColorMod() const { return colorMod; }
 
+        /** Apply alpha modulation (opacity) to the sprite. */
         void setAlphaMod(Uint8 alpha) { this->alphaMod = alpha; }
 
+        /** @return The current alpha modulation (opacity) of the sprite. */
         Uint8 getAlphaMod() const { return alphaMod; }
 
         void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
@@ -43,8 +47,10 @@ namespace fruitwork
 
         void fadeTo(int duration, Uint8 alpha, int delay = 0);
 
+        /** Fades the sprite to 0 from the current opacity for the specified duration. */
         void fadeOut(int duration, int delay = 0);
 
+        /** Fades the sprite to 255 from the current opacity for the specified duration. */
         void fadeIn(int duration, int delay = 0);
 
         virtual void setTexture(const std::string &texturePath);
