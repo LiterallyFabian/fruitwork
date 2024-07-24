@@ -9,6 +9,21 @@ fruitwork is using a slightly modified version of the LLDB naming conventions (t
 - Namespace members are indented by 4 spaces.
 - Switch cases are always on a new line (`Keep simple cases in one line = false`)
 
+### Building
+fruitwork uses Makefiles to build the project, which can be found at its root. The Makefile uses the following project structure:
+```
+.
+├── build/
+├── fruitwork/
+│   ├── include/
+│   ├── resources/
+│   ├── src/
+│   └── Makefile
+└── project/
+    ├── include/
+    ├── resources/
+    └── src/
+```
 
 ## Acknowledgements
 
