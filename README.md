@@ -1,6 +1,14 @@
 # fruitwork
 
-fruitwork is a simple game engine written in C++ and the SDL2 library. It was made for the CPROG course at Stockholm University, and isn't really intended for any other use.
+fruitwork is a simple component-based game engine written in C++ and the SDL2 library.
+
+## Technical Details
+### Naming Conventions
+fruitwork is using a slightly modified version of the LLDB naming conventions (taken from & modified in [CLion](https://www.jetbrains.com/clion/)). The differences are as follows:
+- Camel case is used for global/local variables and parameters.
+- Namespace members are indented by 4 spaces.
+- Switch cases are always on a new line (`Keep simple cases in one line = false`)
+
 
 ## Acknowledgements
 
