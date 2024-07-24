@@ -8,7 +8,8 @@
 namespace fruitwork
 {
 
-    class Component {
+    class Component
+    {
 
     public:
         virtual ~Component();
@@ -17,42 +18,44 @@ namespace fruitwork
 
         const Component &operator=(const Component &) = delete; // no copy assignment
 
+        /** Called when a mouse button is pressed. The mouse does not have to be over the component. */
         virtual void onMouseDown(const SDL_Event &) {};
 
+        /** Called when a mouse button is released. The mouse does not have to be over the component. */
         virtual void onMouseUp(const SDL_Event &) {};
 
+        /** Called when a key is pressed. */
         virtual void onKeyDown(const SDL_Event &) {};
 
+        /** Called when a key is released. */
         virtual void onKeyUp(const SDL_Event &) {};
 
+        /** Called when text input is received. This is not the same as key down. */
         virtual void onTextInput(const SDL_Event &) {};
 
+        /** Called when text is being edited. This is commonly used in languages like Japanese where composing characters may require multiple keystrokes. */
         virtual void onTextEditing(const SDL_Event &) {};
 
+        /**
+         * Called once per frame, after the component has been updated.
+         * @see fruitwork::Component::update
+         */
         virtual void draw() const = 0;
+
+        /** Update is called every frame. */
+        virtual void update() {};
 
         /**
          * Update is called every frame.
+         * @param elapsedTime The time in seconds since the last frame.
          */
-        virtual void update() {};
+        virtual void update(float elapsedTime);
 
-        virtual void update(float elapsedTime)
-        {
-            if (body != nullptr)
-            {
-                body->update(elapsedTime);
-                setRect(body->getRect());
-            }
-
-            for (Component *child: children)
-                child->update({rect.x, rect.y});
-        }
-
-        virtual void update(const SDL_Point &parentPos)
-        {
-            rect.x = parentPos.x + localRect.x;
-            rect.y = parentPos.y + localRect.y;
-        }
+        /**
+         * Update the position of the component based on the parent position.
+         * @param parentPos The position of the parent component.
+         */
+        virtual void update(const SDL_Point &parentPos);
 
         /**
          * Start is called when the component is added to a session.
@@ -66,17 +69,7 @@ namespace fruitwork
         /**
          * Sets the rect of the component. This will also update the local rect.
          */
-        void setRect(const SDL_Rect &r)
-        {
-            rect = r;
-            localRect = r;
-
-            if (parent != nullptr)
-            {
-                rect.x = parent->getRect().x + localRect.x;
-                rect.y = parent->getRect().y + localRect.y;
-            }
-        }
+        void setRect(const SDL_Rect &r);
 
         int zIndex() const { return z; }
 
@@ -101,7 +94,6 @@ namespace fruitwork
         void setPhysicsBody(PhysicsBody *body) { this->body = body; }
 
         PhysicsBody *getPhysicsBody() const { return body; }
-
 
     protected:
         Component(int x, int y, int w, int h);

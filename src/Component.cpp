@@ -42,4 +42,31 @@ namespace fruitwork
         }
     }
 
+    void Component::update(float elapsedTime) {
+        if (body != nullptr)
+        {
+            body->update(elapsedTime);
+            setRect(body->getRect());
+        }
+
+        for (Component *child: children)
+            child->update({rect.x, rect.y});
+    }
+
+    void Component::update(const SDL_Point &parentPos) {
+        rect.x = parentPos.x + localRect.x;
+        rect.y = parentPos.y + localRect.y;
+    }
+
+    void Component::setRect(const SDL_Rect &r) {
+        rect = r;
+        localRect = r;
+
+        if (parent != nullptr)
+        {
+            rect.x = parent->getRect().x + localRect.x;
+            rect.y = parent->getRect().y + localRect.y;
+        }
+    }
+
 } // fruitwork
