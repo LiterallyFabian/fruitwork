@@ -14,7 +14,7 @@ namespace fruitwork
     {
         SDL_SetRenderDrawColor(sys.getRenderer(), color.r, color.g, color.b, color.a);
         SDL_SetRenderDrawBlendMode(sys.getRenderer(), SDL_BLENDMODE_BLEND); // respect alpha
-        SDL_RenderFillRect(sys.getRenderer(), &getRect());
+        SDL_RenderFillRect(sys.getRenderer(), &getAbsoluteRect());
 
         // reset
         SDL_SetRenderDrawColor(sys.getRenderer(), 255, 255, 255, 255);

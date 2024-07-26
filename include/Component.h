@@ -8,6 +8,23 @@
 namespace fruitwork
 {
 
+    enum class Anchor
+    {
+        TOP_LEFT,
+        TOP_CENTER,
+        TOP_RIGHT,
+        CENTER_LEFT,
+        CENTER,
+        CENTER_RIGHT,
+        BOTTOM_LEFT,
+        BOTTOM_CENTER,
+        BOTTOM_RIGHT
+    };
+
+    /**
+     * A component is a drawable object that can be added to a session or scene.
+     * It also contains position, size, anchor and pivot information.
+     */
     class Component
     {
 
@@ -50,21 +67,24 @@ namespace fruitwork
          * @param elapsedTime The time in seconds since the last frame.
          */
         virtual void update(float elapsedTime);
-
-        /**
-         * Update the position of the component based on the parent position.
-         * @param parentPos The position of the parent component.
-         */
-        virtual void update(const SDL_Point &parentPos);
-
         /**
          * Start is called when the component is added to a session.
          */
         virtual void start() {};
 
+        /**
+         * @return The rect the component is drawn in. This value differs from its absolute rect, which is a
+         * combination of the parent's rect and the component's local rect, including anchor and pivot.
+         */
         const SDL_Rect &getRect() const { return rect; }
 
-        const SDL_Rect &getLocalRect() const { return localRect; }
+        /**
+         * @return A calculated, absolute rect based on the parent's rect, the component's local rect, anchor and pivot.
+         * This is the rect components should be drawn in.
+         */
+        const SDL_Rect &getAbsoluteRect() const;
+
+        //const SDL_Rect &getLocalRect() const { return localRect; }
 
         /**
          * Sets the rect of the component. This will also update the local rect.
@@ -91,22 +111,44 @@ namespace fruitwork
 
         int height() const { return rect.h; }
 
-        void setPhysicsBody(PhysicsBody *body) { this->body = body; }
+        void setPhysicsBody(PhysicsBody *newBody) { this->body = newBody; }
 
         PhysicsBody *getPhysicsBody() const { return body; }
+
+        void setAnchor(Anchor newAnchor) { this->anchor = newAnchor; }
+
+        /**
+         * Sets the anchor and a pivot based on it.
+         */
+        void setAnchorAndPivot(Anchor newAnchor);
+
+        void setPivot(SDL_FPoint newPivot) { this->pivot = newPivot; }
+
+        void setPivot(float x, float y) { this->pivot = {x, y}; }
+
+        /**
+         * Sets the pivot based on an anchor.
+         * For example, TOP_LEFT will set the pivot to (0, 1).
+         */
+        void setPivot(Anchor anchorPivot);
 
     protected:
         Component(int x, int y, int w, int h);
 
     private:
         SDL_Rect rect;
-        SDL_Rect localRect;
+        mutable SDL_Rect absoluteRect;
+
+        //SDL_Rect localRect;
         int z = 0; // z-index
 
         std::vector<Component *> children = std::vector<Component *>();
         Component *parent = nullptr;
 
         PhysicsBody *body = nullptr;
+
+        Anchor anchor = Anchor::TOP_LEFT;
+        SDL_FPoint pivot = {1, 0};
     };
 
 } // fruitwork

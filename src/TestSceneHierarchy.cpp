@@ -5,28 +5,31 @@
 #include "TestSceneIndex.h"
 #include "Main.h"
 #include "ResourceManager.h"
+#include "Rectangle.h"
+
+using namespace fruitwork;
 
 namespace fruitwork
 {
-    bool fruitwork::TestSceneHierarchy::enter()
+    bool TestSceneHierarchy::enter()
     {
-        fruitwork::Label *titleText = fruitwork::Label::getInstance(0, 25, 1200, 900, "Visual tests::Parent/Child");
-        titleText->setAlignment(fruitwork::Label::Alignment::CENTER);
+        Label *titleText = Label::getInstance(0, 25, 1200, 900, "Visual tests::Parent/Child");
+        titleText->setAlignment(Label::Alignment::CENTER);
         titleText->setFontSize(100);
 
         // test scene button
-        fruitwork::Button *returnButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to index");
-        returnButton->registerCallback([](fruitwork::Button *src)
+        Button *returnButton = Button::getInstance(10, 842, 240, 48, "Back to index");
+        returnButton->registerCallback([](Button *src)
                                        {
-                                           fruitwork::sys.setNextScene(fruitwork::TestSceneIndex::getInstance());
+                                           sys.setNextScene(TestSceneIndex::getInstance());
                                        });
 
-        fruitwork::Label *controlLabel = fruitwork::Label::getInstance(260, 842, 400, 48, "A to attach/detach");
-        controlLabel->setAlignment(fruitwork::Label::Alignment::LEFT);
+        Label *controlLabel = Label::getInstance(260, 842, 400, 48, "A to attach/detach");
+        controlLabel->setAlignment(Label::Alignment::LEFT);
         controlLabel->setFontSize(20);
 
-        parent = fruitwork::Sprite::getInstance(20, 200, 392, 348, fruitwork::ResourceManager::getTexturePath("pippi-0.png"), true);
-        child = fruitwork::Sprite::getInstance(20, 400, 392, 348, fruitwork::ResourceManager::getTexturePath("pippi-1.png"), true);
+        parent = Sprite::getInstance(20, 200, 392, 348, ResourceManager::getTexturePath("pippi-0.png"), true);
+        child = Sprite::getInstance(20, 400, 392, 348, ResourceManager::getTexturePath("pippi-1.png"), true);
 
         yuzu::ses.registerKeyboardEvent(SDLK_a, [this]()
         {
@@ -47,15 +50,25 @@ namespace fruitwork
         addComponent(controlLabel);
         addComponent(parent, -1);
         addComponent(child, -1);
+
+        Rectangle *emptyParent = Rectangle::getInstance(0, 0, 100, 200, {0, 0, 0, 30});
+        emptyParent->setAnchorAndPivot(Anchor::CENTER);
+        Rectangle *topCenterChild = Rectangle::getInstance(0, 0, 50, 150, {159, 238, 149, 255});
+        topCenterChild->setAnchorAndPivot(Anchor::TOP_CENTER);
+        emptyParent->addChild(topCenterChild);
+
+        addComponent(emptyParent, -2);
+        addComponent(topCenterChild, -2);
+
         return true;
     }
 
-    bool fruitwork::TestSceneHierarchy::exit()
+    bool TestSceneHierarchy::exit()
     {
         bool success = true;
         SDL_Log("Exiting TestSceneHierarchy...");
 
-        for (auto &c: components)
+        for (auto &c : components)
             removeComponent(c, true);
 
         yuzu::ses.deregisterKeyboardEvent(SDLK_a);
