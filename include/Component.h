@@ -117,6 +117,8 @@ namespace fruitwork
 
         void setAnchor(Anchor newAnchor) { this->anchor = newAnchor; }
 
+        Anchor getAnchor() const { return anchor; }
+
         /**
          * Sets the anchor and a pivot based on it.
          */
@@ -131,6 +133,8 @@ namespace fruitwork
          * For example, TOP_LEFT will set the pivot to (0, 1).
          */
         void setPivot(Anchor anchorPivot);
+
+        SDL_FPoint getPivot() const { return pivot; }
 
     protected:
         Component(int x, int y, int w, int h);
