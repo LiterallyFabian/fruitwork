@@ -58,7 +58,7 @@ namespace fruitwork
          * Called when an SDL_Event is received.
          * @param e The SDL_Event received.
          */
-        virtual void handleEvent(SDL_Event &e) {}
+        virtual void handleEvent(SDL_Event &e);
 
         /**
          * Update is called every frame, before draw.
@@ -72,17 +72,21 @@ namespace fruitwork
 
         virtual ~Scene() = default;
 
-
     protected:
         std::vector<Component *> components;
 
     private:
-        struct ComponentDelete {
+        struct ComponentDelete
+        {
             Component *component;
             bool destroy;
         };
 
         std::vector<ComponentDelete> componentsToDelete;
+
+        bool debugMode = false;
+
+        fruitwork::Component *debugComponent;
     };
 
 } // fruitwork

@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Component.h"
+#include "DebugInfo.h"
 #include <algorithm>
 
 namespace fruitwork
@@ -38,7 +39,7 @@ namespace fruitwork
 
         SDL_Log("Deleting %d components", (int)componentsToDelete.size());
 
-        for (auto &componentDelete: componentsToDelete)
+        for (auto &componentDelete : componentsToDelete)
         {
             auto it = std::find(components.begin(), components.end(), componentDelete.component);
 
@@ -51,5 +52,33 @@ namespace fruitwork
 
         componentsToDelete.clear();
     }
+
+    // CLion has a bug where it marks bool = !bool; as unreachable, so I'm using this to suppress the warning
+    // https://youtrack.jetbrains.com/issue/CPP-29412/CLion-marks-code-as-unreachable-when-the-code-is-reachable
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnreachableCode"
+    void Scene::handleEvent(SDL_Event &e)
+    {
+        if (e.type == SDL_KEYDOWN)
+        {
+            // F1 with shift
+            if (e.key.keysym.sym == SDLK_F1 && e.key.keysym.mod & KMOD_SHIFT)
+            {
+                debugMode = !debugMode;
+                SDL_Log("Debug mode %s", debugMode ? "enabled" : "disabled");
+
+                if (debugMode)
+                {
+                    debugComponent = DebugInfo::getInstance(this);
+                    addComponent(debugComponent);
+                }
+                else
+                {
+                    removeComponent(debugComponent, true);
+                }
+            }
+        }
+    }
+#pragma clang diagnostic pop
 
 } // fruitwork
