@@ -19,7 +19,8 @@ namespace fruitwork
             SDL_Log("SDL initialized");
         }
 
-        window = SDL_CreateWindow("fruitwork", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, constants::gScreenWidth, constants::gScreenHeight, SDL_WINDOW_SHOWN);
+        Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
+        window = SDL_CreateWindow("fruitwork", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, constants::gScreenWidth, constants::gScreenHeight, flags);
         renderer = SDL_CreateRenderer(window, -1, 0);
 
         if (TTF_Init() != 0)
