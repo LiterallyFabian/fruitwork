@@ -128,6 +128,49 @@ namespace fruitwork
                 rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w;
                 rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h;
                 break;
+
+            case Anchor::TOP_STRETCH:
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y + thisRect.y;
+                rect.w = parentRect.w - thisRect.x;
+                rect.h = thisRect.h;
+                break;
+            case Anchor::CENTER_STRETCH:
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y + thisRect.y;
+                rect.w = parentRect.w - thisRect.x * 2;
+                rect.h = thisRect.h;
+                break;
+            case Anchor::BOTTOM_STRETCH:
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y + parentRect.h - thisRect.h;
+                rect.w = parentRect.w - thisRect.x;
+                rect.h = thisRect.h;
+                break;
+            case Anchor::STRETCH:
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y + thisRect.y;
+                rect.w = parentRect.w - thisRect.x;
+                rect.h = parentRect.h - thisRect.y;
+                break;
+            case Anchor::STRETCH_LEFT:
+                rect.x = parentRect.x;
+                rect.y = parentRect.y + thisRect.y;
+                rect.w = thisRect.w;
+                rect.h = parentRect.h - thisRect.y;
+                break;
+            case Anchor::STRETCH_RIGHT:
+                rect.x = parentRect.x + parentRect.w - thisRect.w;
+                rect.y = parentRect.y + thisRect.y;
+                rect.w = thisRect.w;
+                rect.h = parentRect.h - thisRect.y;
+                break;
+            case Anchor::STRETCH_CENTER:
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y + thisRect.y;
+                rect.w = parentRect.w - thisRect.x * 2;
+                rect.h = parentRect.h - thisRect.y * 2;
+                break;
         }
 
         absoluteRect = rect;

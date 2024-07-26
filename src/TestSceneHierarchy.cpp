@@ -62,14 +62,19 @@ namespace fruitwork
         bottomLeftChild->setAnchor(Anchor::BOTTOM_LEFT);
         emptyParent->addChild(bottomLeftChild);
 
-        Rectangle *blueCenterChildChild = Rectangle::getInstance(0, 0, 25, 25, {110, 221, 213, 255});
-        blueCenterChildChild->setAnchor(Anchor::CENTER);
-        bottomLeftChild->addChild(blueCenterChildChild);
+        Rectangle *stretchRightChild = Rectangle::getInstance(0, 0, 25, 0, {221, 211, 110, 255});
+        stretchRightChild->setAnchor(Anchor::STRETCH_RIGHT);
+        emptyParent->addChild(stretchRightChild);
+
+        Rectangle *centerChildChild = Rectangle::getInstance(0, 0, 25, 25, {110, 221, 213, 255});
+        centerChildChild->setAnchor(Anchor::CENTER);
+        bottomLeftChild->addChild(centerChildChild);
 
         addComponent(emptyParent, -2);
         addComponent(topCenterChild, -2);
         addComponent(bottomLeftChild, -2);
-        addComponent(blueCenterChildChild, -2);
+        addComponent(stretchRightChild, -2);
+        addComponent(centerChildChild, -2);
         
         return true;
     }

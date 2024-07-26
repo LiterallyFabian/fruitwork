@@ -7,7 +7,7 @@
 
 namespace fruitwork
 {
-
+    
     enum class Anchor
     {
         TOP_LEFT,
@@ -18,7 +18,14 @@ namespace fruitwork
         CENTER_RIGHT,
         BOTTOM_LEFT,
         BOTTOM_CENTER,
-        BOTTOM_RIGHT
+        BOTTOM_RIGHT,
+        TOP_STRETCH,
+        CENTER_STRETCH,
+        BOTTOM_STRETCH,
+        STRETCH,
+        STRETCH_LEFT,
+        STRETCH_RIGHT,
+        STRETCH_CENTER
     };
 
     /**

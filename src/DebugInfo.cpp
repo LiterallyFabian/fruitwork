@@ -78,6 +78,27 @@ namespace fruitwork
             case Anchor::BOTTOM_RIGHT:
                 anchor = "BOTTOM_RIGHT";
                 break;
+            case Anchor::TOP_STRETCH:
+                anchor = "TOP_STRETCH";
+                break;
+            case Anchor::CENTER_STRETCH:
+                anchor = "CENTER_STRETCH";
+                break;
+            case Anchor::STRETCH:
+                anchor = "STRETCH";
+                break;
+            case Anchor::BOTTOM_STRETCH:
+                anchor = "BOTTOM_STRETCH";
+                break;
+            case Anchor::STRETCH_LEFT:
+                anchor = "STRETCH_LEFT";
+                break;
+            case Anchor::STRETCH_RIGHT:
+                anchor = "STRETCH_RIGHT";
+                break;
+            case Anchor::STRETCH_CENTER:
+                anchor = "STRETCH_CENTER";
+                break;
         }
 
         const std::string className = typeid(*comp).name();
