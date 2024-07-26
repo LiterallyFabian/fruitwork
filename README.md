@@ -11,7 +11,7 @@ fruitwork is using a slightly modified version of the LLDB naming conventions (t
 - Camel case is used for global/local variables and parameters.
 - Namespace members are indented by 4 spaces.
 - Switch cases are always on a new line (`Keep simple cases in one line = false`)
-- Header guards are in the format `FRUITWORK_<PATH>_<FILENAME>_H`.
+- Header guards are in the format `FRUITWORK_<FILENAME>_H`.
 
 ### Building
 
