@@ -23,7 +23,7 @@ namespace fruitwork
 
     /**
      * A component is a drawable object that can be added to a session or scene.
-     * It also contains position, size, anchor and pivot information.
+     * It also contains position, size and anchor information.
      */
     class Component
     {
@@ -74,12 +74,12 @@ namespace fruitwork
 
         /**
          * @return The rect the component is drawn in. This value differs from its absolute rect, which is a
-         * combination of the parent's rect and the component's local rect, including anchor and pivot.
+         * combination of the parent's rect and the component's local rect, including anchor.
          */
         const SDL_Rect &getRect() const { return rect; }
 
         /**
-         * @return A calculated, absolute rect based on the parent's rect, the component's local rect, anchor and pivot.
+         * @return A calculated, absolute rect based on the parent's rect, the component's local rect and anchor.
          * This is the rect components should be drawn in.
          */
         const SDL_Rect &getAbsoluteRect() const;
@@ -119,23 +119,6 @@ namespace fruitwork
 
         Anchor getAnchor() const { return anchor; }
 
-        /**
-         * Sets the anchor and a pivot based on it.
-         */
-        void setAnchorAndPivot(Anchor newAnchor);
-
-        void setPivot(SDL_FPoint newPivot) { this->pivot = newPivot; }
-
-        void setPivot(float x, float y) { this->pivot = {x, y}; }
-
-        /**
-         * Sets the pivot based on an anchor.
-         * For example, TOP_LEFT will set the pivot to (0, 1).
-         */
-        void setPivot(Anchor anchorPivot);
-
-        SDL_FPoint getPivot() const { return pivot; }
-
     protected:
         Component(int x, int y, int w, int h);
 
@@ -152,7 +135,6 @@ namespace fruitwork
         PhysicsBody *body = nullptr;
 
         Anchor anchor = Anchor::TOP_LEFT;
-        SDL_FPoint pivot = {1, 0};
     };
 
 } // fruitwork

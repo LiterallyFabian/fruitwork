@@ -90,91 +90,48 @@ namespace fruitwork
 
         SDL_Rect rect = thisRect;
 
-        int pivotOffsetX = 0;//static_cast<int>(pivot.x * thisRect.w);
-        int pivotOffsetY = 0;//static_cast<int>(pivot.y * thisRect.h);
-
         switch (anchor)
         {
             case Anchor::TOP_LEFT:
-                rect.x = parentRect.x + thisRect.x - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y + thisRect.y;
                 break;
             case Anchor::TOP_CENTER:
-                rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2 - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2;
+                rect.y = parentRect.y + thisRect.y;
                 break;
             case Anchor::TOP_RIGHT:
-                rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w;
+                rect.y = parentRect.y + thisRect.y;
                 break;
             case Anchor::CENTER_LEFT:
-                rect.x = parentRect.x + thisRect.x - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2 - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2;
                 break;
             case Anchor::CENTER:
-                rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2 - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2 - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2;
+                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2;
                 break;
             case Anchor::CENTER_RIGHT:
-                rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2 - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w;
+                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2;
                 break;
             case Anchor::BOTTOM_LEFT:
-                rect.x = parentRect.x + thisRect.x - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h;
                 break;
             case Anchor::BOTTOM_CENTER:
-                rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2 - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2;
+                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h;
                 break;
             case Anchor::BOTTOM_RIGHT:
-                rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w - pivotOffsetX;
-                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h - pivotOffsetY;
+                rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w;
+                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h;
                 break;
         }
 
         absoluteRect = rect;
         return absoluteRect;
-    }
-
-    void Component::setPivot(Anchor anchorPivot)
-    {
-        switch (anchorPivot)
-        {
-            case Anchor::TOP_LEFT:
-                pivot = {0.0f, 1.0f};
-                break;
-            case Anchor::TOP_CENTER:
-                pivot = {0.5f, 1.0f};
-                break;
-            case Anchor::TOP_RIGHT:
-                pivot = {1.0f, 1.0f};
-                break;
-            case Anchor::CENTER_LEFT:
-                pivot = {0.0f, 0.5f};
-                break;
-            case Anchor::CENTER:
-                pivot = {0.5f, 0.5f};
-                break;
-            case Anchor::CENTER_RIGHT:
-                pivot = {1.0f, 0.5f};
-                break;
-            case Anchor::BOTTOM_LEFT:
-                pivot = {0.0f, 0.0f};
-                break;
-            case Anchor::BOTTOM_CENTER:
-                pivot = {0.5f, 0.0f};
-                break;
-            case Anchor::BOTTOM_RIGHT:
-                pivot = {1.0f, 0.0f};
-                break;
-        }
-    }
-
-    void Component::setAnchorAndPivot(Anchor newAnchor)
-    {
-        this->anchor = newAnchor;
-        setPivot(anchor);
     }
 
 } // fruitwork
