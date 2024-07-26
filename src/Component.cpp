@@ -72,7 +72,7 @@ namespace fruitwork
         }*/
     }
 
-    const SDL_Rect& Component::getAbsoluteRect() const
+    const SDL_Rect &Component::getAbsoluteRect() const
     {
         SDL_Rect thisRect = getRect();
         SDL_Rect parentRect; // if no component parent, we use the window size
@@ -90,8 +90,8 @@ namespace fruitwork
 
         SDL_Rect rect = thisRect;
 
-        int pivotOffsetX = static_cast<int>(pivot.x * thisRect.w);
-        int pivotOffsetY = static_cast<int>(pivot.y * thisRect.h);
+        int pivotOffsetX = 0;//static_cast<int>(pivot.x * thisRect.w);
+        int pivotOffsetY = 0;//static_cast<int>(pivot.y * thisRect.h);
 
         switch (anchor)
         {

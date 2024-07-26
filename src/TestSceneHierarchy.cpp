@@ -47,18 +47,29 @@ namespace fruitwork
 
         addComponent(titleText);
         addComponent(returnButton);
-        addComponent(controlLabel);
-        addComponent(parent, -1);
-        addComponent(child, -1);
+//        addComponent(controlLabel);
+//        addComponent(parent, -1);
+//        addComponent(child, -1);
 
         Rectangle *emptyParent = Rectangle::getInstance(0, 0, 100, 200, {0, 0, 0, 30});
         emptyParent->setAnchorAndPivot(Anchor::CENTER);
+
         Rectangle *topCenterChild = Rectangle::getInstance(0, 0, 50, 150, {159, 238, 149, 255});
         topCenterChild->setAnchorAndPivot(Anchor::TOP_CENTER);
         emptyParent->addChild(topCenterChild);
 
+        Rectangle *bottomLeftChild = Rectangle::getInstance(0, 0, 75, 50, {221, 110, 110, 255});
+        bottomLeftChild->setAnchorAndPivot(Anchor::BOTTOM_LEFT);
+        emptyParent->addChild(bottomLeftChild);
+
+        Rectangle *blueCenterChildChild = Rectangle::getInstance(0, 0, 25, 25, {110, 221, 213, 255});
+        blueCenterChildChild->setAnchorAndPivot(Anchor::CENTER);
+        bottomLeftChild->addChild(blueCenterChildChild);
+
         addComponent(emptyParent, -2);
         addComponent(topCenterChild, -2);
+        addComponent(bottomLeftChild, -2);
+        addComponent(blueCenterChildChild, -2);
 
         return true;
     }
