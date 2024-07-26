@@ -43,12 +43,13 @@ namespace fruitwork
             font = TTF_OpenFont(fontPath.c_str(), fontSize);
         }
 
-        SDL_Surface *surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
+        drawRect = getRect();
+
+        SDL_Surface *surface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), color, drawRect.w * 1.1);
         texture = SDL_CreateTextureFromSurface(sys.getRenderer(), surface);
         SDL_FreeSurface(surface);
 
         // set the draw rect
-        drawRect = getRect();
         int textWidth, textHeight;
         SDL_QueryTexture(texture, nullptr, nullptr, &textWidth, &textHeight);
 
@@ -110,6 +111,5 @@ namespace fruitwork
         this->alignment = a;
         setText(text);
     }
-
 
 } // fruitwork
