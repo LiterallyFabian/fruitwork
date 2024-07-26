@@ -18,7 +18,6 @@
     <option name="ALIGN_INIT_LIST_IN_COLUMNS" value="false" />
     <option name="SPACE_BEFORE_COLON_IN_FOREACH" value="true" />
     <option name="DISCHARGED_SHORT_TERNARY_OPERATOR" value="true" />
-    <option name="HEADER_GUARD_STYLE_PATTERN" value="${PROJECT_NAME}_${PROJECT_REL_PATH}_${FILE_NAME}_${EXT}" />
   </Objective-C>
   <Objective-C-extensions>
     <rules>
