@@ -46,7 +46,7 @@ namespace fruitwork
 //        SDL_Point *p = new SDL_Point();
 //        p->x = 250;
 //        p->y = 125;
-        SDL_RenderCopyEx(sys.getRenderer(), spriteTexture, nullptr, &rect, -angle, nullptr, flipType);
+        SDL_RenderCopyEx(sys.getRenderer(), spriteTexture, nullptr, &rect, -getAngle(), nullptr, getFlip());
     }
 
     Sprite::~Sprite()

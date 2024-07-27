@@ -130,6 +130,14 @@ namespace fruitwork
 
         Anchor getAnchor() const { return anchor; }
 
+        void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
+
+        SDL_RendererFlip getFlip() const { return flipType; }
+
+        void setAngle(double newAngle) { this->angle = newAngle; }
+
+        double getAngle() const { return angle; }
+
     protected:
         Component(int x, int y, int w, int h);
 
@@ -145,6 +153,9 @@ namespace fruitwork
         PhysicsBody *body = nullptr;
 
         Anchor anchor = Anchor::LEGACY_TOP_LEFT;
+
+        SDL_RendererFlip flipType = SDL_FLIP_NONE;
+        double angle = 0;
     };
 
 } // fruitwork

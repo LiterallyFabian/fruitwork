@@ -68,7 +68,7 @@ namespace fruitwork
         rect.x += getRect().x;
         rect.y += getRect().y;
 
-        sprite->setFlip(flipType);
+        sprite->setFlip(getFlip());
         sprite->setRect(rect);
         sprite->draw();
     }
