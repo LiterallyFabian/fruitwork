@@ -22,6 +22,7 @@ namespace fruitwork
         TOP_STRETCH,
         CENTER_STRETCH,
         BOTTOM_STRETCH,
+        /* STRETCH will stretch both horizontally and vertically.*/
         STRETCH,
         STRETCH_LEFT,
         STRETCH_RIGHT,

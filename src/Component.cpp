@@ -131,44 +131,44 @@ namespace fruitwork
 
             case Anchor::TOP_STRETCH:
                 rect.x = parentRect.x + thisRect.x;
-                rect.y = parentRect.y + thisRect.y;
-                rect.w = parentRect.w - thisRect.x;
+                rect.y = parentRect.y - thisRect.y; // based on Unity implementation of stretch, might look weird
+                rect.w = parentRect.w - thisRect.w * 2;
                 rect.h = thisRect.h;
                 break;
             case Anchor::CENTER_STRETCH:
                 rect.x = parentRect.x + thisRect.x;
-                rect.y = parentRect.y + thisRect.y;
+                rect.y = parentRect.y + parentRect.h / 2 - thisRect.h / 2 - thisRect.y;
                 rect.w = parentRect.w - thisRect.x * 2;
                 rect.h = thisRect.h;
                 break;
             case Anchor::BOTTOM_STRETCH:
                 rect.x = parentRect.x + thisRect.x;
-                rect.y = parentRect.y + parentRect.h - thisRect.h;
-                rect.w = parentRect.w - thisRect.x;
+                rect.y = parentRect.y + parentRect.h - thisRect.h - thisRect.y;
+                rect.w = parentRect.w - thisRect.x - thisRect.w;
                 rect.h = thisRect.h;
                 break;
             case Anchor::STRETCH:
                 rect.x = parentRect.x + thisRect.x;
                 rect.y = parentRect.y + thisRect.y;
-                rect.w = parentRect.w - thisRect.x;
-                rect.h = parentRect.h - thisRect.y;
+                rect.w = parentRect.w - thisRect.w * 2;
+                rect.h = parentRect.h - thisRect.h * 2;
                 break;
             case Anchor::STRETCH_LEFT:
-                rect.x = parentRect.x;
-                rect.y = parentRect.y + thisRect.y;
-                rect.w = thisRect.w;
-                rect.h = parentRect.h - thisRect.y;
-                break;
-            case Anchor::STRETCH_RIGHT:
-                rect.x = parentRect.x + parentRect.w - thisRect.w;
-                rect.y = parentRect.y + thisRect.y;
-                rect.w = thisRect.w;
-                rect.h = parentRect.h - thisRect.y;
-                break;
-            case Anchor::STRETCH_CENTER:
                 rect.x = parentRect.x + thisRect.x;
                 rect.y = parentRect.y + thisRect.y;
-                rect.w = parentRect.w - thisRect.x * 2;
+                rect.w = thisRect.w;
+                rect.h = parentRect.h - thisRect.y * 2;
+                break;
+            case Anchor::STRETCH_RIGHT:
+                rect.x = parentRect.x + parentRect.w - thisRect.w + thisRect.x;
+                rect.y = parentRect.y + thisRect.y;
+                rect.w = thisRect.w;
+                rect.h = parentRect.h - thisRect.y * 2;
+                break;
+            case Anchor::STRETCH_CENTER:
+                rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2;
+                rect.y = parentRect.y + thisRect.y;
+                rect.w = thisRect.w;
                 rect.h = parentRect.h - thisRect.y * 2;
                 break;
         }
