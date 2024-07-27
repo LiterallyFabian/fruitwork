@@ -100,11 +100,11 @@ namespace fruitwork
         Rectangle *stretchParent = Rectangle::getInstance(100, 0, 100, 200, {0, 0, 0, 30});
         stretchParent->setAnchor(Anchor::CENTER);
 
-        Rectangle *topStretchChild = Rectangle::getInstance(5, -10, 5, 20, {159, 238, 149, 255});
+        Rectangle *topStretchChild = Rectangle::getInstance(10, -10, 5, 20, {159, 238, 149, 255});
         topStretchChild->setAnchor(Anchor::TOP_STRETCH);
         stretchParent->addChild(topStretchChild);
 
-        Rectangle *centerStretchChild = Rectangle::getInstance(10, 30, 10, 20, {221, 110, 110, 255});
+        Rectangle *centerStretchChild = Rectangle::getInstance(45, 30, 10, 20, {221, 110, 110, 255});
         centerStretchChild->setAnchor(Anchor::CENTER_STRETCH);
         stretchParent->addChild(centerStretchChild);
 
@@ -112,15 +112,15 @@ namespace fruitwork
         bottomStretchChild->setAnchor(Anchor::BOTTOM_STRETCH);
         stretchParent->addChild(bottomStretchChild);
 
-        Rectangle *stretchLeftChild = Rectangle::getInstance(5, 5, 30, 5, {110, 221, 213, 255});
+        Rectangle *stretchLeftChild = Rectangle::getInstance(10, 50, 30, 5, {110, 221, 213, 255});
         stretchLeftChild->setAnchor(Anchor::STRETCH_LEFT);
         stretchParent->addChild(stretchLeftChild);
 
-        Rectangle *stretchRightChild = Rectangle::getInstance(-10, 50, 15, 50, {221, 110, 212, 255});
+        Rectangle *stretchRightChild = Rectangle::getInstance(-10, 50, 15, 20, {221, 110, 212, 255});
         stretchRightChild->setAnchor(Anchor::STRETCH_RIGHT);
         stretchParent->addChild(stretchRightChild);
 
-        Rectangle *stretchCenterChild = Rectangle::getInstance(5, 5, 5, 5, {255, 255, 255, 255});
+        Rectangle *stretchCenterChild = Rectangle::getInstance(15, 5, 10, 70, {255, 255, 255, 255});
         stretchCenterChild->setAnchor(Anchor::STRETCH_CENTER);
         stretchParent->addChild(stretchCenterChild);
 
