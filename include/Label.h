@@ -11,10 +11,12 @@
 namespace fruitwork
 {
 
-    class Label : public Component {
+    class Label : public Component
+    {
 
     public:
-        enum class Alignment {
+        enum class Alignment
+        {
             LEFT,
             CENTER,
             RIGHT
@@ -35,6 +37,8 @@ namespace fruitwork
         void setFont(TTF_Font *f);
 
         void setAlignment(Alignment a);
+
+        void update() override;
 
         void draw() const override;
 
@@ -63,6 +67,9 @@ namespace fruitwork
          * The rect that the text is drawn to.
          */
         SDL_Rect drawRect;
+
+        /** The rect that the last texture was rendered to. */
+        SDL_Rect lastAbsoluteDrawnRect;
     };
 
 } // fruitwork

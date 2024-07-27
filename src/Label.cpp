@@ -18,6 +18,14 @@ namespace fruitwork
         setText(text);
     }
 
+    void Label::update()
+    {
+        Component::update();
+        SDL_Rect currentRect = getAbsoluteRect();
+        if (!SDL_RectEquals(&currentRect, &lastAbsoluteDrawnRect))
+            setText(text);
+    }
+
     void Label::draw() const
     {
         SDL_RenderCopy(sys.getRenderer(), texture, nullptr, &drawRect);
@@ -43,7 +51,7 @@ namespace fruitwork
             font = TTF_OpenFont(fontPath.c_str(), fontSize);
         }
 
-        drawRect = getRect();
+        drawRect = getAbsoluteRect();
 
         SDL_Surface *surface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), color, drawRect.w * 1.1);
         texture = SDL_CreateTextureFromSurface(sys.getRenderer(), surface);
@@ -69,12 +77,14 @@ namespace fruitwork
             case Alignment::LEFT:
                 break;
             case Alignment::CENTER:
-                drawRect.x += (getRect().w - textWidth) / 2; // Full width minus text width divided by 2
+                drawRect.x += (getAbsoluteRect().w - textWidth) / 2; // Full width minus text width divided by 2
                 break;
             case Alignment::RIGHT:
-                drawRect.x += getRect().w - textWidth; // Full width minus text width
+                drawRect.x += getAbsoluteRect().w - textWidth; // Full width minus text width
                 break;
         }
+
+        lastAbsoluteDrawnRect = getAbsoluteRect();
     }
 
     void Label::setColor(const SDL_Color &c)

@@ -13,9 +13,10 @@ namespace fruitwork
 {
     bool TestSceneHierarchy::enter()
     {
-        Label *titleText = Label::getInstance(0, 25, 1200, 900, "Visual tests::Parent/Child");
+        Label *titleText = Label::getInstance(15, -25, 15, 200, "Visual tests::Parent/Child");
+        titleText->setAnchor(Anchor::TOP_STRETCH);
         titleText->setAlignment(Label::Alignment::CENTER);
-        titleText->setFontSize(100);
+        titleText->setFontSize(90);
 
         // test scene button
         Button *returnButton = Button::getInstance(10, 842, 240, 48, "Back to index");
