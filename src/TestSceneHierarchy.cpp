@@ -166,6 +166,14 @@ namespace fruitwork
         addComponent(nestedButton, -2);
 #pragma endregion
 
+#pragma region sprites
+        Sprite *rightStretchSprite = Sprite::getInstance(0, 350, 300, 250, ResourceManager::getTexturePath("jerafina.png"), true);
+        rightStretchSprite->setAnchor(Anchor::STRETCH_RIGHT);
+
+        addComponent(rightStretchSprite, -10);
+
+#pragma endregion
+
         return true;
     }
 

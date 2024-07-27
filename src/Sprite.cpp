@@ -42,7 +42,7 @@ namespace fruitwork
 
         SDL_SetTextureColorMod(spriteTexture, colorMod.r, colorMod.g, colorMod.b);
         SDL_SetTextureAlphaMod(spriteTexture, alphaMod);
-        SDL_Rect rect = getRect();
+        SDL_Rect rect = getAbsoluteRect();
         SDL_RenderCopyEx(sys.getRenderer(), spriteTexture, nullptr, &rect, angle, nullptr, flipType);
     }
 
@@ -120,8 +120,8 @@ namespace fruitwork
 
     bool Sprite::rectCollidesWith(const Sprite *other, int threshold) const
     {
-        SDL_Rect rect1 = getRect();
-        SDL_Rect rect2 = other->getRect();
+        SDL_Rect rect1 = getAbsoluteRect();
+        SDL_Rect rect2 = other->getAbsoluteRect();
 
         if (rect1.x + rect1.w < rect2.x + threshold)
             return false;
@@ -179,8 +179,8 @@ namespace fruitwork
             return false;
         }
 
-        SDL_Rect rect1 = getRect();
-        SDL_Rect rect2 = other->getRect();
+        SDL_Rect rect1 = getAbsoluteRect();
+        SDL_Rect rect2 = other->getAbsoluteRect();
 
         if (!rectCollidesWith(other))
             return false; // no point of trying if not even the rects collide
