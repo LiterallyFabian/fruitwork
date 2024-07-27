@@ -100,6 +100,9 @@ namespace fruitwork
             case Anchor::STRETCH_CENTER:
                 anchor = "STRETCH_CENTER";
                 break;
+            case Anchor::LEGACY_TOP_LEFT:
+                anchor = "LEGACY_TOP_LEFT";
+                break;
         }
 
         const std::string className = typeid(*comp).name();
