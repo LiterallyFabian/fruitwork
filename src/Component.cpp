@@ -67,41 +67,45 @@ namespace fruitwork
 
         switch (anchor)
         {
-            case Anchor::TOP_LEFT:
+            case Anchor::LEGACY_TOP_LEFT:
                 rect.x = parentRect.x + thisRect.x;
                 rect.y = parentRect.y + thisRect.y;
+                break;
+            case Anchor::TOP_LEFT:
+                rect.x = parentRect.x + thisRect.x;
+                rect.y = parentRect.y - thisRect.y;
                 break;
             case Anchor::TOP_CENTER:
                 rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2;
-                rect.y = parentRect.y + thisRect.y;
+                rect.y = parentRect.y - thisRect.y;
                 break;
             case Anchor::TOP_RIGHT:
                 rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w;
-                rect.y = parentRect.y + thisRect.y;
+                rect.y = parentRect.y - thisRect.y;
                 break;
             case Anchor::CENTER_LEFT:
                 rect.x = parentRect.x + thisRect.x;
-                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2;
+                rect.y = parentRect.y - thisRect.y + parentRect.h / 2 - thisRect.h / 2;
                 break;
             case Anchor::CENTER:
                 rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2;
-                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2;
+                rect.y = parentRect.y - thisRect.y + parentRect.h / 2 - thisRect.h / 2;
                 break;
             case Anchor::CENTER_RIGHT:
                 rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w;
-                rect.y = parentRect.y + thisRect.y + parentRect.h / 2 - thisRect.h / 2;
+                rect.y = parentRect.y - thisRect.y + parentRect.h / 2 - thisRect.h / 2;
                 break;
             case Anchor::BOTTOM_LEFT:
                 rect.x = parentRect.x + thisRect.x;
-                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h;
+                rect.y = parentRect.y - thisRect.y + parentRect.h - thisRect.h;
                 break;
             case Anchor::BOTTOM_CENTER:
                 rect.x = parentRect.x + thisRect.x + parentRect.w / 2 - thisRect.w / 2;
-                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h;
+                rect.y = parentRect.y - thisRect.y + parentRect.h - thisRect.h;
                 break;
             case Anchor::BOTTOM_RIGHT:
                 rect.x = parentRect.x + thisRect.x + parentRect.w - thisRect.w;
-                rect.y = parentRect.y + thisRect.y + parentRect.h - thisRect.h;
+                rect.y = parentRect.y - thisRect.y + parentRect.h - thisRect.h;
                 break;
 
             case Anchor::TOP_STRETCH:

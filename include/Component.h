@@ -10,6 +10,11 @@ namespace fruitwork
     
     enum class Anchor
     {
+        /**
+         * Legacy top left will treat Y as the top of the screen, with positive Y going down.
+         * Using it should be avoided, but is kept for backwards compatibility.
+         */
+        LEGACY_TOP_LEFT,
         TOP_LEFT,
         TOP_CENTER,
         TOP_RIGHT,
@@ -139,7 +144,7 @@ namespace fruitwork
 
         PhysicsBody *body = nullptr;
 
-        Anchor anchor = Anchor::TOP_LEFT;
+        Anchor anchor = Anchor::LEGACY_TOP_LEFT;
     };
 
 } // fruitwork

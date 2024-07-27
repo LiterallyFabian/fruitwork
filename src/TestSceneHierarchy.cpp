@@ -55,22 +55,47 @@ namespace fruitwork
         Rectangle *emptyParent = Rectangle::getInstance(-100, 0, 100, 200, {0, 0, 0, 30});
         emptyParent->setAnchor(Anchor::CENTER);
 
-        Rectangle *topCenterChild = Rectangle::getInstance(0, 0, 50, 150, {159, 238, 149, 255});
+        Rectangle *topLeftChild = Rectangle::getInstance(30, 5, 50, 80, {159, 238, 149, 255});
+        topLeftChild->setAnchor(Anchor::TOP_LEFT);
+        emptyParent->addChild(topLeftChild);
+
+        Rectangle *topCenterChild = Rectangle::getInstance(10, -10, 25, 50, {221, 211, 110, 255});
         topCenterChild->setAnchor(Anchor::TOP_CENTER);
         emptyParent->addChild(topCenterChild);
 
-        Rectangle *bottomLeftChild = Rectangle::getInstance(0, 0, 75, 50, {221, 110, 110, 255});
+        Rectangle *topRightChild = Rectangle::getInstance(10, -20, 50, 25, {221, 154, 110, 255});
+        topRightChild->setAnchor(Anchor::TOP_RIGHT);
+        emptyParent->addChild(topRightChild);
+
+        Rectangle *centerLeftChild = Rectangle::getInstance(-20, -10, 20, 20, {110, 221, 213, 255});
+        centerLeftChild->setAnchor(Anchor::CENTER_LEFT);
+        emptyParent->addChild(centerLeftChild);
+
+        Rectangle *centerCenterChild = Rectangle::getInstance(40, -20, 40, 40, {221, 110, 212, 255});
+        centerCenterChild->setAnchor(Anchor::CENTER);
+        emptyParent->addChild(centerCenterChild);
+
+        Rectangle *centerRightChild = Rectangle::getInstance(-10, 20, 20, 20, {255, 255, 255, 255});
+        centerRightChild->setAnchor(Anchor::CENTER_RIGHT);
+        emptyParent->addChild(centerRightChild);
+
+        Rectangle *bottomLeftChild = Rectangle::getInstance(5, 5, 75, 50, {221, 110, 110, 255});
         bottomLeftChild->setAnchor(Anchor::BOTTOM_LEFT);
         emptyParent->addChild(bottomLeftChild);
-
-        Rectangle *stretchRightChild = Rectangle::getInstance(0, 0, 25, 0, {221, 211, 110, 255});
-        stretchRightChild->setAnchor(Anchor::STRETCH_RIGHT);
-        emptyParent->addChild(stretchRightChild);
 
         Rectangle *centerChildChild = Rectangle::getInstance(0, 0, 25, 25, {110, 221, 213, 255});
         centerChildChild->setAnchor(Anchor::CENTER);
         bottomLeftChild->addChild(centerChildChild);
 
+        Rectangle *bottomCenterChild = Rectangle::getInstance(-20, 20, 30, 15, {166, 110, 221, 255});
+        bottomCenterChild->setAnchor(Anchor::BOTTOM_CENTER);
+        emptyParent->addChild(bottomCenterChild);
+
+        Rectangle *bottomRightChild = Rectangle::getInstance(-5, -5, 30, 15, {110, 126, 221, 255});
+        bottomRightChild->setAnchor(Anchor::BOTTOM_RIGHT);
+        emptyParent->addChild(bottomRightChild);
+
+        // Stretch
         Rectangle *stretchParent = Rectangle::getInstance(100, 0, 100, 200, {0, 0, 0, 30});
         stretchParent->setAnchor(Anchor::CENTER);
 
@@ -90,26 +115,32 @@ namespace fruitwork
         stretchLeftChild->setAnchor(Anchor::STRETCH_LEFT);
         stretchParent->addChild(stretchLeftChild);
 
-        Rectangle *stretchRightChild2 = Rectangle::getInstance(-10, 50, 15, 50, {221, 110, 212, 255});
-        stretchRightChild2->setAnchor(Anchor::STRETCH_RIGHT);
-        stretchParent->addChild(stretchRightChild2);
+        Rectangle *stretchRightChild = Rectangle::getInstance(-10, 50, 15, 50, {221, 110, 212, 255});
+        stretchRightChild->setAnchor(Anchor::STRETCH_RIGHT);
+        stretchParent->addChild(stretchRightChild);
 
         Rectangle *stretchCenterChild = Rectangle::getInstance(5, 5, 5, 5, {255, 255, 255, 255});
         stretchCenterChild->setAnchor(Anchor::STRETCH_CENTER);
         stretchParent->addChild(stretchCenterChild);
 
         addComponent(emptyParent, -10);
+        addComponent(topLeftChild, -2);
         addComponent(topCenterChild, -2);
+        addComponent(topRightChild, -2);
+        addComponent(centerLeftChild, -2);
+        addComponent(centerCenterChild, -2);
+        addComponent(centerRightChild, -2);
         addComponent(bottomLeftChild, -2);
-        addComponent(stretchRightChild, -2);
         addComponent(centerChildChild, -2);
+        addComponent(bottomCenterChild, -2);
+        addComponent(bottomRightChild, -2);
 
         addComponent(stretchParent, -10);
         addComponent(topStretchChild, -2);
         addComponent(centerStretchChild, -2);
         addComponent(bottomStretchChild, -2);
         addComponent(stretchLeftChild, -3);
-        addComponent(stretchRightChild2, -3);
+        addComponent(stretchRightChild, -3);
         addComponent(stretchCenterChild, -3);
 
         return true;
