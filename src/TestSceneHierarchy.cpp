@@ -52,6 +52,7 @@ namespace fruitwork
 //        addComponent(parent, -1);
 //        addComponent(child, -1);
 
+#pragma region rectangles
         Rectangle *emptyParent = Rectangle::getInstance(-100, 0, 100, 200, {0, 0, 0, 30});
         emptyParent->setAnchor(Anchor::CENTER);
 
@@ -142,6 +143,28 @@ namespace fruitwork
         addComponent(stretchLeftChild, -3);
         addComponent(stretchRightChild, -3);
         addComponent(stretchCenterChild, -3);
+#pragma endregion
+#pragma region buttons
+        Rectangle *buttonParent = Rectangle::getInstance(0, -250, 400, 200, {0, 0, 0, 30});
+        buttonParent->setAnchor(Anchor::CENTER);
+
+        Button *centerButton = Button::getInstance(0, 0, 100, 100, "A long button title!");
+        centerButton->setAnchor(Anchor::CENTER);
+        buttonParent->addChild(centerButton);
+
+        Button *stretchButton = Button::getInstance(5, -5, 5, 30, "Stretch!");
+        stretchButton->setAnchor(Anchor::TOP_STRETCH);
+        buttonParent->addChild(stretchButton);
+
+        Button *nestedButton = Button::getInstance(0, 0, 50, 0, "nested");
+        nestedButton->setAnchor(Anchor::STRETCH_RIGHT);
+        stretchButton->addChild(nestedButton);
+
+        addComponent(buttonParent, -10);
+        addComponent(centerButton, -2);
+        addComponent(stretchButton, -2);
+        addComponent(nestedButton, -2);
+#pragma endregion
 
         return true;
     }
