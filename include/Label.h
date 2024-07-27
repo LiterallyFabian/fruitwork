@@ -38,6 +38,10 @@ namespace fruitwork
 
         void setAlignment(Alignment a);
 
+        void setAllowWrap(bool wrap) { allowWrap = wrap; }
+
+        bool getAllowWrap() const { return allowWrap; }
+
         void update() override;
 
         void draw() const override;
@@ -70,6 +74,8 @@ namespace fruitwork
 
         /** The rect that the last texture was rendered to. */
         SDL_Rect lastAbsoluteDrawnRect;
+
+        bool allowWrap = false;
     };
 
 } // fruitwork

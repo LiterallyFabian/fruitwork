@@ -53,7 +53,12 @@ namespace fruitwork
 
         drawRect = getAbsoluteRect();
 
-        SDL_Surface *surface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), color, drawRect.w * 1.1);
+        SDL_Surface *surface;
+        if (allowWrap)
+            surface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), color, drawRect.w * 1.1);
+        else
+            surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
+
         texture = SDL_CreateTextureFromSurface(sys.getRenderer(), surface);
         SDL_FreeSurface(surface);
 

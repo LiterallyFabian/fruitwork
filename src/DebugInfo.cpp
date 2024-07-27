@@ -8,6 +8,7 @@ namespace fruitwork
     {
         debugLabel = Label::getInstance(x, y, w, h, "Debug Info");
         debugLabel->setColor({153, 255, 153, 255});
+        debugLabel->setAllowWrap(true);
 
         background = Rectangle::getInstance(x, y, w, h, {0, 0, 0, 64});
     }
