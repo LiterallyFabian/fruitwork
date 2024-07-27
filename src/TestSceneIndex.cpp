@@ -12,8 +12,9 @@ namespace fruitwork
 {
     bool fruitwork::TestSceneIndex::enter()
     {
-        fruitwork::Label *titleText = fruitwork::Label::getInstance(0, 25, 1200, 900, "fruitwork::Visual tests");
+        fruitwork::Label *titleText = fruitwork::Label::getInstance(15, -25, 15, 200, "fruitwork::Visual tests");
         titleText->setAlignment(fruitwork::Label::Alignment::CENTER);
+        titleText->setAnchor(Anchor::TOP_STRETCH);
         titleText->setFontSize(100);
 
         fruitwork::Button *returnButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to main");

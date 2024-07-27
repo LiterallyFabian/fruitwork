@@ -10,8 +10,9 @@ namespace fruitwork
 {
     bool fruitwork::TestSceneConfetti::enter()
     {
-        Label *titleText = fruitwork::Label::getInstance(0, 25, 1200, 900, "Visual tests::Confetti");
+        Label *titleText = fruitwork::Label::getInstance(15, -25, 15, 200, "Visual tests::Confetti");
         titleText->setAlignment(fruitwork::Label::Alignment::CENTER);
+        titleText->setAnchor(Anchor::TOP_STRETCH);
         titleText->setFontSize(100);
 
         // test scene button

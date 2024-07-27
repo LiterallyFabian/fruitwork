@@ -10,8 +10,9 @@ namespace fruitwork
 {
     bool fruitwork::TestSceneCollision::enter()
     {
-        fruitwork::Label *titleText = fruitwork::Label::getInstance(0, 25, 1200, 900, "Visual tests::Collision");
+        fruitwork::Label *titleText = fruitwork::Label::getInstance(15, -25, 15, 200, "Visual tests::Collision");
         titleText->setAlignment(fruitwork::Label::Alignment::CENTER);
+        titleText->setAnchor(Anchor::TOP_STRETCH);
         titleText->setFontSize(100);
 
         // test scene button
@@ -91,7 +92,7 @@ namespace fruitwork
         bool success = true;
         SDL_Log("Exiting TestSceneIndex...");
 
-        for (auto &c: components)
+        for (auto &c : components)
             removeComponent(c, true);
 
         return success;

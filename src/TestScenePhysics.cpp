@@ -10,8 +10,9 @@ namespace fruitwork
 {
     bool TestScenePhysics::enter()
     {
-        fruitwork::Label *titleText = fruitwork::Label::getInstance(0, 25, 1200, 900, "Visual tests::Physics");
+        fruitwork::Label *titleText = fruitwork::Label::getInstance(15, -25, 15, 200, "Visual tests::Physics");
         titleText->setAlignment(fruitwork::Label::Alignment::CENTER);
+        titleText->setAnchor(Anchor::TOP_STRETCH);
         titleText->setFontSize(100);
 
         // test scene button
@@ -156,7 +157,7 @@ namespace fruitwork
         bool success = true;
         SDL_Log("Exiting TestScenePhysics...");
 
-        for (auto &c: components)
+        for (auto &c : components)
             removeComponent(c, true);
 
         return success;
@@ -165,8 +166,8 @@ namespace fruitwork
     void TestScenePhysics::update()
     {
         spriteMeta->setText("pos: " + std::to_string(sprite->getRect().x) + "," + std::to_string(sprite->getRect().y) +
-                            "\nvel: " + std::to_string(sprite->getPhysicsBody()->getVelocity().x) + "," +
-                            std::to_string(sprite->getPhysicsBody()->getVelocity().y));
+            "\nvel: " + std::to_string(sprite->getPhysicsBody()->getVelocity().x) + "," +
+            std::to_string(sprite->getPhysicsBody()->getVelocity().y));
     }
 
     TestScenePhysics TestScenePhysics::instance;

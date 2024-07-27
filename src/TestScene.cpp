@@ -15,11 +15,12 @@ namespace fruitwork
 {
     bool TestScene::enter()
     {
-        fruitwork::Label *title = fruitwork::Label::getInstance(0, 25, 1200, 900, "Visual tests::General");
+        fruitwork::Label *title = fruitwork::Label::getInstance(15, -25, 15, 200, "Visual tests::General");
 
         bool success = true;
         SDL_Log("Entering TestScene...");
 
+        title->setAnchor(Anchor::TOP_STRETCH);
         title->setAlignment(fruitwork::Label::Alignment::CENTER);
         title->setFontSize(100);
 
