@@ -33,6 +33,9 @@ namespace fruitwork
             collectDebugInfo(cachedText, comp, 0);
 
         debugLabel->setText(cachedText);
+
+        std::string line(10, '=');
+        SDL_Log("%s DEBUG INFO %s\n%s", line.c_str(), line.c_str(), cachedText.c_str());
     }
 
     void fruitwork::DebugInfo::draw() const
