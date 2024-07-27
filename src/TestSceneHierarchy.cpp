@@ -18,8 +18,8 @@ namespace fruitwork
         titleText->setAlignment(Label::Alignment::CENTER);
         titleText->setFontSize(90);
 
-        // test scene button
-        Button *returnButton = Button::getInstance(10, 842, 240, 48, "Back to index");
+        Button *returnButton = Button::getInstance(16, 16, 240, 48, "Back to index");
+        returnButton->setAnchor(Anchor::BOTTOM_LEFT);
         returnButton->registerCallback([](Button *src)
                                        {
                                            sys.setNextScene(TestSceneIndex::getInstance());

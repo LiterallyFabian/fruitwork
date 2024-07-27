@@ -108,13 +108,12 @@ namespace fruitwork
 
         fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, ResourceManager::getTexturePath("pippi-{n}.png"), 500);
 
-        fruitwork::Button *testButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to index");
-        testButton->registerCallback([](fruitwork::Button *src)
+        fruitwork::Button *returnButton = fruitwork::Button::getInstance(16, 16, 240, 48, "Back to index");
+        returnButton->setAnchor(Anchor::BOTTOM_LEFT);
+        returnButton->registerCallback([](fruitwork::Button *src)
                                      {
                                          fruitwork::sys.setNextScene(fruitwork::TestSceneIndex::getInstance());
                                      });
-        testButton->setColor({255, 255, 255, 128});
-        testButton->setTextColor({0, 0, 0, 128});
 
         addComponent(title);
 
@@ -142,7 +141,7 @@ namespace fruitwork
 
         addComponent(animatedSprite);
 
-        addComponent(testButton);
+        addComponent(returnButton);
 
         return success;
     }

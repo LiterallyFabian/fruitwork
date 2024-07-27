@@ -34,7 +34,7 @@ namespace fruitwork
 
     void Button::draw() const
     {
-        SDL_Rect rect = getRect();
+        SDL_Rect rect = getAbsoluteRect();
 
         switch (state)
         {
@@ -96,7 +96,7 @@ namespace fruitwork
 
         if (!isDown)
         {
-            if (SDL_PointInRect(&mousePos, &getRect()))
+            if (SDL_PointInRect(&mousePos, &getAbsoluteRect()))
                 setState(Button::State::HOVER);
             else
                 setState(Button::State::NORMAL);
@@ -119,7 +119,7 @@ namespace fruitwork
     {
         SDL_Point p = {event.button.x, event.button.y};
 
-        if (SDL_PointInRect(&p, &getRect()))
+        if (SDL_PointInRect(&p, &getAbsoluteRect()))
         {
             if (onClick != nullptr)
                 onClick(this);

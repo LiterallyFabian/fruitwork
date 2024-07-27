@@ -17,7 +17,8 @@ namespace fruitwork
         titleText->setAnchor(Anchor::TOP_STRETCH);
         titleText->setFontSize(100);
 
-        fruitwork::Button *returnButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to main");
+        fruitwork::Button *returnButton = fruitwork::Button::getInstance(16, 16, 240, 48, "Back to main");
+        returnButton->setAnchor(Anchor::BOTTOM_LEFT);
         returnButton->registerCallback([](fruitwork::Button *src)
                                        {
                                            fruitwork::sys.setNextScene(yuzu::TitleScene::getInstance());

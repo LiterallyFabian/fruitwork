@@ -15,13 +15,12 @@ namespace fruitwork
         titleText->setAnchor(Anchor::TOP_STRETCH);
         titleText->setFontSize(100);
 
-        // test scene button
-        Button *testButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to index");
-        testButton->registerCallback([](fruitwork::Button *src)
+        Button *returnButton = fruitwork::Button::getInstance(16, 16, 240, 48, "Back to index");
+        returnButton->setAnchor(Anchor::BOTTOM_LEFT);
+        returnButton->registerCallback([](fruitwork::Button *src)
                                      {
                                          fruitwork::sys.setNextScene(fruitwork::TestSceneIndex::getInstance());
                                      });
-
 
         ConfettiCannon *confettiCannonCenter = ConfettiCannon::getInstance(1200 / 2, 900 / 2, 24, 24, ResourceManager::getTexturePath("star.png"));
 
@@ -53,7 +52,7 @@ namespace fruitwork
                                              });
 
         addComponent(titleText);
-        addComponent(testButton);
+        addComponent(returnButton);
 
         addComponent(confettiCannonCenter);
         addComponent(confettiCannonRightCorner);

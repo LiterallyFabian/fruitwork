@@ -16,13 +16,12 @@ namespace fruitwork
         titleText->setFontSize(100);
 
         // test scene button
-        fruitwork::Button *returnButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to index");
+        fruitwork::Button *returnButton = fruitwork::Button::getInstance(16, 16, 240, 48, "Back to index");
+        returnButton->setAnchor(Anchor::BOTTOM_LEFT);
         returnButton->registerCallback([](fruitwork::Button *src)
                                        {
                                            fruitwork::sys.setNextScene(fruitwork::TestSceneIndex::getInstance());
                                        });
-        returnButton->setColor({255, 255, 255, 128});
-        returnButton->setTextColor({0, 0, 0, 128});
 
         sprite = fruitwork::Sprite::getInstance(20, 200, 392, 348, fruitwork::ResourceManager::getTexturePath("pippi-0.png"), true);
         auto *body = PhysicsBody::getInstance(sprite->getRect());

@@ -16,13 +16,12 @@ namespace fruitwork
         titleText->setFontSize(100);
 
         // test scene button
-        fruitwork::Button *testButton = fruitwork::Button::getInstance(10, 842, 240, 48, "Back to index");
-        testButton->registerCallback([](fruitwork::Button *src)
+        fruitwork::Button *returnButton = fruitwork::Button::getInstance(16, 16, 240, 48, "Back to index");
+        returnButton->setAnchor(Anchor::BOTTOM_LEFT);
+        returnButton->registerCallback([](fruitwork::Button *src)
                                      {
                                          fruitwork::sys.setNextScene(fruitwork::TestSceneIndex::getInstance());
                                      });
-        testButton->setColor({255, 255, 255, 128});
-        testButton->setTextColor({0, 0, 0, 128});
 
         jerafina = fruitwork::Sprite::getInstance(20, 200, 348, 348, fruitwork::ResourceManager::getTexturePath("jerafina.png"), true);
         lynn = fruitwork::Sprite::getInstance(600, 200, 610, 648, fruitwork::ResourceManager::getTexturePath("fruit-catcher-kiai.png"), true);
@@ -32,7 +31,7 @@ namespace fruitwork
         addComponent(lynn);
         addComponent(bananas);
         addComponent(titleText);
-        addComponent(testButton);
+        addComponent(returnButton);
 
         return true;
     }
