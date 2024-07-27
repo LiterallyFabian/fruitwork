@@ -15,10 +15,6 @@ namespace fruitwork
 
     void Component::addChild(Component *child)
     {
-        // set the child's local position to its current position
-//        child->localRect.x = child->rect.x - rect.x;
-//        child->localRect.y = child->rect.y - rect.y;
-
         // remove child from old parent
         if (child->parent != nullptr)
             child->parent->removeChild(child);
@@ -49,27 +45,6 @@ namespace fruitwork
             body->update(elapsedTime);
             setRect(body->getRect());
         }
-
-        /*for (Component *child : children)
-            child->update({rect.x, rect.y});*/
-    }
-
-    /*void Component::update(const SDL_Point &parentPos)
-    {
-        rect.x = parentPos.x + localRect.x;
-        rect.y = parentPos.y + localRect.y;
-    }*/
-
-    void Component::setRect(const SDL_Rect &r)
-    {
-        rect = r;
-        //localRect = r;
-
-        /*if (parent != nullptr)
-        {
-            rect.x = parent->getRect().x + localRect.x;
-            rect.y = parent->getRect().y + localRect.y;
-        }*/
     }
 
     const SDL_Rect &Component::getAbsoluteRect() const

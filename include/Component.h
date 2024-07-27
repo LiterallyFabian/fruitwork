@@ -92,12 +92,10 @@ namespace fruitwork
          */
         const SDL_Rect &getAbsoluteRect() const;
 
-        //const SDL_Rect &getLocalRect() const { return localRect; }
-
         /**
          * Sets the rect of the component. This will also update the local rect.
          */
-        void setRect(const SDL_Rect &r);
+        void setRect(const SDL_Rect &r) { rect = r; }
 
         int zIndex() const { return z; }
 
@@ -134,7 +132,6 @@ namespace fruitwork
         SDL_Rect rect;
         mutable SDL_Rect absoluteRect;
 
-        //SDL_Rect localRect;
         int z = 0; // z-index
 
         std::vector<Component *> children = std::vector<Component *>();
