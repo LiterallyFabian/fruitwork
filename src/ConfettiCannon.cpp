@@ -15,7 +15,7 @@ namespace fruitwork
 
     void fruitwork::ConfettiCannon::draw() const
     {
-        for (auto &c: confetti)
+        for (auto &c : confetti)
         {
             if (c == nullptr || !c->started)
                 continue;
@@ -26,7 +26,7 @@ namespace fruitwork
 
     void fruitwork::ConfettiCannon::update(float elapsedTime)
     {
-        for (auto &c: confetti)
+        for (auto &c : confetti)
         {
             if (c == nullptr) // not optimal but to prevent segfaults
                 continue;
@@ -79,7 +79,7 @@ namespace fruitwork
             conf->sprite = Sprite::getInstance(r.x, r.y, r.w, r.h, texture);
             conf->sprite->setPhysicsBody(b);
             conf->sprite->setColorMod(c);
-            conf->sprite->setAngle(rand() % 360);
+            conf->sprite->setAngle(rand() % 360 * -1);
             conf->startTime = SDL_GetTicks64() + (time / amount) * i;
             conf->fadeOutTime = fadeOutTime;
 
@@ -95,7 +95,7 @@ namespace fruitwork
 
     ConfettiCannon::~ConfettiCannon()
     {
-        for (auto &c: confetti)
+        for (auto &c : confetti)
             delete c;
 
         SDL_DestroyTexture(texture);

@@ -43,7 +43,10 @@ namespace fruitwork
         SDL_SetTextureColorMod(spriteTexture, colorMod.r, colorMod.g, colorMod.b);
         SDL_SetTextureAlphaMod(spriteTexture, alphaMod);
         SDL_Rect rect = getAbsoluteRect();
-        SDL_RenderCopyEx(sys.getRenderer(), spriteTexture, nullptr, &rect, angle, nullptr, flipType);
+//        SDL_Point *p = new SDL_Point();
+//        p->x = 250;
+//        p->y = 125;
+        SDL_RenderCopyEx(sys.getRenderer(), spriteTexture, nullptr, &rect, -angle, nullptr, flipType);
     }
 
     Sprite::~Sprite()
