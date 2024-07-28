@@ -155,7 +155,53 @@ namespace fruitwork
         absoluteRect = newAbsoluteRect;
         return absoluteRect;
     }
-    
+
+    SDL_Point Component::getPivot() const
+    {
+        SDL_FPoint normalizedPivot = {0.0f, 0.0f};
+        switch (getAnchor())
+        {
+            case Anchor::TOP_LEFT:
+            case Anchor::LEGACY_TOP_LEFT: // todo: verify this
+                normalizedPivot = {0.0f, 1.0f};
+                break;
+            case Anchor::TOP_CENTER:
+            case Anchor::TOP_STRETCH:
+                normalizedPivot = {0.5f, 1.0f};
+                break;
+            case Anchor::TOP_RIGHT:
+                normalizedPivot = {1.0f, 1.0f};
+                break;
+            case Anchor::CENTER_LEFT:
+            case Anchor::STRETCH_LEFT:
+                normalizedPivot = {0.0f, 0.5f};
+                break;
+            case Anchor::CENTER:
+            case Anchor::CENTER_STRETCH:
+            case Anchor::STRETCH_CENTER:
+            case Anchor::STRETCH:
+                normalizedPivot = {0.5f, 0.5f};
+                break;
+            case Anchor::CENTER_RIGHT:
+            case Anchor::STRETCH_RIGHT:
+                normalizedPivot = {1.0f, 0.5f};
+                break;
+            case Anchor::BOTTOM_LEFT:
+                normalizedPivot = {0.0f, 0.0f};
+                break;
+            case Anchor::BOTTOM_CENTER:
+            case Anchor::BOTTOM_STRETCH:
+                normalizedPivot = {0.5f, 0.0f};
+                break;
+            case Anchor::BOTTOM_RIGHT:
+                normalizedPivot = {1.0f, 0.0f};
+                break;
+        }
+
+        SDL_Point pivot = {(int)(absoluteRect.w * normalizedPivot.x), (int)(absoluteRect.h * normalizedPivot.y)};
+        return pivot;
+    }
+
     double Component::getAbsoluteAngle() const
     {
         if (parent == nullptr)
