@@ -115,6 +115,8 @@ namespace fruitwork
 
         void removeChild(Component *child);
 
+        Component* getParent() const { return parent; }
+
         std::vector<Component *> getChildren() const { return children; }
 
         int width() const { return rect.w; }
@@ -139,6 +141,8 @@ namespace fruitwork
 
         /** @return The absolute angle this component should be drawn at, relative to the parent. */
         double getAbsoluteAngle () const;
+
+        SDL_Point getPivot () const;
 
     protected:
         Component(int x, int y, int w, int h);
