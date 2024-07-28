@@ -53,7 +53,7 @@ namespace fruitwork
 //        addComponent(child, -1);
 
 #pragma region rectangles
-        Rectangle *emptyParent = Rectangle::getInstance(-100, 0, 100, 200, {0, 0, 0, 30});
+        Rectangle *emptyParent = Rectangle::getInstance(-200, 0, 100, 200, {0, 0, 0, 30});
         emptyParent->setAnchor(Anchor::CENTER);
 
         Rectangle *topLeftChild = Rectangle::getInstance(30, 5, 50, 80, {159, 238, 149, 255});
@@ -97,7 +97,7 @@ namespace fruitwork
         emptyParent->addChild(bottomRightChild);
 
         // Stretch
-        Rectangle *stretchParent = Rectangle::getInstance(100, 0, 100, 200, {0, 0, 0, 30});
+        Rectangle *stretchParent = Rectangle::getInstance(0, 0, 100, 200, {0, 0, 0, 30});
         stretchParent->setAnchor(Anchor::CENTER);
 
         Rectangle *topStretchChild = Rectangle::getInstance(10, -10, 5, 20, {159, 238, 149, 255});
@@ -124,6 +124,11 @@ namespace fruitwork
         stretchCenterChild->setAnchor(Anchor::STRETCH_CENTER);
         stretchParent->addChild(stretchCenterChild);
 
+        // Rotations
+        Rectangle *rotationParent = Rectangle::getInstance(200, 0, 100, 200, {0, 0, 0, 30});
+        rotationParent->setAnchor(Anchor::CENTER);
+        rotationParent->setAngle(45);
+
         addComponent(emptyParent, -10);
         addComponent(topLeftChild, -2);
         addComponent(topCenterChild, -2);
@@ -143,7 +148,10 @@ namespace fruitwork
         addComponent(stretchLeftChild, -3);
         addComponent(stretchRightChild, -3);
         addComponent(stretchCenterChild, -3);
+
+        addComponent(rotationParent, -10);
 #pragma endregion
+
 #pragma region buttons
         Rectangle *buttonParent = Rectangle::getInstance(0, -250, 400, 200, {0, 0, 0, 30});
         buttonParent->setAnchor(Anchor::CENTER);
