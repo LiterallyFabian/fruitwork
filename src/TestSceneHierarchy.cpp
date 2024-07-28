@@ -167,10 +167,15 @@ namespace fruitwork
 #pragma endregion
 
 #pragma region sprites
-        Sprite *rightStretchSprite = Sprite::getInstance(0, 350, 300, 250, ResourceManager::getTexturePath("jerafina.png"), true);
-        rightStretchSprite->setAnchor(Anchor::STRETCH_RIGHT);
+        Sprite *centerRightSprite = Sprite::getInstance(-20, 0, 250, 250, ResourceManager::getTexturePath("jerafina.png"), true);
+        centerRightSprite->setAnchor(Anchor::CENTER_RIGHT);
 
-        addComponent(rightStretchSprite, -10);
+        Sprite *centerRightSpriteRotated = Sprite::getInstance(-20, 0, 250, 250, ResourceManager::getTexturePath("jerafina.png"), true);
+        centerRightSpriteRotated->setAnchor(Anchor::CENTER_RIGHT);
+        centerRightSpriteRotated->setAngle(45);
+
+        addComponent(centerRightSprite, -10);
+        addComponent(centerRightSpriteRotated, -10);
 
 #pragma endregion
 
