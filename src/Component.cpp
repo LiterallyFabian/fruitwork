@@ -155,5 +155,13 @@ namespace fruitwork
         absoluteRect = newAbsoluteRect;
         return absoluteRect;
     }
+    
+    double Component::getAbsoluteAngle() const
+    {
+        if (parent == nullptr)
+            return angle;
+
+        return angle + parent->getAbsoluteAngle();
+    }
 
 } // fruitwork

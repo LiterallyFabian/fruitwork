@@ -7,7 +7,6 @@
 
 namespace fruitwork
 {
-    
     enum class Anchor
     {
         /**
@@ -137,6 +136,9 @@ namespace fruitwork
         void setAngle(double newAngle) { this->angle = newAngle; }
 
         double getAngle() const { return angle; }
+
+        /** @return The absolute angle this component should be drawn at, relative to the parent. */
+        double getAbsoluteAngle () const;
 
     protected:
         Component(int x, int y, int w, int h);
