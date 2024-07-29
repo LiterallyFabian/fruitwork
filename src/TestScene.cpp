@@ -20,7 +20,7 @@ namespace fruitwork
         bool success = true;
         SDL_Log("Entering TestScene...");
 
-        title->setAnchor(Anchor::TOP_STRETCH);
+        title->setAnchorAndPivot(Anchor::TOP_STRETCH);
         title->setAlignment(fruitwork::Label::Alignment::CENTER);
         title->setFontSize(100);
 
@@ -109,7 +109,7 @@ namespace fruitwork
         fruitwork::AnimatedSprite *animatedSprite = fruitwork::AnimatedSprite::getInstance(450, 600, 392 / 2, 348 / 2, ResourceManager::getTexturePath("pippi-{n}.png"), 500);
 
         fruitwork::Button *returnButton = fruitwork::Button::getInstance(16, 16, 240, 48, "Back to index");
-        returnButton->setAnchor(Anchor::BOTTOM_LEFT);
+        returnButton->setAnchorAndPivot(Anchor::BOTTOM_LEFT);
         returnButton->registerCallback([](fruitwork::Button *src)
                                      {
                                          fruitwork::sys.setNextScene(fruitwork::TestSceneIndex::getInstance());

@@ -12,11 +12,11 @@ namespace fruitwork
     {
         Label *titleText = fruitwork::Label::getInstance(15, -25, 15, 200, "Visual tests::Confetti");
         titleText->setAlignment(fruitwork::Label::Alignment::CENTER);
-        titleText->setAnchor(Anchor::TOP_STRETCH);
+        titleText->setAnchorAndPivot(Anchor::TOP_STRETCH);
         titleText->setFontSize(100);
 
         Button *returnButton = fruitwork::Button::getInstance(16, 16, 240, 48, "Back to index");
-        returnButton->setAnchor(Anchor::BOTTOM_LEFT);
+        returnButton->setAnchorAndPivot(Anchor::BOTTOM_LEFT);
         returnButton->registerCallback([](fruitwork::Button *src)
                                      {
                                          fruitwork::sys.setNextScene(fruitwork::TestSceneIndex::getInstance());

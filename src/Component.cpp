@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "Component.h"
 #include "System.h"
 
@@ -63,141 +64,27 @@ namespace fruitwork
             parentAbsoluteRect = parent->getAbsoluteRect();
         }
 
-        SDL_Rect newAbsoluteRect = localRect;
+        SDL_Rect newAbsoluteRect;
 
-        switch (anchor)
+        newAbsoluteRect.x = parentAbsoluteRect.x + static_cast<int>(parentAbsoluteRect.w * anchorMin.x) + localRect.x;
+        newAbsoluteRect.y = parentAbsoluteRect.y + static_cast<int>(parentAbsoluteRect.h * (1 - anchorMin.y)) - localRect.y;
+
+
+        newAbsoluteRect.w = static_cast<int>(parentAbsoluteRect.w * (anchorMax.x - anchorMin.x)) + localRect.w;
+        newAbsoluteRect.h = static_cast<int>(parentAbsoluteRect.h * (anchorMax.y - anchorMin.y)) + localRect.h;
+
+        if (anchorPreset == Anchor::LEGACY_TOP_LEFT)
         {
-            case Anchor::LEGACY_TOP_LEFT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y + localRect.y;
-                break;
-            case Anchor::TOP_LEFT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y;
-                break;
-            case Anchor::TOP_CENTER:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x + parentAbsoluteRect.w / 2 - localRect.w / 2;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y;
-                break;
-            case Anchor::TOP_RIGHT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x + parentAbsoluteRect.w - localRect.w;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y;
-                break;
-            case Anchor::CENTER_LEFT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y + parentAbsoluteRect.h / 2 - localRect.h / 2;
-                break;
-            case Anchor::CENTER:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x + parentAbsoluteRect.w / 2 - localRect.w / 2;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y + parentAbsoluteRect.h / 2 - localRect.h / 2;
-                break;
-            case Anchor::CENTER_RIGHT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x + parentAbsoluteRect.w - localRect.w;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y + parentAbsoluteRect.h / 2 - localRect.h / 2;
-                break;
-            case Anchor::BOTTOM_LEFT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y + parentAbsoluteRect.h - localRect.h;
-                break;
-            case Anchor::BOTTOM_CENTER:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x + parentAbsoluteRect.w / 2 - localRect.w / 2;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y + parentAbsoluteRect.h - localRect.h;
-                break;
-            case Anchor::BOTTOM_RIGHT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x + parentAbsoluteRect.w - localRect.w;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y + parentAbsoluteRect.h - localRect.h;
-                break;
-
-            case Anchor::TOP_STRETCH:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y - localRect.y; // based on Unity implementation of stretch, might look weird
-                newAbsoluteRect.w = parentAbsoluteRect.w - localRect.w - localRect.x;
-                newAbsoluteRect.h = localRect.h;
-                break;
-            case Anchor::CENTER_STRETCH:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y + parentAbsoluteRect.h / 2 - localRect.h / 2 - localRect.y;
-                newAbsoluteRect.w = parentAbsoluteRect.w - localRect.x - localRect.w;
-                newAbsoluteRect.h = localRect.h;
-                break;
-            case Anchor::BOTTOM_STRETCH:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y + parentAbsoluteRect.h - localRect.h - localRect.y;
-                newAbsoluteRect.w = parentAbsoluteRect.w - localRect.x - localRect.w;
-                newAbsoluteRect.h = localRect.h;
-                break;
-            case Anchor::STRETCH:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y + localRect.y;
-                newAbsoluteRect.w = parentAbsoluteRect.w - localRect.w * 2;
-                newAbsoluteRect.h = parentAbsoluteRect.h - localRect.h * 2;
-                break;
-            case Anchor::STRETCH_LEFT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y + localRect.y;
-                newAbsoluteRect.w = localRect.w;
-                newAbsoluteRect.h = parentAbsoluteRect.h - localRect.y - localRect.h;
-                break;
-            case Anchor::STRETCH_RIGHT:
-                newAbsoluteRect.x = parentAbsoluteRect.x + parentAbsoluteRect.w - localRect.w + localRect.x;
-                newAbsoluteRect.y = parentAbsoluteRect.y + localRect.y;
-                newAbsoluteRect.w = localRect.w;
-                newAbsoluteRect.h = parentAbsoluteRect.h - localRect.y - localRect.h;
-                break;
-            case Anchor::STRETCH_CENTER:
-                newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x + parentAbsoluteRect.w / 2 - localRect.w / 2;
-                newAbsoluteRect.y = parentAbsoluteRect.y + localRect.y;
-                newAbsoluteRect.w = localRect.w;
-                newAbsoluteRect.h = parentAbsoluteRect.h - localRect.y - localRect.h;
-                break;
+            newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
+            newAbsoluteRect.y = parentAbsoluteRect.y + localRect.y;
         }
 
         absoluteRect = newAbsoluteRect;
         return absoluteRect;
     }
 
-    SDL_Point Component::getPivot() const
+    SDL_Point Component::getPixelPivot() const
     {
-        SDL_FPoint normalizedPivot = {0.0f, 0.0f};
-        switch (getAnchor())
-        {
-            case Anchor::TOP_LEFT:
-            case Anchor::LEGACY_TOP_LEFT: // todo: verify this
-                normalizedPivot = {0.0f, 1.0f};
-                break;
-            case Anchor::TOP_CENTER:
-            case Anchor::TOP_STRETCH:
-                normalizedPivot = {0.5f, 1.0f};
-                break;
-            case Anchor::TOP_RIGHT:
-                normalizedPivot = {1.0f, 1.0f};
-                break;
-            case Anchor::CENTER_LEFT:
-            case Anchor::STRETCH_LEFT:
-                normalizedPivot = {0.0f, 0.5f};
-                break;
-            case Anchor::CENTER:
-            case Anchor::CENTER_STRETCH:
-            case Anchor::STRETCH_CENTER:
-            case Anchor::STRETCH:
-                normalizedPivot = {0.5f, 0.5f};
-                break;
-            case Anchor::CENTER_RIGHT:
-            case Anchor::STRETCH_RIGHT:
-                normalizedPivot = {1.0f, 0.5f};
-                break;
-            case Anchor::BOTTOM_LEFT:
-                normalizedPivot = {0.0f, 0.0f};
-                break;
-            case Anchor::BOTTOM_CENTER:
-            case Anchor::BOTTOM_STRETCH:
-                normalizedPivot = {0.5f, 0.0f};
-                break;
-            case Anchor::BOTTOM_RIGHT:
-                normalizedPivot = {1.0f, 0.0f};
-                break;
-        }
-
         SDL_Point pivot = {(int)(absoluteRect.w * normalizedPivot.x), (int)(absoluteRect.h * normalizedPivot.y)};
         return pivot;
     }
@@ -208,6 +95,153 @@ namespace fruitwork
             return angle;
 
         return angle + parent->getAbsoluteAngle();
+    }
+
+    void Component::setAnchor(SDL_FPoint newAnchorMin, SDL_FPoint newAnchorMax)
+    {
+        anchorMin = newAnchorMin;
+        anchorMax = newAnchorMax;
+        anchorPreset = Anchor::CUSTOM;
+    }
+
+    void Component::setAnchorAndPivot(Anchor newAnchor)
+    {
+        setAnchor(newAnchor);
+        setPivot(newAnchor);
+    }
+
+    void Component::setAnchor(Anchor newAnchor)
+    {
+        anchorPreset = newAnchor;
+
+        switch (newAnchor)
+        {
+            case Anchor::TOP_LEFT:
+            case Anchor::LEGACY_TOP_LEFT: // todo: verify legacy case
+                anchorMin = {0.0f, 1.0f};
+                anchorMax = {0.0f, 1.0f};
+                return;
+            case Anchor::TOP_CENTER:
+                anchorMin = {0.5f, 1.0f};
+                anchorMax = {0.5f, 1.0f};
+                return;
+            case Anchor::TOP_RIGHT:
+                anchorMin = {1.0f, 1.0f};
+                anchorMax = {1.0f, 1.0f};
+                return;
+            case Anchor::CENTER_LEFT:
+                anchorMin = {0.0f, 0.5f};
+                anchorMax = {0.0f, 0.5f};
+                return;
+            case Anchor::CENTER:
+                anchorMin = {0.5f, 0.5f};
+                anchorMax = {0.5f, 0.5f};
+                return;
+            case Anchor::CENTER_RIGHT:
+                anchorMin = {1.0f, 0.5f};
+                anchorMax = {1.0f, 0.5f};
+                return;
+            case Anchor::BOTTOM_LEFT:
+                anchorMin = {0.0f, 0.0f};
+                anchorMax = {0.0f, 0.0f};
+                return;
+            case Anchor::BOTTOM_CENTER:
+                anchorMin = {0.5f, 0.0f};
+                anchorMax = {0.5f, 0.0f};
+                return;
+            case Anchor::BOTTOM_RIGHT:
+                anchorMin = {1.0f, 0.0f};
+                anchorMax = {1.0f, 0.0f};
+                return;
+            case Anchor::TOP_STRETCH:
+                anchorMin = {0.0f, 1.0f};
+                anchorMax = {1.0f, 1.0f};
+                return;
+            case Anchor::CENTER_STRETCH:
+                anchorMin = {0.0f, 0.5f};
+                anchorMax = {1.0f, 0.5f};
+                return;
+            case Anchor::BOTTOM_STRETCH:
+                anchorMin = {0.0f, 0.0f};
+                anchorMax = {1.0f, 0.0f};
+                return;
+            case Anchor::STRETCH:
+                anchorMin = {0.0f, 0.0f};
+                anchorMax = {1.0f, 1.0f};
+                return;
+            case Anchor::STRETCH_LEFT:
+                anchorMin = {0.0f, 0.0f};
+                anchorMax = {0.0f, 1.0f};
+                return;
+            case Anchor::STRETCH_RIGHT:
+                anchorMin = {1.0f, 0.0f};
+                anchorMax = {1.0f, 1.0f};
+                return;
+            case Anchor::STRETCH_CENTER:
+                anchorMin = {0.5f, 0.0f};
+                anchorMax = {0.5f, 1.0f};
+                return;
+            case Anchor::CUSTOM:
+                throw std::invalid_argument("Cannot set anchor to CUSTOM. Use setAnchor(SDL_FPoint, SDL_FPoint) instead.");
+        }
+    }
+
+    void Component::setPivot(Anchor newAnchor)
+    {
+        switch (newAnchor)
+        {
+            case Anchor::TOP_LEFT:
+            case Anchor::LEGACY_TOP_LEFT: // todo: verify legacy case
+                normalizedPivot = {0.0f, 1.0f};
+                return;
+            case Anchor::TOP_CENTER:
+                normalizedPivot = {0.5f, 1.0f};
+                return;
+            case Anchor::TOP_RIGHT:
+                normalizedPivot = {1.0f, 1.0f};
+                return;
+            case Anchor::CENTER_LEFT:
+                normalizedPivot = {0.0f, 0.5f};
+                return;
+            case Anchor::CENTER:
+                normalizedPivot = {0.5f, 0.5f};
+                return;
+            case Anchor::CENTER_RIGHT:
+                normalizedPivot = {1.0f, 0.5f};
+                return;
+            case Anchor::BOTTOM_LEFT:
+                normalizedPivot = {0.0f, 0.0f};
+                return;
+            case Anchor::BOTTOM_CENTER:
+                normalizedPivot = {0.5f, 0.0f};
+                return;
+            case Anchor::BOTTOM_RIGHT:
+                normalizedPivot = {1.0f, 0.0f};
+                return;
+            case Anchor::TOP_STRETCH:
+                normalizedPivot = {0.5f, 1.0f};
+                return;
+            case Anchor::CENTER_STRETCH:
+                normalizedPivot = {0.5f, 0.5f};
+                return;
+            case Anchor::BOTTOM_STRETCH:
+                normalizedPivot = {0.5f, 0.0f};
+                return;
+            case Anchor::STRETCH:
+                normalizedPivot = {0.5f, 0.5f};
+                return;
+            case Anchor::STRETCH_LEFT:
+                normalizedPivot = {0.0f, 0.5f};
+                return;
+            case Anchor::STRETCH_RIGHT:
+                normalizedPivot = {1.0f, 0.5f};
+                return;
+            case Anchor::STRETCH_CENTER:
+                normalizedPivot = {0.5f, 0.5f};
+                return;
+            case Anchor::CUSTOM:
+                throw std::invalid_argument("Cannot set pivot to CUSTOM. Use setPivot(SDL_FPoint) instead.");
+        }
     }
 
 } // fruitwork

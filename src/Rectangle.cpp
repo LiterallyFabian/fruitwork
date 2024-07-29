@@ -36,7 +36,7 @@ namespace fruitwork
         SDL_Renderer *renderer = sys.getRenderer();
         SDL_Rect absRect = getAbsoluteRect();
         double angle = getAbsoluteAngle();
-        SDL_Point pivot = getPivot();
+        SDL_Point pivot = getPixelPivot();
 
         SDL_Texture *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
                                                  SDL_TEXTUREACCESS_TARGET, absRect.w, absRect.h);

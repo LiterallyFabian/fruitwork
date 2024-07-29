@@ -11,6 +11,7 @@ namespace fruitwork
     {
         /**
          * Legacy top left will treat Y as the top of the screen, with positive Y going down.
+         * All the other anchors, including custom will have a positive Y going up.
          * Using it should be avoided, but is kept for backwards compatibility.
          */
         LEGACY_TOP_LEFT,
@@ -30,12 +31,14 @@ namespace fruitwork
         STRETCH,
         STRETCH_LEFT,
         STRETCH_RIGHT,
-        STRETCH_CENTER
+        STRETCH_CENTER,
+        /* CUSTOM is when the anchorPreset values are set manually. */
+        CUSTOM
     };
 
     /**
      * A component is a drawable object that can be added to a session or scene.
-     * It also contains position, size and anchor information.
+     * It also contains position, size and anchorPreset information.
      */
     class Component
     {
@@ -86,12 +89,12 @@ namespace fruitwork
 
         /**
          * @return The rect the component is drawn in. This value differs from its absolute rect, which is a
-         * combination of the parent's rect and the component's local rect, including anchor.
+         * combination of the parent's rect and the component's local rect, including anchorPreset.
          */
         const SDL_Rect &getRect() const { return rect; }
 
         /**
-         * @return A calculated, absolute rect based on the parent's rect, the component's local rect and anchor.
+         * @return A calculated, absolute rect based on the parent's rect, the component's local rect and anchorPreset.
          * This is the rect components should be drawn in.
          */
         const SDL_Rect &getAbsoluteRect() const;
@@ -115,7 +118,7 @@ namespace fruitwork
 
         void removeChild(Component *child);
 
-        Component* getParent() const { return parent; }
+        Component *getParent() const { return parent; }
 
         std::vector<Component *> getChildren() const { return children; }
 
@@ -127,9 +130,20 @@ namespace fruitwork
 
         PhysicsBody *getPhysicsBody() const { return body; }
 
-        void setAnchor(Anchor newAnchor) { this->anchor = newAnchor; }
+        /* Sets anchor values based on a preset */
+        void setAnchor(Anchor newAnchor);
 
-        Anchor getAnchor() const { return anchor; }
+        /* Set anchor values to custom values. This will also set the preset to CUSTOM. */
+        void setAnchor(SDL_FPoint newAnchorMin, SDL_FPoint newAnchorMax);
+
+        /* Sets anchor and pivot values based on a preset */
+        void setAnchorAndPivot(Anchor newAnchor);
+
+        Anchor getAnchorPreset() const { return anchorPreset; }
+
+        SDL_FPoint getAnchorMin() const { return anchorMin; }
+
+        SDL_FPoint getAnchorMax() const { return anchorMax; }
 
         void setFlip(SDL_RendererFlip flip) { this->flipType = flip; }
 
@@ -140,9 +154,16 @@ namespace fruitwork
         double getAngle() const { return angle; }
 
         /** @return The absolute angle this component should be drawn at, relative to the parent. */
-        double getAbsoluteAngle () const;
+        double getAbsoluteAngle() const;
 
-        SDL_Point getPivot () const;
+        SDL_FPoint getNormalizedPivot() const { return normalizedPivot; }
+
+        SDL_Point getPixelPivot() const;
+
+        /* Sets pivot values based on a preset */
+        void setPivot(Anchor anchorPreset);
+
+        void setPivot(SDL_FPoint newPivot) { this->normalizedPivot = newPivot; }
 
     protected:
         Component(int x, int y, int w, int h);
@@ -158,7 +179,18 @@ namespace fruitwork
 
         PhysicsBody *body = nullptr;
 
-        Anchor anchor = Anchor::LEGACY_TOP_LEFT;
+        Anchor anchorPreset = Anchor::LEGACY_TOP_LEFT;
+
+        /** The normalized point in the parent rect that the lower left corner of the component is anchored to. */
+        SDL_FPoint anchorMin = {0.0f, 1.0f};
+        /** The normalized point in the parent rect that the upper right corner of the component is anchored to. */
+        SDL_FPoint anchorMax = {0.0f, 1.0f};
+        /**
+         * The point point specified in normalized values between 0 and 1.
+         * The point point is the origin of this rect around which the component rotates.
+         * @see <a href="https://docs.unity3d.com/ScriptReference/RectTransform.html">RectTransform</a>
+         */
+        SDL_FPoint normalizedPivot = {0.0f, 1.0f};
 
         SDL_RendererFlip flipType = SDL_FLIP_NONE;
         double angle = 0;

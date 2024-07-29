@@ -53,7 +53,7 @@ namespace fruitwork
         text.append(indent);
 
         std::string anchor;
-        switch (comp->getAnchor())
+        switch (comp->getAnchorPreset())
         {
             case Anchor::TOP_LEFT:
                 anchor = "TOP_LEFT";
@@ -105,6 +105,12 @@ namespace fruitwork
                 break;
             case Anchor::LEGACY_TOP_LEFT:
                 anchor = "LEGACY_TOP_LEFT";
+                break;
+            case Anchor::CUSTOM:
+                SDL_FPoint min = comp->getAnchorMin();
+                SDL_FPoint max = comp->getAnchorMax();
+                anchor = "{" + std::to_string(min.x) + ", " + std::to_string(min.y)
+                    + "} - {" + std::to_string(max.x) + ", " + std::to_string(max.y) + "}";
                 break;
         }
 
