@@ -51,27 +51,16 @@ namespace fruitwork
     const SDL_Rect &Component::getAbsoluteRect() const
     {
         SDL_Rect localRect = getRect();
-        SDL_Rect parentAbsoluteRect; // if no component parent, we use the window size
-        if (parent == nullptr)
-        {
-            SDL_Window *window = fruitwork::sys.getWindow();
-            SDL_GetWindowSize(window, &parentAbsoluteRect.w, &parentAbsoluteRect.h);
-            parentAbsoluteRect.x = 0;
-            parentAbsoluteRect.y = 0;
-        }
-        else
-        {
-            parentAbsoluteRect = parent->getAbsoluteRect();
-        }
+        SDL_Rect parentAbsoluteRect = getParentAbsoluteRect();
 
         SDL_Rect newAbsoluteRect;
 
-        newAbsoluteRect.x = parentAbsoluteRect.x + static_cast<int>(parentAbsoluteRect.w * anchorMin.x) + localRect.x;
-        newAbsoluteRect.y = parentAbsoluteRect.y + static_cast<int>(parentAbsoluteRect.h * (1 - anchorMin.y)) - localRect.y;
+        SDL_Point sizeDelta = getSizeDelta();
 
-
-        newAbsoluteRect.w = static_cast<int>(parentAbsoluteRect.w * (anchorMax.x - anchorMin.x)) + localRect.w;
-        newAbsoluteRect.h = static_cast<int>(parentAbsoluteRect.h * (anchorMax.y - anchorMin.y)) + localRect.h;
+        newAbsoluteRect.x = parentAbsoluteRect.x + static_cast<int>(parentAbsoluteRect.w * anchorMin.x) + localRect.x - static_cast<int>(sizeDelta.x * normalizedPivot.x);
+        newAbsoluteRect.y = parentAbsoluteRect.y + static_cast<int>(parentAbsoluteRect.h * anchorMin.y) + localRect.y - static_cast<int>(sizeDelta.y * normalizedPivot.y);
+        newAbsoluteRect.w = sizeDelta.x;
+        newAbsoluteRect.h = sizeDelta.y;
 
         if (anchorPreset == Anchor::LEGACY_TOP_LEFT)
         {
@@ -81,6 +70,23 @@ namespace fruitwork
 
         absoluteRect = newAbsoluteRect;
         return absoluteRect;
+    }
+
+    SDL_Rect Component::getParentAbsoluteRect() const
+    {
+        SDL_Rect parentAbsoluteRect; // if no component parent, we use the window size
+        if (parent == nullptr)
+        {
+            SDL_Window *window = sys.getWindow();
+            SDL_GetWindowSize(window, &parentAbsoluteRect.w, &parentAbsoluteRect.h);
+            parentAbsoluteRect.x = 0;
+            parentAbsoluteRect.y = 0;
+        }
+        else
+        {
+            parentAbsoluteRect = parent->getAbsoluteRect();
+        }
+        return parentAbsoluteRect;
     }
 
     SDL_Point Component::getPixelPivot() const
@@ -242,6 +248,48 @@ namespace fruitwork
             case Anchor::CUSTOM:
                 throw std::invalid_argument("Cannot set pivot to CUSTOM. Use setPivot(SDL_FPoint) instead.");
         }
+    }
+
+    SDL_Point Component::getSizeDelta() const
+    {
+        SDL_Point sizeDelta;
+        SDL_Point offsetMin = getOffsetMin();
+        SDL_Point offsetMax = getOffsetMax();
+        sizeDelta.x = offsetMax.x - offsetMin.x;
+        sizeDelta.y = offsetMax.y - offsetMin.y;
+        return sizeDelta;
+    }
+
+    SDL_Point Component::getOffsetMin() const
+    {
+        // See https://pixeleuphoria.com/blog/index.php/2020/05/10/unity-tip-recttransform/
+        // ^ Great explanation of how to calculate offsetMin and offsetMax
+
+        SDL_Point offset;
+        SDL_Point anchoredPosition = getAnchoredPosition();
+        offset.x = -normalizedPivot.x * rect.w + anchoredPosition.x;
+        offset.y = -normalizedPivot.y * rect.h + anchoredPosition.y;
+        return offset;
+    }
+
+    SDL_Point Component::getOffsetMax() const
+    {
+        SDL_Point offset;
+        SDL_Point anchoredPosition = getAnchoredPosition();
+        offset.x = (1.0 - normalizedPivot.x) * rect.w + anchoredPosition.x;
+        offset.y = (1.0 - normalizedPivot.y) * rect.h + anchoredPosition.y;
+        return offset;
+    }
+
+    SDL_Point Component::getAnchoredPosition() const
+    {
+        SDL_Point anchoredPosition;
+
+        SDL_Rect parentRect = getParentAbsoluteRect();
+        anchoredPosition.x = rect.x + anchorMin.x * parentRect.w + (anchorMax.x - anchorMin.x) * rect.w * normalizedPivot.x;
+        anchoredPosition.y = rect.y + anchorMin.y * parentRect.h + (anchorMax.y - anchorMin.y) * rect.h * normalizedPivot.y;
+
+        return anchoredPosition;
     }
 
 } // fruitwork

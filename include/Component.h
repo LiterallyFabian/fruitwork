@@ -99,6 +99,9 @@ namespace fruitwork
          */
         const SDL_Rect &getAbsoluteRect() const;
 
+        /** @return The rect of the parent component. If none, the rect of the viewport. */
+        SDL_Rect getParentAbsoluteRect() const;
+
         /**
          * Sets the rect of the component. This will also update the local rect.
          */
@@ -165,6 +168,14 @@ namespace fruitwork
 
         void setPivot(SDL_FPoint newPivot) { this->normalizedPivot = newPivot; }
 
+        SDL_Point getSizeDelta() const;
+
+        SDL_Point getOffsetMin() const;
+
+        SDL_Point getOffsetMax() const;
+
+        SDL_Point getAnchoredPosition() const;
+
     protected:
         Component(int x, int y, int w, int h);
 
@@ -181,10 +192,20 @@ namespace fruitwork
 
         Anchor anchorPreset = Anchor::LEGACY_TOP_LEFT;
 
-        /** The normalized point in the parent rect that the lower left corner of the component is anchored to. */
+        /**
+         * The normalized point in the parent rect that the lower left corner of this component is anchored to.
+         * x 0.0 means the very left of the parents rect, 1.0 means the very right.
+         * y 0.0 means the top of the parents rect, 1.0 means the bottom.
+         */
         SDL_FPoint anchorMin = {0.0f, 1.0f};
-        /** The normalized point in the parent rect that the upper right corner of the component is anchored to. */
+
+        /**
+         * The normalized point in the parent rect that the upper right corner of this component is anchored to.
+         * x 0.0 means the very left of the parents rect, 1.0 means the very right.
+         * y 0.0 means the top of the parents rect, 1.0 means the bottom.
+         */
         SDL_FPoint anchorMax = {0.0f, 1.0f};
+
         /**
          * The point point specified in normalized values between 0 and 1.
          * The point point is the origin of this rect around which the component rotates.
