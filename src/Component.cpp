@@ -58,7 +58,7 @@ namespace fruitwork
         SDL_Point sizeDelta = getSizeDelta();
 
         newAbsoluteRect.x = parentAbsoluteRect.x + static_cast<int>(parentAbsoluteRect.w * anchorMin.x) + localRect.x - static_cast<int>(sizeDelta.x * normalizedPivot.x);
-        newAbsoluteRect.y = parentAbsoluteRect.y + static_cast<int>(parentAbsoluteRect.h * anchorMin.y) + localRect.y - static_cast<int>(sizeDelta.y * normalizedPivot.y);
+        newAbsoluteRect.y = parentAbsoluteRect.y + parentAbsoluteRect.h - static_cast<int>(parentAbsoluteRect.h * anchorMin.y) - localRect.y - localRect.h + static_cast<int>(sizeDelta.y * normalizedPivot.y);
         newAbsoluteRect.w = sizeDelta.x;
         newAbsoluteRect.h = sizeDelta.y;
 
