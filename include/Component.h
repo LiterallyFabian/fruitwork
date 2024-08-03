@@ -176,6 +176,8 @@ namespace fruitwork
 
         SDL_Point getAnchoredPosition() const;
 
+        bool isLegacy() const { return anchorPreset == Anchor::LEGACY_TOP_LEFT; }
+
     protected:
         Component(int x, int y, int w, int h);
 

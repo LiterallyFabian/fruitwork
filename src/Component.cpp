@@ -57,15 +57,39 @@ namespace fruitwork
 
         SDL_Point sizeDelta = getSizeDelta();
 
-        newAbsoluteRect.x = parentAbsoluteRect.x + static_cast<int>(parentAbsoluteRect.w * anchorMin.x) + localRect.x - static_cast<int>(sizeDelta.x * normalizedPivot.x);
-        newAbsoluteRect.y = parentAbsoluteRect.y + parentAbsoluteRect.h - static_cast<int>(parentAbsoluteRect.h * anchorMin.y) - localRect.y - localRect.h + static_cast<int>(sizeDelta.y * normalizedPivot.y);
-        newAbsoluteRect.w = sizeDelta.x;
-        newAbsoluteRect.h = sizeDelta.y;
-
-        if (anchorPreset == Anchor::LEGACY_TOP_LEFT)
+        // Legacy components use SDL position system instead of the new Unity-like system
+        if (isLegacy())
         {
             newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
             newAbsoluteRect.y = parentAbsoluteRect.y + localRect.y;
+            newAbsoluteRect.w = localRect.w;
+            newAbsoluteRect.h = localRect.h;
+            absoluteRect = newAbsoluteRect;
+            return absoluteRect;
+        }
+
+        // Non-legacy, x/width
+        if (anchorMin.x == 0.0f && anchorMax.x == 1.0f) // stretch horizontally
+        {
+            newAbsoluteRect.x = parentAbsoluteRect.x + localRect.x;
+            newAbsoluteRect.w = parentAbsoluteRect.w - localRect.x - localRect.w;
+        }
+        else // non- or partial-stretch
+        {
+            newAbsoluteRect.x = parentAbsoluteRect.x + static_cast<int>(parentAbsoluteRect.w * anchorMin.x) + localRect.x - static_cast<int>(sizeDelta.x * normalizedPivot.x);
+            newAbsoluteRect.w = sizeDelta.x;
+        }
+
+        // y/height
+        if (anchorMin.y == 0.0f && anchorMax.y == 1.0f)
+        {
+            newAbsoluteRect.y = parentAbsoluteRect.y + localRect.y;
+            newAbsoluteRect.h = parentAbsoluteRect.h - localRect.y - localRect.h;
+        }
+        else
+        {
+            newAbsoluteRect.y = parentAbsoluteRect.y + parentAbsoluteRect.h - static_cast<int>(parentAbsoluteRect.h * anchorMin.y) - localRect.y - sizeDelta.y + static_cast<int>(sizeDelta.y * normalizedPivot.y);
+            newAbsoluteRect.h = sizeDelta.y;
         }
 
         absoluteRect = newAbsoluteRect;
